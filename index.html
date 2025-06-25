@@ -409,12 +409,6 @@
                    id: col.getColId(),
                    width: col.getActualWidth(),
                }));
-
-
-               window.parent.postMessage(
-                   { action: "columnWidthsUpdated", payload: widths },
-                   "*"
-               );
            },
        };
 
