@@ -430,27 +430,24 @@
     //        }
     //    };
 
-           // 📥 Ontvang berichten van Wix (via iframe-proxy)
-            window.addEventListener("message", (event) => {
-            console.log("HTML ← proxy | origin:", event.origin, "data:", event.data);
-      
-  
-            const { action, payload } = event.data;
-            // console.log(action, payload)
+/* ontvang van proxy */
+window.addEventListener("message", (e) => {
+  if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+  const { action, payload } = e.data;
+  if (action === "updateGrid") {
+    console.log("🔁 grid-data binnen:", payload);
+    // hier grid opbouwen…
+  }
+});
 
-            if (action === "updateGrid") {
-                console.log("🔁 Data ontvangen:", payload);
-                // Hier verwerk je columnDefs en rowData
-            }
-            });
-
-            // 📤 Handmatig een bericht terugsturen naar Wix (bijv. na knop of actie)
-            function stuurStatusTerug() {
-            window.parent.postMessage(
-                { action: "gridUpdated", status: "klaar" },
-                "*"
-            );
-            }
+/* voorbeeld-antwoord terug */
+function stuurTerug() {
+  window.parent.postMessage(
+    { action: "gridUpdated", status: "ok" },
+    "https://www-sellerrr-com.filesusr.com"
+  );
+}
+</script>
 
 
        const el = document.querySelector('.ag-center-cols-viewport');
