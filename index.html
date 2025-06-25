@@ -430,22 +430,22 @@
     //        }
     //    };
 
-    /* Iframe → GitHub */
-    window.addEventListener("message", (e) => {
-    if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
-    const { action, payload } = e.data;
-    if (action === "updateGrid") {
-        console.log("🔁 grid-data binnen:", payload);
-        // hier grid opbouwen…
-    }
-    });
+        /* Iframe → GitHub */
+        window.addEventListener("message", (e) => {
+            if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+            const { action, payload } = e.data;
+            if (action === "updateGrid") {
+                console.log("🔁 grid-data binnen:", payload);
+                // hier grid opbouwen…
+            }
+        });
 
-    /* GitHub → Iframe */
+        /* GitHub → Iframe */
 
-    window.parent.postMessage(
-        { action: "gridUpdated", status: "ok" },
-        "https://www-sellerrr-com.filesusr.com"
-    );
+        window.parent.postMessage(
+            { action: "gridUpdated", status: "ok" },
+            "https://www-sellerrr-com.filesusr.com"
+        );
 
 </script>
 
