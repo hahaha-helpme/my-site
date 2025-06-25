@@ -433,6 +433,7 @@
            // 📥 Ontvang berichten van Wix (via iframe-proxy)
             window.addEventListener("message", (event) => {
             if (event.origin !== "https://hahaha-helpme.github.io") return;
+            co
             const { action, payload } = event.data;
             console.log(action, payload)
 
