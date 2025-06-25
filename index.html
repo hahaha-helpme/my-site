@@ -433,7 +433,7 @@
            // 📥 Ontvang berichten van Wix (via iframe-proxy)
             window.addEventListener("message", (event) => {
             console.log("HTML ← proxy | origin:", event.origin, "data:", event.data);
-            if (event.origin !== "*") return;
+            if (event.origin !== "https://hahaha-helpme.github.io") return;
   
             const { action, payload } = event.data;
             // console.log(action, payload)
@@ -448,7 +448,7 @@
             function stuurStatusTerug() {
             window.parent.postMessage(
                 { action: "gridUpdated", status: "klaar" },
-                "*"
+                "https://hahaha-helpme.github.io"
             );
             }
 
