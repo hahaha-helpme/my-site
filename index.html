@@ -432,6 +432,7 @@
 
         /* Iframe → GitHub */
         window.addEventListener("message", (e) => {
+            console.log('2', e)
             if (e.origin !== "https://www.sellerrr.com/m") return;
             const { action, payload } = e.data;
             if (action === "updateGrid") {
