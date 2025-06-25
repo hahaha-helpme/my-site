@@ -435,7 +435,7 @@
             if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
             const { action, payload } = e.data;
             if (action === "updateGrid") {
-                console.log("✅ grid-data binnen:", payload);
+                console.log("✅ grid-data binnen:", e);
                 // hier grid opbouwen…
             }
         });
