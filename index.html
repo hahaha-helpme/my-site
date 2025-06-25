@@ -434,7 +434,7 @@
             window.addEventListener("message", (event) => {
                 console.log("HTML ← proxy | origin:", event.origin, "data:", event.data);
             if (event.origin !== "https://hahaha-helpme.github.io") return;
-            console.log('event', event)
+  
             const { action, payload } = event.data;
             console.log(action, payload)
 
