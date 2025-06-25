@@ -432,7 +432,7 @@
 
            // 📥 Ontvang berichten van Wix (via iframe-proxy)
             window.addEventListener("message", (event) => {
-                onsole.log("HTML ← proxy | origin:", event.origin, "data:", event.data);
+            console.log("HTML ← proxy | origin:", event.origin, "data:", event.data);
             if (event.origin !== "https://hahaha-helpme.github.io") return;
   
             const { action, payload } = event.data;
