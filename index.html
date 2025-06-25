@@ -433,7 +433,7 @@
            // 📥 Ontvang berichten van Wix (via iframe-proxy)
             window.addEventListener("message", (event) => {
             console.log("HTML ← proxy | origin:", event.origin, "data:", event.data);
-            if (event.origin !== "*") return;
+      
   
             const { action, payload } = event.data;
             // console.log(action, payload)
