@@ -434,7 +434,7 @@
             window.addEventListener("message", (event) => {
             if (event.origin !== "https://hahaha-helpme.github.io") return;
             const { action, payload } = event.data;
-            console.log()
+            console.log(action, payload)
 
             if (action === "updateGrid") {
                 console.log("🔁 Data ontvangen:", payload);
