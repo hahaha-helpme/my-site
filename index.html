@@ -431,24 +431,24 @@
        };
 
            // 📥 Ontvang berichten van Wix (via iframe-proxy)
-    window.addEventListener("message", (event) => {
-      if (event.origin !== "https://hahaha-helpme.github.io") return;
+            window.addEventListener("message", (event) => {
+            if (event.origin !== "https://hahaha-helpme.github.io") return;
 
-      const { action, payload } = event.data;
+            const { action, payload } = event.data;
 
-      if (action === "updateGrid") {
-        console.log("🔁 Data ontvangen:", payload);
-        // Hier verwerk je columnDefs en rowData
-      }
-    });
+            if (action === "updateGrid") {
+                console.log("🔁 Data ontvangen:", payload);
+                // Hier verwerk je columnDefs en rowData
+            }
+            });
 
-    // 📤 Handmatig een bericht terugsturen naar Wix (bijv. na knop of actie)
-    function stuurStatusTerug() {
-      window.parent.postMessage(
-        { action: "gridUpdated", status: "klaar" },
-        "https://hahaha-helpme.github.io"
-      );
-    }
+            // 📤 Handmatig een bericht terugsturen naar Wix (bijv. na knop of actie)
+            function stuurStatusTerug() {
+            window.parent.postMessage(
+                { action: "gridUpdated", status: "klaar" },
+                "https://hahaha-helpme.github.io"
+            );
+            }
 
 
        const el = document.querySelector('.ag-center-cols-viewport');
