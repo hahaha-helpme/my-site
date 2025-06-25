@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link
+       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+       rel="stylesheet" />
+
+
+   <!-- Chart-logica laden -->
+    <script src="script/chart.js"></script> 
+
+
+   <!-- AG Grid + AG Charts -->
+   <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/ag-charts-community/dist/umd/ag-charts-community.js"></script>
+
+
+   <style>
+
+        html, body {
+        margin: 0;
+        padding: 0;
+        }
+       #myGrid {
+           overflow-x: auto;
+       }
+
+
+       /* Stijl voor de link in de cel */
+       .ag-cell.link-cell a {
+           color: black;
+           text-decoration: underline;
+       }
+
+
+       /* Stijl voor de cel die de afbeelding bevat (voor centrering) */
+       .ag-cell.image-cell {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           height: 100%;
+       }
+
+
+       /* Stijl voor de afbeelding zelf binnen de cel */
+       .ag-cell.image-cell img {
+           width: 35px;
+           height: 35px;
+           object-fit: contain;
+       }
+   </style>
+</head>
+
+
+<body>
+   <div id="myGrid" style="height: 100%; width: 100%"></div>
+
+
+   <script>
+
+
+       const rowData = [
+           { "_createdDate": "2025-06-10 01:45:55.000000", "_id": "20be0a04-b988-46bf-b091-c763b2f91040", "_owner": "fe21eba1-83c9-458a-9930-745ee8c369ab", "_updatedDate": "2025-06-10 01:45:55.000000", "avg_weighted_price": 39.23, "days_tracked": 24, "ean": "4251740100857", "external_image_url": "https://media.cdn.kaufland.de/product-images/200x200/9cfcaf4e4a05ad36e154ec9aa211004c.webp", "first_scrape_timestamp": "2025-05-17 09:10:31.000000", "is_bestseller": false, "is_black_listed": false, "is_in_sales_index": true, "is_recently_available": true, "is_restricted": false, "is_valid": true, "last_scrape_timestamp": "2025-06-10 01:45:27.000000", "main_category": "Sträucher & Bäume", "product_hostname": "kaufland.de", "product_id": "342107952", "product_title": "Olivenbaum Bonsai Formgehölz, Olive winterhart, Olea europaea 50 - 60 cm", "revenue": 431.53, "review_count": 43, "review_rating": 4.2, "seller_count": 0, "stored_image_url": "https://static.wixstatic.com/media/fe21eb_b6da48e1036e41188b6fff07e7d49a4d~mv2.webp", "units_sold": 11, "url": "https://kaufland.de/product/342107952/", "offers": [{ "scrapeTimestamp": "2025-05-17T09:10:31Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": null, "unitsSold": null, "stockLeft": 116, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 4, "deliveryTimeRangeDaysMax": 10, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-18T01:25:42Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 119.97, "unitsSold": 3, "stockLeft": 113, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-19T01:25:46Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 39.99, "unitsSold": 1, "stockLeft": 112, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-20T01:25:30Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 319.92, "unitsSold": 8, "stockLeft": 104, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-21T02:05:24Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 39.99, "unitsSold": 1, "stockLeft": 103, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-22T02:01:50Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 199.95, "unitsSold": 5, "stockLeft": 98, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-23T01:10:32Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 79.98, "unitsSold": 2, "stockLeft": 96, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 4, "deliveryTimeRangeDaysMax": 11, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-24T01:15:31Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 159.96, "unitsSold": 4, "stockLeft": 92, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 4, "deliveryTimeRangeDaysMax": 11, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-25T01:15:28Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 159.96, "unitsSold": 4, "stockLeft": 88, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 10, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-26T01:15:31Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 79.98, "unitsSold": 2, "stockLeft": 86, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-27T01:21:05Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 39.99, "unitsSold": 1, "stockLeft": 85, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-28T07:10:51Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 79.98, "unitsSold": 2, "stockLeft": 83, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-29T01:20:39Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 0, "unitsSold": 0, "stockLeft": 83, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 5, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-30T01:10:36Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 0, "unitsSold": 0, "stockLeft": 83, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 4, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-05-31T01:45:23Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 39.99, "unitsSold": 1, "stockLeft": 82, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 4, "deliveryTimeRangeDaysMax": 11, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }, { "scrapeTimestamp": "2025-06-01T01:45:31Z", "sellerId": "29348494", "sellerName": "Gruenwaren", "price": 39.99, "offerID": "388227975462", "revenue": 119.97, "unitsSold": 3, "stockLeft": 79, "deliveryRate": 7.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 10, "url": "https://kaufland.de/product/342107952/?id_unit=388227975462", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Gruenwaren", "buyBox": true }], "product_id_hostname": "342107952_kaufland.de" },
+           { "_createdDate": "2025-06-10 03:40:49.000000", "_id": "b83cbefd-cac9-432b-9065-294eca8a128d", "_owner": "fe21eba1-83c9-458a-9930-745ee8c369ab", "_updatedDate": "2025-06-10 03:40:49.000000", "avg_weighted_price": 17.28, "days_tracked": 15, "ean": "4251753780879", "external_image_url": "https://media.cdn.kaufland.de/product-images/200x200/d816fcfb46be9f3b209e8ce4386eb854.webp", "first_scrape_timestamp": "2025-05-26 13:55:26.000000", "is_bestseller": false, "is_black_listed": false, "is_in_sales_index": true, "is_recently_available": true, "is_restricted": false, "is_valid": true, "last_scrape_timestamp": "2025-06-10 03:40:40.000000", "main_category": "Backmischungen", "product_hostname": "kaufland.de", "product_id": "484615970", "product_title": "Oetker Hefeteig für süße en pikante Teige ohne Gehzeit 32 g 18er Pack", "revenue": 0, "review_count": 0, "review_rating": -1, "seller_count": 1, "stored_image_url": "https://static.wixstatic.com/media/fe21eb_a1915e6377ee4a9a9bcc3f09125f0f02~mv2.webp", "units_sold": 0, "url": "https://kaufland.de/product/484615970/", "offers": [{ "scrapeTimestamp": "2025-05-26T13:55:26Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": null, "unitsSold": null, "stockLeft": 3, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-05-27T06:45:25Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 3, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-05-28T12:45:47Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 4, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-05-29T07:00:45Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 4, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-05-30T04:30:28Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 4, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 7, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-05-31T03:50:38Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 4, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 7, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-01T03:50:33Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 4, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 6, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-02T03:50:38Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 4, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 5, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-03T03:20:30Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-04T03:25:32Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 8, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-05T03:35:30Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 6, "deliveryTimeRangeDaysMax": 12, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-06T03:50:26Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 6, "deliveryTimeRangeDaysMax": 12, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-07T03:25:55Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 6, "deliveryTimeRangeDaysMax": 12, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-08T03:25:42Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 5, "deliveryTimeRangeDaysMax": 11, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-09T03:20:34Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 4, "deliveryTimeRangeDaysMax": 10, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }, { "scrapeTimestamp": "2025-06-10T03:40:40Z", "sellerId": "5755561", "sellerName": "Mega-Einkaufsparadies", "price": 17.28, "offerID": "387636639259", "revenue": 0, "unitsSold": 0, "stockLeft": 5, "deliveryRate": 5.95, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 9, "url": "https://kaufland.de/product/484615970/?id_unit=387636639259", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/Mega-Einkaufsparadies", "buyBox": true }], "product_id_hostname": "484615970_kaufland.de" },
+           { "_createdDate": "2025-06-10 00:05:59.000000", "_id": "989450ae-8a84-4341-9fe5-7193c7b12bd4", "_owner": "fe21eba1-83c9-458a-9930-745ee8c369ab", "_updatedDate": "2025-06-10 00:05:59.000000", "avg_weighted_price": 109, "days_tracked": 14, "ean": "4054748019196", "external_image_url": "https://media.cdn.kaufland.de/product-images/200x200/4b35451d2d58796d90097f8996f35cc8.webp", "first_scrape_timestamp": "2025-05-27 08:21:02.000000", "is_bestseller": false, "is_black_listed": false, "is_in_sales_index": true, "is_recently_available": true, "is_restricted": false, "is_valid": true, "last_scrape_timestamp": "2025-06-10 00:05:46.000000", "main_category": "Trolleys", "product_hostname": "kaufland.de", "product_id": "467897273", "product_title": "Hartschalenkoffer Kofferset 3 teilig met TSA Zahlenschloss 4 Rollen ABS-Hartschale, Reisekoffer Trolley Rollkoffer Koffer - nebelblau", "revenue": 0, "review_count": 113, "review_rating": 4.3, "seller_count": 1, "stored_image_url": "https://static.wixstatic.com/media/fe21eb_65bf629d6f9a4cceb5c437b223b869f7~mv2.webp", "units_sold": 0, "url": "https://kaufland.de/product/467897273/", "offers": [{ "scrapeTimestamp": "2025-05-27T08:21:02Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": null, "unitsSold": null, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 7, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-05-28T10:05:36Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 7, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-05-29T04:25:55Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 6, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-05-30T02:50:32Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 5, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-05-31T00:00:53Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 5, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-01T00:01:31Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 4, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-02T00:01:10Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 3, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-03T00:01:08Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 3, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-04T00:01:46Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 3, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-05T00:05:41Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 6, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-06T00:16:26Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 6, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-07T00:00:38Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 4, "deliveryTimeRangeDaysMax": 6, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-08T00:02:15Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 3, "deliveryTimeRangeDaysMax": 5, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-09T00:00:43Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 2, "deliveryTimeRangeDaysMax": 4, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }, { "scrapeTimestamp": "2025-06-10T00:05:46Z", "sellerId": "21938697", "sellerName": "EveMotionGmbH", "price": 109, "offerID": "386277802678", "revenue": 0, "unitsSold": 0, "stockLeft": 446, "deliveryRate": 0, "deliveryTimeRangeDaysMin": 1, "deliveryTimeRangeDaysMax": 3, "url": "https://kaufland.de/product/467897273/?id_unit=386277802678", "urlIcon": null, "shopUrl": "https://kaufland.de/shops/EveMotionGmbH", "buyBox": true }], "product_id_hostname": "467897273_kaufland.de" }
+       ];
+
+
+
+
+       // Custom Cell Renderer voor links
+       class LinkRenderer {
+           init(params) {
+               this.eGui = document.createElement('a');
+               this.eGui.href = params.value;
+               this.eGui.textContent = 'link';
+               this.eGui.target = '_blank';
+               // Styles verplaatst naar CSS voor een schonere scheiding van zorgen
+           }
+           getGui() { return this.eGui; }
+           refresh(params) {
+               this.eGui.href = params.value;
+               this.eGui.textContent = params.value ? params.value.split('/')[2] : '';
+               return true;
+           }
+       }
+
+
+       // Custom Cell Renderer voor afbeeldingen
+       class ImageRenderer {
+           init(params) {
+               this.eGui = document.createElement('img');
+               this.eGui.alt = params.value || 'Product Image';
+               this.eGui.src = params.value;
+               // Styles verplaatst naar CSS voor vaste grootte en object-fit
+           }
+           getGui() { return this.eGui; }
+           refresh(params) {
+               this.eGui.alt = params.value || 'Product Image';
+               this.eGui.src = params.value;
+               return true;
+           }
+       }
+
+
+       /**
+        * Formats a number as a compact Euro currency string.
+        * - Below 1000: two decimals (e.g. "€950,00")
+        * - 1000 and above: K/M notation (e.g. "€1,4K" or "€2,3M")
+        *
+        * @param {number} value - The numeric value.
+        * @returns {string} - The formatted Euro string.
+        */
+       const formatEuroCompact = (value) => {
+           if (value === null || value === undefined) return ''; // Handelt null/undefined af
+           const formatted = new Intl.NumberFormat('en-US', {
+               style: 'currency',
+               currency: 'EUR',
+               notation: 'compact',
+               compactDisplay: 'short',
+               minimumFractionDigits: value < 1000 ? 2 : 0,
+               maximumFractionDigits: value < 1000 ? 2 : 1
+           }).format(value);
+
+
+           return formatted.replace('.', ','); // Vervang punt door komma voor decimaal
+       };
+
+
+       /**
+        * Formats a number as a Euro currency string with two decimals.
+        *
+        * @param {number} value - The numeric value.
+        * @returns {string} - The formatted Euro string.
+        */
+       const formatEuro = (value) => {
+           if (value === null || value === undefined) return ''; // Handelt null/undefined af
+           return new Intl.NumberFormat('en-US', {
+               style: 'currency',
+               currency: 'EUR',
+               minimumFractionDigits: 2,
+               maximumFractionDigits: 2
+           })
+               .format(value)
+               .replace('.', ','); // Vervang punt door komma voor decimaal
+       };
+
+
+       const defaultColDef = {
+           cellStyle: {
+               fontFamily: "Inter, sans-serif",
+               fontWeight: "300",
+               textAlign: "left",
+               fontSize: "13px",
+           },
+           width: 150, // leave this because fit to content logic is failing
+           resizable: true,
+           editable: false,
+           sortable: false,
+           filter: false,
+       }
+
+
+       const columnTypes = {
+           numericColumn: {
+               cellDataType: 'number',
+               filter: 'agNumberColumnFilter',
+               // cellEditor: 'agNumberCellEditor',
+               // cellStyle: { textAlign: 'left' }, // Lijn de *getallen in de cellen* rechts uit.
+               // headerStyle: { textAlign: 'left' }, // <--- HIER LIJN JE DE *HEADER TEKST* LINKS UIT.
+               // editable: true, // Numerieke kolommen zijn standaard bewerkbaar als dit type wordt gebruikt.
+               // sortable: true, // Numerieke kolommen zijn sorteerbaar.
+           },
+           currencyColumn: {
+               type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
+               valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
+           },
+           currencyColumnCompact: {
+               type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
+               valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
+           },
+           dateColumn: {
+               cellDataType: 'dateString', // Dwingt het datatype af naar 'dateString'.
+               filter: 'agDateColumnFilter', // Gebruikt de ingebouwde datumfilter.
+               valueFormatter: (params) => params.value ? new Date(params.value).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '', // Formatteert datums en tijden.
+               sortable: true, // Datumkolommen zijn sorteerbaar.
+           },
+           linkColumn: {
+               cellRenderer: 'LinkRenderer',
+               cellClass: 'link-cell',
+           },
+           imageColumn: {
+               cellRenderer: 'ImageRenderer', // Gebruikt de custom ImageRenderer.
+               cellClass: "image-cell", // CSS-klasse voor centreren van inhoud.
+           },
+       };
+
+
+
+
+       const columnDefs = [
+           {
+               type: "imageColumn",
+               field: "stored_image_url",
+               headerName: "Image",
+               width: 80,
+               suppressSizeToFit: true
+
+
+           },
+           {
+               field: "product_title",
+               headerName: "Product Name",
+               width: 400,
+               suppressSizeToFit: true
+           },
+           {
+               field: "main_category",
+               headerName: "Main Category",
+           },
+           {
+               field: "product_hostname",
+               headerName: "Domain",
+           },
+           {
+               field: "avg_weighted_price",
+               headerName: "Avg. Weighted Price",
+               type: "currencyColumn",
+           },
+           {
+               type: "currencyColumnCompact",
+               field: "revenue",
+               headerName: "Revenue",
+           },
+           {
+               // type: "numericColumn",
+               field: "units_sold",
+               headerName: "Units Sold",
+           },
+           {
+               field: "review_rating",
+               headerName: "Review Rating",
+           },
+           {
+               field: "review_count",
+               headerName: "Review Count",
+           },
+           {
+               field: "days_tracked",
+               headerName: "Days Tracked",
+           },
+           {
+               field: "seller_count",
+               headerName: "Seller Count",
+           },
+           {
+               type: "linkColumn",
+               field: "url",
+               headerName: "Product URL",
+           },
+           {
+               type: "dateColumn",
+               field: "first_scrape_timestamp",
+               headerName: "Tracking Since",           
+           },
+           {
+               type: "dateColumn",
+               field: "last_scrape_timestamp",
+               headerName: "Last Updated",
+           },
+           // {
+           //     field: "_createdDate",
+           //     headerName: "Created On",
+           // },
+           // {
+           //     field: "_updatedDate",
+           //     headerName: "Last Modified",
+           // },
+           // {
+           //     field: "_id",
+           //     headerName: "Record ID",
+           // },
+           {
+               field: "product_id",
+               headerName: "Product ID",
+           },
+           // {
+           //     field: "_owner",
+           //     headerName: "Owner ID",
+           // },
+           {
+               field: "ean",
+               headerName: "EAN",
+           },
+           // {
+           //     field: "external_image_url",
+           //     headerName: "External Image URL",
+           // },
+           {
+               field: "is_bestseller",
+               headerName: "Bestseller?",
+           },
+           // {
+           //     field: "is_black_listed",
+           //     headerName: "Blacklisted?",
+           // },
+           // {
+           //     field: "is_in_sales_index",
+           //     headerName: "In Sales Index?",
+           // },
+           // {
+           //     field: "is_recently_available",
+           //     headerName: "Recently Available?",
+           // },
+           // {
+           //     field: "is_restricted",
+           //     headerName: "Restricted?",
+           // },
+           // {
+           //     field: "is_valid",
+           //     headerName: "Valid?",
+           // },
+           // {
+           //     field: "product_id_hostname",
+           //     headerName: "Product ID Hostname",
+           // },
+       ];
+
+
+       const theme = agGrid.themeQuartz
+           .withPart(agGrid.iconSetMaterial)
+           .withParams({
+               accentColor: "#000",
+               borderColor: "#03020226",
+               borderRadius: 4,
+               browserColorScheme: "light",
+               fontFamily: { googleFont: "Inter" },
+               foregroundColor: "#000",
+               headerBackgroundColor: "#FFF",
+               headerFontSize: 13,
+               headerRowBorder: { width: 1, style: "solid", color: "#e4e8ed" },
+               iconSize: 13,
+               rowHeight: 57,
+               rowBorder: { width: 1, style: "solid", color: "#e4e8ed" },
+               wrapperBorder: false,
+               cellTextColor: "#343433",
+               headerTextColor: "#343433",
+               wrapperBorderRadius: 0,
+               headerColumnResizeHandleColor: "transparent",
+               spacing: 8,
+               oddRowBackgroundColor: "#FDFCFC",
+           });
+
+
+
+
+       const gridOptions = {
+           theme,
+           defaultColDef,
+           columnTypes,
+           columnDefs,
+           rowData,
+           pagination: true,
+           paginationPageSize: 10,
+           paginationPageSizeSelector: [10],
+           animateRows: true,
+           suppressCellFocus: true,
+           undoRedoCellEditing: false,
+           undoRedoCellEditingLimit: 5,
+           domLayout: "autoHeight",
+           groupDisplayType: "multipleColumns",
+           loadThemeGoogleFonts: true,
+           suppressHorizontalScroll: true,
+           onRowClicked: (event) => {
+               showStockChart(event.data.offers, event.node);
+           },
+           components: {
+               LinkRenderer: LinkRenderer,
+               ImageRenderer: ImageRenderer,
+           },
+           rowSelection: {
+               mode: "multiRow", groupSelects: "descendants", headerCheckbox: false,
+               selectionColumnDef: {
+                   colId: 'ag-checkbox-selection',
+                   width: 30, // <-- Stel hier de gewenste breedte in (bijv. 50 pixels)
+                   maxWidth: 30,
+                   resizable: true, // Optioneel: maakt de kolom handmatig resizable
+                   // sortable: true
+                   // Meer properties kunnen hier: bijv. headerTooltip, sortable, etc.
+               }
+           },
+           onFirstDataRendered: (params) => {
+               const columnsToExcludeFromAutoSize = ['ag-checkbox-selection', 'stored_image_url', 'product_title'];
+               const allDisplayedColumnIds = params.api.getAllDisplayedColumns().map(col => col.getColId());
+               const columnsToAutoSize = allDisplayedColumnIds.filter(
+                   colId => !columnsToExcludeFromAutoSize.includes(colId)
+               );
+
+
+               params.api.autoSizeColumns(columnsToAutoSize, false);
+           },
+           onColumnResized: (event) => {
+               const displayedColumns = event.api.getAllDisplayedColumns();
+               const widths = displayedColumns.map(col => ({
+                   id: col.getColId(),
+                   width: col.getActualWidth(),
+               }));
+
+
+               window.parent.postMessage(
+                   { action: "columnWidthsUpdated", payload: widths },
+                   "*"
+               );
+           },
+       };
+
+
+       let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), gridOptions);
+
+
+       window.onmessage = ({ origin, data }) => {
+           if (origin === "https://www.sellerrr.com" && data.action === "updateGrid") {
+               if (data.payload.rowData) gridApi.setGridOption("rowData", data.payload.rowData);
+               if (data.payload.columnDefs) gridApi.setGridOption("columnDefs", data.payload.columnDefs);
+               window.parent.postMessage({ action: "gridUpdated", status: "success" }, origin);
+           }
+       };
+
+
+       const el = document.querySelector('.ag-center-cols-viewport');
+       el?.addEventListener('wheel', (e) => {
+           if (!e.shiftKey && e.deltaY) {
+               el.scrollLeft += e.deltaY;
+               e.preventDefault();
+           }
+       }, { passive: false });
+   </script>
+</body>
+
+
+</html>
+
