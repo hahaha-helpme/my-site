@@ -433,7 +433,6 @@
         /* Iframe → GitHub */
         window.addEventListener("message", (e) => {
             if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
-            console.log('3', e)
             const { action, payload } = e.data;
             if (action === "updateGrid") {
                 console.log("✅ grid-data binnen:", payload);
