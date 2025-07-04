@@ -423,6 +423,7 @@
 
 
        window.onmessage = ({ origin, data }) => {
+        console.log("super")
            if (origin === "https://www.sellerrr.com" && data.action === "updateGrid") {
             console.log("origin, data", origin, data )
                if (data.payload.rowData) gridApi.setGridOption("rowData", data.payload.rowData);
