@@ -423,7 +423,6 @@
 
 
        window.onmessage = ({ origin, data }) => {
-           console.log("origin, data", origin, data )
            if (origin === "https://www.sellerrr.com" && data.action === "updateGrid") {
                if (data.payload.rowData) gridApi.setGridOption("rowData", data.payload.rowData);
                if (data.payload.columnDefs) gridApi.setGridOption("columnDefs", data.payload.columnDefs);
