@@ -422,6 +422,7 @@
        let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), gridOptions);
 
        console.log("super")
+       
        window.onmessage = ({ origin, data }) => {
            if (origin === "https://www.sellerrr.com" && data.action === "updateGrid") {
             console.log("origin, data", origin, data )
