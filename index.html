@@ -239,29 +239,12 @@
             groupDisplayType: "multipleColumns",
             loadThemeGoogleFonts: true,
             suppressHorizontalScroll: true,
-            onRowClicked: (event) => {
-                showStockChart(event.data.offers, event.node);
-            },
             components: {
                 LinkRenderer: LinkRenderer,
                 ImageRenderer: ImageRenderer,
             },
-            onFirstDataRendered: (params) => {
-                const columnsToExcludeFromAutoSize = ['ag-checkbox-selection', 'stored_image_url', 'product_title'];
-                const allDisplayedColumnIds = params.api.getAllDisplayedColumns().map(col => col.getColId());
-                const columnsToAutoSize = allDisplayedColumnIds.filter(
-                    colId => !columnsToExcludeFromAutoSize.includes(colId)
-                );
-
-
-                params.api.autoSizeColumns(columnsToAutoSize, false);
-            },
-            onColumnResized: (event) => {
-                const displayedColumns = event.api.getAllDisplayedColumns();
-                const widths = displayedColumns.map(col => ({
-                    id: col.getColId(),
-                    width: col.getActualWidth(),
-                }));
+            onRowClicked: (event) => {
+                showStockChart(event.data.offers, event.node);
             },
         };
 
