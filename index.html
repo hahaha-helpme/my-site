@@ -218,6 +218,9 @@
 
         };
 
+        /* this object is reused for every state */
+        const gridOptions = { ...baseGridOptions };
+
         let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), baseGridOptions);
         
         /* Iframe → GitHub */
