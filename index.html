@@ -257,12 +257,11 @@
 
         /* Iframe → GitHub */
         window.addEventListener("message", (e) => {
-            if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+            if (e.origin !== "https://www-sellerrr-com.filesusr.com" & action === "updateGrid") return;
             const { action, payload } = e.data;
-            if (action === "updateGrid") {
-                console.log("✅ reply van Html:", e);
-                // hier grid opbouwen…
-            }
+            console.log("✅ reply van Html:", e);
+            // hier grid opbouwen…
+
         });
 
         // /* GitHub → Iframe */
