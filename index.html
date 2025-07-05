@@ -221,7 +221,7 @@
 
 
         function handleGridEvent(event, source) {
-            let message = { action: '', payload: null };
+            let message = { action: '', payload: null, source: source };
 
             switch (source) {
                 case 'cellValueChanged':
@@ -232,15 +232,28 @@
                     message.action = 'gridSelectionChanged';
                     message.payload = event.api.getSelectedRows();
                     break;
-                default:
+                case 'rowClicked':
+                case 'rowDoubleClicked':
+                    message.action = source;
+                    message.payload = { data: event.data, colId: event.column.getColId() };
+                    break;
+                case 'paginationChanged':
+                    message.action = 'gridPaginationChanged';
+                    message.payload = {
+                        currentPage: event.api.paginationGetCurrentPage(),
+                        totalPages: event.api.paginationGetTotalPages(),
+                        isLastPage: event.api.paginationIsLastPageFound() && event.api.paginationGetTotalPages() === event.api.paginationGetCurrentPage() + 1
+                    };
+                    break;
+                default: // Voor filter, sort, columnMove, etc.
                     message.action = 'gridStateChanged';
                     message.payload = {
-                        source: source,
                         filterModel: event.api.getFilterModel(),
-                        columnState: event.api.getColumnState()
+                        columnState: event.api.getColumnState(),
                     };
             }
 
+            // Verstuur alleen als er een payload is
             if (message.payload !== null) {
                 window.parent.postMessage(message, "https://www-sellerrr-com.filesusr.com");
             }
