@@ -225,7 +225,7 @@
         window.addEventListener("message", (e) => {
             if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
             const { action, payload } = e.data;
-            if (action === "updateGrid") {
+            if (action === "hydrideGrid") {
                 if (payload.rowData) gridApi.setGridOption("rowData", payload.rowData);
                 if (payload.columnDefs) gridApi.setGridOption("columnDefs", payload.columnDefs);
             }
