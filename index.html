@@ -241,6 +241,16 @@
             onRowClicked: (event) => {
                 showStockChart(event.data.offers, event.node);
             },
+
+            onFilterChanged: (event) => handleGridEvent(event, 'filter'),
+            onSortChanged: (event) => handleGridEvent(event, 'sort'),
+            onColumnMoved: (event) => handleGridEvent(event, 'columnMove'),
+            onColumnResized: (event) => handleGridEvent(event, 'columnResize'),
+            onColumnVisible: (event) => handleGridEvent(event, 'columnVisible'),
+            onColumnPinned: (event) => handleGridEvent(event, 'columnPinned'),
+
+            onCellValueChanged: (event) => handleGridEvent(event, 'cellValueChanged'),
+            onSelectionChanged: (event) => handleGridEvent(event, 'selectionChanged'),
         };
 
 
