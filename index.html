@@ -257,6 +257,31 @@
             gridOptions.onColumnVisible    = h.onColumnVisible    || null;
         }
 
+          window.addEventListener("message", ({ origin, data }) => {
+    if (origin !== "https://www-sellerrr-com.filesusr.com") return;
+    if (data.action !== "loadState") return;
+
+    const { state, columnDefs, rowData } = data.payload;
+    currentState = state;
+
+    applyState(state);
+
+    if (columnDefs) gridApi.setColumnDefs(columnDefs);
+    if (rowData)    gridApi.setRowData(rowData);
+
+    gridApi.refreshCells();
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const eGridDiv = document.querySelector('#myGrid');
+    new agGrid.Grid(eGridDiv, gridOptions);
+    gridApi = gridOptions.api;
+  });
+
+  function sendToWix(action, payload) {
+    window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
+  }
+
         // let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), baseGridOptions);
         
         // /* Iframe → GitHub */
