@@ -245,7 +245,7 @@
                         isLastPage: event.api.paginationIsLastPageFound() && event.api.paginationGetTotalPages() === event.api.paginationGetCurrentPage() + 1
                     };
                     break;
-                default: // Voor filter, sort, columnMove, etc.
+                default:
                     message.action = 'gridStateChanged';
                     message.payload = {
                         filterModel: event.api.getFilterModel(),
