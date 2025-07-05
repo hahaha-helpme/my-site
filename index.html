@@ -172,7 +172,7 @@
         };
 
 
-        function handleGridEvent(event, type) {
+        function handleGridEvent(e, action) {
             const getPayload = eventParsers[action];
             if (!getPayload) return console.warn('💡 onbekende action:', action);
 
