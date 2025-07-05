@@ -180,7 +180,7 @@
             );
         }
 
-        const gridOptions = {
+        const baseGridOptions = {
             theme,
             defaultColDef,
             columnTypes,
@@ -218,7 +218,7 @@
 
         };
 
-        let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), gridOptions);
+        let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), baseGridOptions);
         
         /* Iframe → GitHub */
         window.addEventListener("message", (e) => {
