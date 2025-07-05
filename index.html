@@ -221,6 +221,26 @@
         /* this object is reused for every state */
         const gridOptions = { ...baseGridOptions };
 
+        const stateHandlers = {
+            stockState: {
+                extraOptions: { pagination: true },
+                onRowClicked: (e) => {
+                    sendToWix('rowClicked', e.data);
+                    showStockChart(e.data);
+                }
+            },
+            editState: {
+                extraOptions: {
+                    singleClickEdit: true,
+                    suppressRowClickSelection: true
+                },
+                onRowClicked: (e) => {
+                    sendToWix('rowClicked', e.data);
+                    e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
+                }
+            }
+        };
+
         let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), baseGridOptions);
         
         /* Iframe → GitHub */
