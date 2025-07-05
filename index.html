@@ -150,137 +150,137 @@
                 oddRowBackgroundColor: "#FDFCFC",
             });
 
-        const eventParsers = {
-            /* kolom / grid-state */
-            filterChanged:            e => e.api.getFilterModel(),
-            sortChanged:              e => e.api.getSortModel(),
-            columnMoved:              e => e.columnApi.getColumnState(),
-            columnResized:            e => ({ colId: e.column.getColId(), width: e.column.getActualWidth() }),
-            columnVisibilityChanged:  e => ({ colId: e.column.getColId(), visible: e.column.visible }),
-            columnPinnedChanged:      e => ({ colId: e.column.getColId(), pinned: e.column.pinned }),
+            const eventParsers = {
+                /* kolom / grid-state */
+                filterChanged: e => e.api.getFilterModel(),
+                sortChanged: e => e.api.getSortModel(),
+                columnMoved: e => e.columnApi.getColumnState(),
+                columnResized: e => ({ colId: e.column.getColId(), width: e.column.getActualWidth() }),
+                columnVisibilityChanged: e => ({ colId: e.column.getColId(), visible: e.column.visible }),
+                columnPinnedChanged: e => ({ colId: e.column.getColId(), pinned: e.column.pinned }),
 
-            /* rijen & selectie */
-            gridRowUpdated:           e => e.data,
-            gridSelectionChanged:     e => e.api.getSelectedRows(),
-            rowClicked:               e => e.data,
-            rowDoubleClicked:         e => e.data,
-            gridRowGroupChanged:      e => ({ nodeId: e.node.id, expanded: e.node.expanded }),
+                /* rijen & selectie */
+                gridRowUpdated: e => e.data,
+                gridSelectionChanged: e => e.api.getSelectedRows(),
+                rowClicked: e => e.data,
+                rowDoubleClicked: e => e.data,
+                gridRowGroupChanged: e => ({ nodeId: e.node.id, expanded: e.node.expanded }),
 
-            /* paginering */
-            gridPaginationChanged:    e => ({ currentPage: e.api.paginationGetCurrentPage(), totalPages:  e.api.paginationGetTotalPages() })
-        };
+                /* paginering */
+                gridPaginationChanged: e => ({ currentPage: e.api.paginationGetCurrentPage(), totalPages: e.api.paginationGetTotalPages() })
+            };
 
 
-        function handleGridEvent(e, action) {
-            const getPayload = eventParsers[action];
-            if (!getPayload) return console.warn('💡 onbekende action:', action);
+            function handleGridEvent(e, action) {
+                const getPayload = eventParsers[action];
+                if (!getPayload) return console.warn('💡 onbekende action:', action);
 
-            window.parent.postMessage(
-                { action, payload: getPayload(e) }, "https://www-sellerrr-com.filesusr.com"
-            );
-        }
-
-        const baseGridOptions = {
-            theme,
-            defaultColDef,
-            columnTypes,
-            pagination: true,
-            paginationPageSize: 10,
-            paginationPageSizeSelector: [10],
-            animateRows: true,
-            suppressCellFocus: true,
-            undoRedoCellEditing: false,
-            undoRedoCellEditingLimit: 5,
-            domLayout: "autoHeight",
-            loadThemeGoogleFonts: true,
-            suppressHorizontalScroll: true,
-            rowMultiSelectWithClick: true,
-            components: {
-                LinkRenderer: LinkRenderer,
-                ImageRenderer: ImageRenderer,
-            },
-            // onRowClicked: (event) => {
-            //     showStockChart(event.data.offers, event.node);
-            // },
-
-            onFilterChanged:      e => handleGridEvent(e, 'filterChanged'),
-            onSortChanged:        e => handleGridEvent(e, 'sortChanged'),
-            onColumnMoved:        e => handleGridEvent(e, 'columnMoved'),
-            onColumnResized:      e => handleGridEvent(e, 'columnResized'),
-            onColumnVisible:      e => handleGridEvent(e, 'columnVisibilityChanged'),
-            onColumnPinned:       e => handleGridEvent(e, 'columnPinnedChanged'),
-            onCellValueChanged:   e => handleGridEvent(e, 'gridRowUpdated'),
-            onSelectionChanged:   e => handleGridEvent(e, 'gridSelectionChanged'),
-            onPaginationChanged:  e => handleGridEvent(e, 'gridPaginationChanged'),
-            onRowGroupOpened:     e => handleGridEvent(e, 'gridRowGroupChanged'),
-            onRowClicked:         e => handleGridEvent(e, 'rowClicked'),
-            onRowDoubleClicked:   e => handleGridEvent(e, 'rowDoubleClicked'),
-
-        };
-
-        /* this object is reused for every state */
-        const gridOptions = { ...baseGridOptions };
-
-        const stateHandlers = {
-            stockState: {
-                extraOptions: { pagination: true },
-                onRowClicked: (e) => {
-                    sendToWix('rowClicked', e.data);
-                    showStockChart(e.data);
-                }
-            },
-            editState: {
-                extraOptions: {
-                    singleClickEdit: true,
-                    suppressRowClickSelection: true
-                },
-                onRowClicked: (e) => {
-                    sendToWix('rowClicked', e.data);
-                    e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
-                }
+                window.parent.postMessage(
+                    { action, payload: getPayload(e) }, "https://www-sellerrr-com.filesusr.com"
+                );
             }
-        };
+
+            const baseGridOptions = {
+                theme,
+                defaultColDef,
+                columnTypes,
+                pagination: true,
+                paginationPageSize: 10,
+                paginationPageSizeSelector: [10],
+                animateRows: true,
+                suppressCellFocus: true,
+                undoRedoCellEditing: false,
+                undoRedoCellEditingLimit: 5,
+                domLayout: "autoHeight",
+                loadThemeGoogleFonts: true,
+                suppressHorizontalScroll: true,
+                rowMultiSelectWithClick: true,
+                components: {
+                    LinkRenderer: LinkRenderer,
+                    ImageRenderer: ImageRenderer,
+                },
+                // onRowClicked: (event) => {
+                //     showStockChart(event.data.offers, event.node);
+                // },
+
+                onFilterChanged: e => handleGridEvent(e, 'filterChanged'),
+                onSortChanged: e => handleGridEvent(e, 'sortChanged'),
+                onColumnMoved: e => handleGridEvent(e, 'columnMoved'),
+                onColumnResized: e => handleGridEvent(e, 'columnResized'),
+                onColumnVisible: e => handleGridEvent(e, 'columnVisibilityChanged'),
+                onColumnPinned: e => handleGridEvent(e, 'columnPinnedChanged'),
+                onCellValueChanged: e => handleGridEvent(e, 'gridRowUpdated'),
+                onSelectionChanged: e => handleGridEvent(e, 'gridSelectionChanged'),
+                onPaginationChanged: e => handleGridEvent(e, 'gridPaginationChanged'),
+                onRowGroupOpened: e => handleGridEvent(e, 'gridRowGroupChanged'),
+                onRowClicked: e => handleGridEvent(e, 'rowClicked'),
+                onRowDoubleClicked: e => handleGridEvent(e, 'rowDoubleClicked'),
+
+            };
+
+            /* this object is reused for every state */
+            const gridOptions = { ...baseGridOptions };
+
+            const stateHandlers = {
+                stockState: {
+                    extraOptions: { pagination: true },
+                    onRowClicked: (e) => {
+                        sendToWix('rowClicked', e.data);
+                        showStockChart(e.data);
+                    }
+                },
+                editState: {
+                    extraOptions: {
+                        singleClickEdit: true,
+                        suppressRowClickSelection: true
+                    },
+                    onRowClicked: (e) => {
+                        sendToWix('rowClicked', e.data);
+                        e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
+                    }
+                }
+            };
 
 
-          function applyState(state) {
-            const h = stateHandlers[state] || {};
-            Object.assign(gridOptions, baseGridOptions, h.extraOptions || {});
+            function applyState(state) {
+                const h = stateHandlers[state] || {};
+                Object.assign(gridOptions, baseGridOptions, h.extraOptions || {});
 
-            /* eight explicit event bindings */
-            gridOptions.onRowClicked       = h.onRowClicked       || null;
-            gridOptions.onRowDoubleClicked = h.onRowDoubleClicked || null;
-            gridOptions.onCellValueChanged = h.onCellValueChanged || null;
-            gridOptions.onColumnResized    = h.onColumnResized    || null;
-            gridOptions.onSortChanged      = h.onSortChanged      || null;
-            gridOptions.onFilterChanged    = h.onFilterChanged    || null;
-            gridOptions.onColumnMoved      = h.onColumnMoved      || null;
-            gridOptions.onColumnVisible    = h.onColumnVisible    || null;
-        }
+                /* eight explicit event bindings */
+                gridOptions.onRowClicked = h.onRowClicked || null;
+                gridOptions.onRowDoubleClicked = h.onRowDoubleClicked || null;
+                gridOptions.onCellValueChanged = h.onCellValueChanged || null;
+                gridOptions.onColumnResized = h.onColumnResized || null;
+                gridOptions.onSortChanged = h.onSortChanged || null;
+                gridOptions.onFilterChanged = h.onFilterChanged || null;
+                gridOptions.onColumnMoved = h.onColumnMoved || null;
+                gridOptions.onColumnVisible = h.onColumnVisible || null;
+            }
 
-          window.addEventListener("message", ({ origin, data }) => {
-    if (origin !== "https://www-sellerrr-com.filesusr.com") return;
-    if (data.action !== "loadState") return;
+            window.addEventListener("message", ({ origin, data }) => {
+                if (origin !== "https://www-sellerrr-com.filesusr.com") return;
+                if (data.action !== "loadState") return;
 
-    const { state, columnDefs, rowData } = data.payload;
-    currentState = state;
+                const { state, columnDefs, rowData } = data.payload;
+                currentState = state;
 
-    applyState(state);
+                applyState(state);
 
-    if (columnDefs) gridApi.setColumnDefs(columnDefs);
-    if (rowData)    gridApi.setRowData(rowData);
+                if (columnDefs) gridApi.setColumnDefs(columnDefs);
+                if (rowData) gridApi.setRowData(rowData);
 
-    gridApi.refreshCells();
-  });
+                gridApi.refreshCells();
+            });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const eGridDiv = document.querySelector('#myGrid');
-    new agGrid.Grid(eGridDiv, gridOptions);
-    gridApi = gridOptions.api;
-  });
+            document.addEventListener('DOMContentLoaded', () => {
+                const eGridDiv = document.querySelector('#myGrid');
+                new agGrid.Grid(eGridDiv, gridOptions);
+                gridApi = gridOptions.api;
+            });
 
-  function sendToWix(action, payload) {
-    window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
-  }
+            function sendToWix(action, payload) {
+                window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
+            }
 
         // let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), baseGridOptions);
         
