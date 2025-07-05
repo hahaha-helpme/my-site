@@ -169,7 +169,6 @@
                 case 'rowClicked':
                 case 'rowDoubleClicked':
                     message.action = source;
-                    // CORRECTIE: We sturen alleen de rij-data, want event.column bestaat hier niet.
                     message.payload = event.data;
                     break;
                 case 'paginationChanged':
