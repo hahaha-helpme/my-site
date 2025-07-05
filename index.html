@@ -177,6 +177,13 @@
                         totalPages: event.api.paginationGetTotalPages(),
                     };
                     break;
+                case 'rowGroupOpened':
+                    message.action = 'gridRowGroupChanged';
+                    message.payload = {
+                        nodeId: event.node.id,
+                        expanded: event.node.expanded
+                    };
+                    break;
                 default: // Voor filter, sort, columnMove, etc.
                     message.action = 'gridStateChanged';
                     message.payload = {
