@@ -196,18 +196,18 @@
             //     showStockChart(event.data.offers, event.node);
             // },
 
-            onFilterChanged: (event) => handleGridEvent(event, 'filter'),
-            onSortChanged: (event) => handleGridEvent(event, 'sort'),
-            onColumnMoved: (event) => handleGridEvent(event, 'columnMove'),
-            onColumnResized: (event) => handleGridEvent(event, 'columnResize'),
-            onColumnVisible: (event) => handleGridEvent(event, 'columnVisible'),
-            onColumnPinned: (event) => handleGridEvent(event, 'columnPinned'),
-            onCellValueChanged: (event) => handleGridEvent(event, 'cellValueChanged'),
-            onSelectionChanged: (event) => handleGridEvent(event, 'selectionChanged'),
-            onPaginationChanged: (event) => handleGridEvent(event, 'paginationChanged'),
-            onRowGroupOpened: (event) => handleGridEvent(event, 'rowGroupOpened'),
-            onRowDoubleClicked: (event) => handleGridEvent(event, 'rowDoubleClicked'),
-            onRowClicked: (event) => { handleGridEvent(event, 'rowClicked') },
+            onFilterChanged:      e => handleGridEvent(e, 'filter'),
+            onSortChanged:        e => handleGridEvent(e, 'sort'),
+            onColumnMoved:        e => handleGridEvent(e, 'columnMove'),
+            onColumnResized:      e => handleGridEvent(e, 'columnResize'),
+            onColumnVisible:      e => handleGridEvent(e, 'columnVisible'),
+            onColumnPinned:       e => handleGridEvent(e, 'columnPinned'),
+            onCellValueChanged:   e => handleGridEvent(e, 'cellValueChanged'),
+            onSelectionChanged:   e => handleGridEvent(e, 'selectionChanged'),
+            onPaginationChanged:  e => handleGridEvent(e, 'paginationChanged'),
+            onRowGroupOpened:     e => handleGridEvent(e, 'rowGroupOpened'),
+            onRowClicked:         e => handleGridEvent(e, 'rowClicked'),
+            onRowDoubleClicked:   e => handleGridEvent(e, 'rowDoubleClicked'),
 
         };
 
