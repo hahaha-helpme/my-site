@@ -177,8 +177,7 @@
   if (!getPayload) return console.warn('💡 onbekende action:', action);
 
   window.parent.postMessage(
-    { action, payload: getPayload(e) },
-    TARGET
+    { action, payload: getPayload(e) }, "https://www-sellerrr-com.filesusr.com"
   );
             const parser = eventParsers[type];
             if (!parser) return console.warn('💡 onbekend event-type:', type);
