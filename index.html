@@ -219,7 +219,7 @@
                 oddRowBackgroundColor: "#FDFCFC",
             });
 
-            console.log('test1')
+            console.log('test')
         const gridOptions = {
             theme,
             defaultColDef,
@@ -233,16 +233,17 @@
             undoRedoCellEditingLimit: 5,
             domLayout: "autoHeight",
             // groupDisplayType: "multipleColumns",
-              selectionColumnDef: {
-    headerName: 'Track',     // tekst boven de check­boxen
-    width: 80,
-    headerCheckboxSelection: false  // optioneel: “select-all”
-  },
             loadThemeGoogleFonts: true,
             suppressHorizontalScroll: true,
             rowSelection: 'multiple',
             rowMultiSelectWithClick: true,
             suppressRowClickSelection: true,
+            rowSelection: {
+                mode: 'singleRow',        // of 'multiRow' als je meerdere rijen wilt selecteren
+                checkboxes: false,        // schakelt de checkboxen in de rijen uit
+                headerCheckbox: false,    // schakelt de checkbox in de header uit
+                enableClickSelection: true // maakt selectie mogelijk door op de rij te klikken
+            },
             components: {
                 LinkRenderer: LinkRenderer,
                 ImageRenderer: ImageRenderer,
