@@ -255,15 +255,15 @@
         };
         
 
-        // /* Iframe → GitHub */
-        // window.addEventListener("message", (e) => {
-        //     if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
-        //     const { action, payload } = e.data;
-        //     if (action === "updateGrid") {
-        //         console.log("✅ reply van Html:", e);
-        //         // hier grid opbouwen…
-        //     }
-        // });
+        /* Iframe → GitHub */
+        window.addEventListener("message", (e) => {
+            if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+            const { action, payload } = e.data;
+            if (action === "updateGrid") {
+                console.log("✅ reply van Html:", e);
+                // hier grid opbouwen…
+            }
+        });
 
         // /* GitHub → Iframe */
         // window.parent.postMessage(
