@@ -171,14 +171,14 @@
             };
 
 
-            function handleGridEvent(e, action) {
-                const getPayload = eventParsers[action];
-                if (!getPayload) return console.warn('💡 onbekende action:', action);
+            // function handleGridEvent(e, action) {
+            //     const getPayload = eventParsers[action];
+            //     if (!getPayload) return console.warn('💡 onbekende action:', action);
 
-                window.parent.postMessage(
-                    { action, payload: getPayload(e) }, "https://www-sellerrr-com.filesusr.com"
-                );
-            }
+            //     window.parent.postMessage(
+            //         { action, payload: getPayload(e) }, "https://www-sellerrr-com.filesusr.com"
+            //     );
+            // }
 
             const baseGridOptions = {
                 theme,
