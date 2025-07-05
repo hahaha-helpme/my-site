@@ -202,7 +202,18 @@
                 // onRowClicked: (event) => {
                 //     showStockChart(event.data.offers, event.node);
                 // },
+            };
 
+            /* this object is reused for every state */
+            const gridOptions = { ...baseGridOptions };
+
+            const stateHandlers = {
+                stockState: {
+                    extraOptions: { pagination: true },
+                    onRowClicked: (e) => {
+                        sendToWix('rowClicked', e.data);
+                        showStockChart(e.data);
+                    },
                 onFilterChanged: e => handleGridEvent(e, 'filterChanged'),
                 onSortChanged: e => handleGridEvent(e, 'sortChanged'),
                 onColumnMoved: e => handleGridEvent(e, 'columnMoved'),
@@ -215,19 +226,6 @@
                 onRowGroupOpened: e => handleGridEvent(e, 'gridRowGroupChanged'),
                 onRowClicked: e => handleGridEvent(e, 'rowClicked'),
                 onRowDoubleClicked: e => handleGridEvent(e, 'rowDoubleClicked'),
-
-            };
-
-            /* this object is reused for every state */
-            const gridOptions = { ...baseGridOptions };
-
-            const stateHandlers = {
-                stockState: {
-                    extraOptions: { pagination: true },
-                    onRowClicked: (e) => {
-                        sendToWix('rowClicked', e.data);
-                        showStockChart(e.data);
-                    }
                 },
                 editState: {
                     extraOptions: {
