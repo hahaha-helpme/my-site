@@ -167,8 +167,7 @@
             gridRowGroupChanged:      e => ({ nodeId: e.node.id, expanded: e.node.expanded }),
 
             /* paginering */
-            gridPaginationChanged:    e => ({ currentPage: e.api.paginationGetCurrentPage(),
-                                                totalPages:  e.api.paginationGetTotalPages() })
+            gridPaginationChanged:    e => ({ currentPage: e.api.paginationGetCurrentPage(), totalPages:  e.api.paginationGetTotalPages() })
         };
 
 
