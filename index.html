@@ -241,28 +241,44 @@
             }
         };
 
-        let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), baseGridOptions);
+
+          function applyState(state) {
+            const h = stateHandlers[state] || {};
+            Object.assign(gridOptions, baseGridOptions, h.extraOptions || {});
+
+            /* eight explicit event bindings */
+            gridOptions.onRowClicked       = h.onRowClicked       || null;
+            gridOptions.onRowDoubleClicked = h.onRowDoubleClicked || null;
+            gridOptions.onCellValueChanged = h.onCellValueChanged || null;
+            gridOptions.onColumnResized    = h.onColumnResized    || null;
+            gridOptions.onSortChanged      = h.onSortChanged      || null;
+            gridOptions.onFilterChanged    = h.onFilterChanged    || null;
+            gridOptions.onColumnMoved      = h.onColumnMoved      || null;
+            gridOptions.onColumnVisible    = h.onColumnVisible    || null;
+        }
+
+        // let gridApi = agGrid.createGrid(document.querySelector("#myGrid"), baseGridOptions);
         
-        /* Iframe → GitHub */
-        window.addEventListener("message", (e) => {
-            if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
-            const { action, payload } = e.data;
-            if (action === "hydrideGrid") {
-                if (payload.rowData) gridApi.setGridOption("rowData", payload.rowData);
-                if (payload.columnDefs) gridApi.setGridOption("columnDefs", payload.columnDefs);
-            }
-        });
+        // /* Iframe → GitHub */
+        // window.addEventListener("message", (e) => {
+        //     if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+        //     const { action, payload } = e.data;
+        //     if (action === "hydrideGrid") {
+        //         if (payload.rowData) gridApi.setGridOption("rowData", payload.rowData);
+        //         if (payload.columnDefs) gridApi.setGridOption("columnDefs", payload.columnDefs);
+        //     }
+        // });
 
-        // /* GitHub → Iframe */
-        // window.parent.postMessage({ action: "gridUpdated", status: "ok" }, "https://www-sellerrr-com.filesusr.com" );
+        // // /* GitHub → Iframe */
+        // // window.parent.postMessage({ action: "gridUpdated", status: "ok" }, "https://www-sellerrr-com.filesusr.com" );
 
-        const el = document.querySelector('.ag-center-cols-viewport');
-        el?.addEventListener('wheel', (e) => {
-            if (!e.shiftKey && e.deltaY) {
-                el.scrollLeft += e.deltaY;
-                e.preventDefault();
-            }
-        }, { passive: false });
+        // const el = document.querySelector('.ag-center-cols-viewport');
+        // el?.addEventListener('wheel', (e) => {
+        //     if (!e.shiftKey && e.deltaY) {
+        //         el.scrollLeft += e.deltaY;
+        //         e.preventDefault();
+        //     }
+        // }, { passive: false });
 
 
 
