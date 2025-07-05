@@ -153,50 +153,49 @@
             });
 
 
-function handleGridEvent(event, source) {
-    let payload = null;
-    let action = '';
+        function handleGridEvent(event, source) {
+            let message = { action: '', payload: null, source: source };
 
-    switch (source) {
-        case 'cellValueChanged':
-            action = 'gridRowUpdated';
-            payload = event.data;
-            break;
-        case 'selectionChanged':
-            action = 'gridSelectionChanged';
-            payload = event.api.getSelectedRows();
-            break;
-        case 'rowClicked':
-        case 'rowDoubleClicked':
-            action = source;
-            payload = event.data;
-            break;
-        case 'paginationChanged':
-            action = 'gridPaginationChanged';
-            payload = {
-                currentPage: event.api.paginationGetCurrentPage(),
-                totalPages: event.api.paginationGetTotalPages(),
-            };
-            break;
-        case 'rowGroupOpened':
-            action = 'gridRowGroupChanged';
-            payload = {
-                nodeId: event.node.id,
-                expanded: event.node.expanded,
-            };
-            break;
-        default:
-            action = 'gridStateChanged';
-            payload = {
-                filterModel: event.api.getFilterModel(),
-                columnState: event.api.getColumnState(),
-            };
-    }
+            switch (source) {
+                case 'cellValueChanged':
+                    message.action = 'gridRowUpdated';
+                    message.payload = event.data;
+                    break;
+                case 'selectionChanged':
+                    message.action = 'gridSelectionChanged';
+                    message.payload = event.api.getSelectedRows();
+                    break;
+                case 'rowClicked':
+                case 'rowDoubleClicked':
+                    message.action = source;
+                    message.payload = event.data;
+                    break;
+                case 'paginationChanged':
+                    message.action = 'gridPaginationChanged';
+                    message.payload = {
+                        currentPage: event.api.paginationGetCurrentPage(),
+                        totalPages: event.api.paginationGetTotalPages(),
+                    };
+                    break;
+                case 'rowGroupOpened':
+                    message.action = 'gridRowGroupChanged';
+                    message.payload = {
+                        nodeId: event.node.id,
+                        expanded: event.node.expanded
+                    };
+                    break;
+                default: // Voor filter, sort, columnMove, etc.
+                    message.action = 'gridStateChanged';
+                    message.payload = {
+                        filterModel: event.api.getFilterModel(),
+                        columnState: event.api.getColumnState(),
+                    };
+            }
 
-    if (payload) {
-        window.parent.postMessage({ action, payload, source }, "https://www-sellerrr-com.filesusr.com");
-    }
-}
+            if (message.payload !== null) {
+                window.parent.postMessage(message, "https://www-sellerrr-com.filesusr.com");
+            }
+        }
 
         const gridOptions = {
             theme,
