@@ -173,16 +173,12 @@
 
 
         function handleGridEvent(event, type) {
-              const getPayload = eventParsers[action];
-  if (!getPayload) return console.warn('💡 onbekende action:', action);
+            const getPayload = eventParsers[action];
+            if (!getPayload) return console.warn('💡 onbekende action:', action);
 
-  window.parent.postMessage(
-    { action, payload: getPayload(e) }, "https://www-sellerrr-com.filesusr.com"
-  );
-            const parser = eventParsers[type];
-            if (!parser) return console.warn('💡 onbekend event-type:', type);
-            const { action, payload } = parser(event);
-            window.parent.postMessage({ action, payload, type }, "https://www-sellerrr-com.filesusr.com");
+            window.parent.postMessage(
+                { action, payload: getPayload(e) }, "https://www-sellerrr-com.filesusr.com"
+            );
         }
 
         const gridOptions = {
