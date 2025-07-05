@@ -195,7 +195,6 @@
         };
 
 
-
         const theme = agGrid.themeQuartz
             .withPart(agGrid.iconSetMaterial)
             .withParams({
@@ -219,9 +218,6 @@
                 spacing: 8,
                 oddRowBackgroundColor: "#FDFCFC",
             });
-
-
-
 
 
         const gridOptions = {
@@ -258,6 +254,7 @@
                 window.parent.postMessage({ action: "gridUpdated", status: "success" }, origin);
             }
         };
+        
 
         // /* Iframe → GitHub */
         // window.addEventListener("message", (e) => {
