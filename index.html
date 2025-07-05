@@ -151,49 +151,29 @@
             });
 
 
-        function handleGridEvent(event, source) {
-            let message = { action: '', payload: null };
+                // ---- helpers --------------------------------------------------------------
+                const eventParsers = {
+                filter:          e => ({ action: 'filterChanged',           payload: e.api.getFilterModel() }),
+                sort:            e => ({ action: 'sortChanged',             payload: e.api.getSortModel()   }),
+                columnMove:      e => ({ action: 'columnMoved',             payload: e.columnApi.getColumnState() }),
+                columnResize:    e => ({ action: 'columnResized',           payload: { colId: e.column.getColId(), width: e.column.getActualWidth() } }),
+                columnVisible:   e => ({ action: 'columnVisibilityChanged', payload: { colId: e.column.getColId(), visible: e.column.visible } }),
+                columnPinned:    e => ({ action: 'columnPinnedChanged',     payload: { colId: e.column.getColId(), pinned: e.column.pinned } }),
+                cellValueChanged:e => ({ action: 'gridRowUpdated',          payload: e.data }),
+                selectionChanged:e => ({ action: 'gridSelectionChanged',    payload: e.api.getSelectedRows() }),
+                rowClicked:      e => ({ action: 'rowClicked',              payload: e.data }),
+                rowDoubleClicked:e => ({ action: 'rowDoubleClicked',        payload: e.data }),
+                rowGroupOpened:  e => ({ action: 'gridRowGroupChanged',     payload: { nodeId: e.node.id, expanded: e.node.expanded } }),
+                paginationChanged:e =>({ action: 'gridPaginationChanged',   payload: { currentPage: e.api.paginationGetCurrentPage(), totalPages: e.api.paginationGetTotalPages() } })
+                };
 
-            switch (source) {
-                case 'cellValueChanged':
-                    message.action = 'gridRowUpdated';
-                    message.payload = event.data;
-                    break;
-                case 'selectionChanged':
-                    message.action = 'gridSelectionChanged';
-                    message.payload = event.api.getSelectedRows();
-                    break;
-                case 'rowClicked':
-                case 'rowDoubleClicked':
-                    message.action = source;
-                    message.payload = event.data;
-                    break;
-                case 'paginationChanged':
-                    message.action = 'gridPaginationChanged';
-                    message.payload = {
-                        currentPage: event.api.paginationGetCurrentPage(),
-                        totalPages: event.api.paginationGetTotalPages(),
-                    };
-                    break;
-                case 'rowGroupOpened':
-                    message.action = 'gridRowGroupChanged';
-                    message.payload = {
-                        nodeId: event.node.id,
-                        expanded: event.node.expanded
-                    };
-                    break;
-                default: // Voor filter, sort, columnMove, etc.
-                    message.action = 'gridStateChanged';
-                    message.payload = {
-                        filterModel: event.api.getFilterModel(),
-                        columnState: event.api.getColumnState(),
-                    };
-            }
-
-            if (message.payload !== null) {
-                window.parent.postMessage(message, "https://www-sellerrr-com.filesusr.com");
-            }
-        }
+                // ---- universele dispatcher -----------------------------------------------
+                function handleGridEvent(event, type) {
+                const parser = eventParsers[type];          // pak de juiste parser
+                if (!parser) return console.warn('💡 onbekend event-type:', type);
+                const { action, payload } = parser(event);  // vorm het bericht
+                window.parent.postMessage({ action, payload, type }, "https://www-sellerrr-com.filesusr.com");
+                }
 
         const gridOptions = {
             theme,
