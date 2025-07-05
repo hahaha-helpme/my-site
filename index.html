@@ -265,9 +265,9 @@
                 LinkRenderer: LinkRenderer,
                 ImageRenderer: ImageRenderer,
             },
-            onRowClicked: (event) => {
-                showStockChart(event.data.offers, event.node);
-            },
+            // onRowClicked: (event) => {
+            //     showStockChart(event.data.offers, event.node);
+            // },
 
             onFilterChanged: (event) => handleGridEvent(event, 'filter'),
             onSortChanged: (event) => handleGridEvent(event, 'sort'),
@@ -278,6 +278,10 @@
 
             onCellValueChanged: (event) => handleGridEvent(event, 'cellValueChanged'),
             onSelectionChanged: (event) => handleGridEvent(event, 'selectionChanged'),
+
+            onRowClicked: (event) => {
+                handleGridEvent(event, 'rowClicked');
+            },
         };
 
 
