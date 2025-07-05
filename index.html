@@ -235,7 +235,6 @@
             groupDisplayType: "multipleColumns",
             loadThemeGoogleFonts: true,
             suppressHorizontalScroll: true,
-            rowSelection: 'multiple',
             components: {
                 LinkRenderer: LinkRenderer,
                 ImageRenderer: ImageRenderer,
@@ -255,7 +254,7 @@
                 window.parent.postMessage({ action: "gridUpdated", status: "success" }, origin);
             }
         };
-
+        
 
         // /* Iframe → GitHub */
         // window.addEventListener("message", (e) => {
