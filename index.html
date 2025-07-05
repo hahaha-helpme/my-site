@@ -151,18 +151,24 @@
             });
 
         const eventParsers = {
-            filter: e => ({ action: 'filterChanged', payload: e.api.getFilterModel() }),
-            sort: e => ({ action: 'sortChanged', payload: e.api.getSortModel() }),
-            columnMove: e => ({ action: 'columnMoved', payload: e.columnApi.getColumnState() }),
-            columnResize: e => ({ action: 'columnResized', payload: { colId: e.column.getColId(), width: e.column.getActualWidth() } }),
-            columnVisible: e => ({ action: 'columnVisibilityChanged', payload: { colId: e.column.getColId(), visible: e.column.visible } }),
-            columnPinned: e => ({ action: 'columnPinnedChanged', payload: { colId: e.column.getColId(), pinned: e.column.pinned } }),
-            cellValueChanged: e => ({ action: 'gridRowUpdated', payload: e.data }),
-            selectionChanged: e => ({ action: 'gridSelectionChanged', payload: e.api.getSelectedRows() }),
-            rowClicked: e => ({ action: 'rowClicked', payload: e.data }),
-            rowDoubleClicked: e => ({ action: 'rowDoubleClicked', payload: e.data }),
-            rowGroupOpened: e => ({ action: 'gridRowGroupChanged', payload: { nodeId: e.node.id, expanded: e.node.expanded } }),
-            paginationChanged: e => ({ action: 'gridPaginationChanged', payload: { currentPage: e.api.paginationGetCurrentPage(), totalPages: e.api.paginationGetTotalPages() } })
+            /* kolom / grid-state */
+            filterChanged:            e => e.api.getFilterModel(),
+            sortChanged:              e => e.api.getSortModel(),
+            columnMoved:              e => e.columnApi.getColumnState(),
+            columnResized:            e => ({ colId: e.column.getColId(), width: e.column.getActualWidth() }),
+            columnVisibilityChanged:  e => ({ colId: e.column.getColId(), visible: e.column.visible }),
+            columnPinnedChanged:      e => ({ colId: e.column.getColId(), pinned: e.column.pinned }),
+
+            /* rijen & selectie */
+            gridRowUpdated:           e => e.data,
+            gridSelectionChanged:     e => e.api.getSelectedRows(),
+            rowClicked:               e => e.data,
+            rowDoubleClicked:         e => e.data,
+            gridRowGroupChanged:      e => ({ nodeId: e.node.id, expanded: e.node.expanded }),
+
+            /* paginering */
+            gridPaginationChanged:    e => ({ currentPage: e.api.paginationGetCurrentPage(),
+                                                totalPages:  e.api.paginationGetTotalPages() })
         };
 
 
