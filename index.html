@@ -235,17 +235,17 @@
                 case 'rowClicked':
                 case 'rowDoubleClicked':
                     message.action = source;
-                    message.payload = { data: event.data, colId: event.column.getColId() };
+                    // CORRECTIE: We sturen alleen de rij-data, want event.column bestaat hier niet.
+                    message.payload = event.data;
                     break;
                 case 'paginationChanged':
                     message.action = 'gridPaginationChanged';
                     message.payload = {
                         currentPage: event.api.paginationGetCurrentPage(),
                         totalPages: event.api.paginationGetTotalPages(),
-                        isLastPage: event.api.paginationIsLastPageFound() && event.api.paginationGetTotalPages() === event.api.paginationGetCurrentPage() + 1
                     };
                     break;
-                default:
+                default: // Voor filter, sort, columnMove, etc.
                     message.action = 'gridStateChanged';
                     message.payload = {
                         filterModel: event.api.getFilterModel(),
@@ -293,7 +293,7 @@
             onRowGroupOpened: (event) => handleGridEvent(event, 'rowGroupOpened'),
             onRowDoubleClicked: (event) => handleGridEvent(event, 'rowDoubleClicked'),
             onRowClicked: (event) => { handleGridEvent(event, 'rowClicked') },
-            
+
         };
 
 
