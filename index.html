@@ -275,9 +275,11 @@
             onColumnResized: (event) => handleGridEvent(event, 'columnResize'),
             onColumnVisible: (event) => handleGridEvent(event, 'columnVisible'),
             onColumnPinned: (event) => handleGridEvent(event, 'columnPinned'),
-
             onCellValueChanged: (event) => handleGridEvent(event, 'cellValueChanged'),
             onSelectionChanged: (event) => handleGridEvent(event, 'selectionChanged'),
+            onPaginationChanged: (event) => handleGridEvent(event, 'paginationChanged'),
+            onRowGroupOpened: (event) => handleGridEvent(event, 'rowGroupOpened'),
+            onRowDoubleClicked: (event) => handleGridEvent(event, 'rowDoubleClicked'),
 
             onRowClicked: (event) => {
                 handleGridEvent(event, 'rowClicked');
