@@ -262,7 +262,6 @@
             if (data.payload.rowData) gridApi.setGridOption("rowData", data.payload.rowData);
             if (data.payload.columnDefs) gridApi.setGridOption("columnDefs", data.payload.columnDefs);
             window.parent.postMessage({ action: "gridUpdated", status: "success" }, origin);
-
         });
 
         // /* GitHub → Iframe */
