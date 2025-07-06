@@ -301,7 +301,9 @@
             gridOptions.onColumnVisible    = h.onColumnVisible    || null;
         }
 
-        window.addEventListener("message", ({ origin, data }) => {
+        window.addEventListener("message", (e) => {
+            if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+            const { action, payload } = e.data;
             if (origin !== "https://www-sellerrr-com.filesusr.com") return;
             if (data.action !== "loadState") return;
 
