@@ -240,10 +240,42 @@
         let currentState = null;
 
         /* base grid settings */
-        const baseGridOptions = {
-            defaultColDef: { flex: 1, resizable: true },
+        const gridOptions = {
+            theme,
+            defaultColDef,
+            columnTypes,
+            pagination: true,
+            paginationPageSize: 10,
+            paginationPageSizeSelector: [10],
             animateRows: true,
-            rowSelection: 'single'
+            suppressCellFocus: true,
+            undoRedoCellEditing: false,
+            undoRedoCellEditingLimit: 5,
+            domLayout: "autoHeight",
+            loadThemeGoogleFonts: true,
+            suppressHorizontalScroll: true,
+            rowMultiSelectWithClick: true,
+            components: {
+                LinkRenderer: LinkRenderer,
+                ImageRenderer: ImageRenderer,
+            },
+            // onRowClicked: (event) => {
+            //     showStockChart(event.data.offers, event.node);
+            // },
+
+            onFilterChanged:      e => handleGridEvent(e, 'filterChanged'),
+            onSortChanged:        e => handleGridEvent(e, 'sortChanged'),
+            onColumnMoved:        e => handleGridEvent(e, 'columnMoved'),
+            onColumnResized:      e => handleGridEvent(e, 'columnResized'),
+            onColumnVisible:      e => handleGridEvent(e, 'columnVisibilityChanged'),
+            onColumnPinned:       e => handleGridEvent(e, 'columnPinnedChanged'),
+            onCellValueChanged:   e => handleGridEvent(e, 'gridRowUpdated'),
+            onSelectionChanged:   e => handleGridEvent(e, 'gridSelectionChanged'),
+            onPaginationChanged:  e => handleGridEvent(e, 'gridPaginationChanged'),
+            onRowGroupOpened:     e => handleGridEvent(e, 'gridRowGroupChanged'),
+            onRowClicked:         e => handleGridEvent(e, 'rowClicked'),
+            onRowDoubleClicked:   e => handleGridEvent(e, 'rowDoubleClicked'),
+
         };
 
         /* this object is reused for every state */
