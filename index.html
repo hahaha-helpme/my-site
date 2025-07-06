@@ -317,20 +317,12 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const eGridDiv = document.querySelector('#myGrid');
-            new agGrid.Grid(eGridDiv, gridOptions);
-            gridApi = gridOptions.api;
+            gridApi = agGrid.createGrid(document.querySelector("#myGrid"), gridOptions);
         });
 
         function sendToWix(action, payload) {
             window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
         }
-
-        function showStockChart(row) {
-            console.log("📈 Show chart for:", row.symbol);
-        }
-
-
 
 
 
