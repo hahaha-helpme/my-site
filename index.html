@@ -313,22 +313,36 @@
             gridOptions.onColumnVisible    = h.onColumnVisible    || null;
         }
 
-        window.addEventListener("message", (e) => {
-            if(e.data.action === "updateState") console.log(e)
-            const { action, payload } = e.data;
+        // window.addEventListener("message", (e) => {
+        //     if(e.data.action === "updateState") console.log(e)
+        //     const { action, payload } = e.data;
+        //     if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+        //     if (action !== "updateState") return;
+
+        //     const { state, columnDefs, rowData } = payload;
+        //     currentState = state;
+
+        //     applyState(state);
+
+        //     if (columnDefs) gridApi.setColumnDefs(columnDefs);
+        //     if (rowData)    gridApi.setRowData(rowData);
+
+        //     gridApi.refreshCells();
+        // });
+
+        function handleUpdateState(e) {
             if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
-            if (action !== "updateState") return;
+            const { action, payload } = e.data;
+            if (action !== 'updateState') return;
 
             const { state, columnDefs, rowData } = payload;
-            currentState = state;
-
             applyState(state);
 
             if (columnDefs) gridApi.setColumnDefs(columnDefs);
             if (rowData)    gridApi.setRowData(rowData);
 
             gridApi.refreshCells();
-        });
+        }
 
         function sendToWix(action, payload) {
             window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
