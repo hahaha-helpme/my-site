@@ -310,7 +310,7 @@
             currentState = state;
 
             applyState(state);
-            gridApi = agGrid.createGrid(document.querySelector("#myGrid"), gridOptions);
+            if (!gridApi) gridApi = agGrid.createGrid(document.querySelector("#myGrid"), gridOptions);
             if (columnDefs) gridApi.setGridOption("columnDefs", payload.columnDefs);
             if (rowData)    gridApi.setGridOption("rowData", payload.rowData);
 
