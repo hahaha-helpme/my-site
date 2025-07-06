@@ -173,8 +173,9 @@
                     },
                 },
                 onCellClicked: (e) => {
-                    sendToWix('cellClicked', e.data);
-                    showStockChart(e.data);
+                    console.log('e.data', e.data)
+                    //sendToWix('cellClicked', e.data);
+                    //showStockChart(e.data);
                 },
                 onRowSelected: (e) => {
                     console.log('Rij selectie gewijzigd:', e.data, 'Nieuwe status:', e.node.isSelected());
