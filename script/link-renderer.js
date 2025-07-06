@@ -1,5 +1,15 @@
 /* Beschikbare functionaliteit: LinkRenderer (AG Grid cellRenderer voor hyperlinks) */
 (function () {
+  const style = document.createElement('style');
+  style.textContent = `
+    /* Link-opmaak in de cel */
+    .ag-cell.link-cell a {
+      color: black;
+      text-decoration: underline;
+    }
+  `;
+  document.head.appendChild(style);
+
   class LinkRenderer {
     init(params) {
       this.eGui = document.createElement('a');
