@@ -238,13 +238,6 @@
         let gridApi;
         let currentState = null;
 
-        /* 2. Als de DOM klaar is → grid bouwen */
-        document.addEventListener('DOMContentLoaded', () => {
-        gridApi = agGrid.createGrid(document.querySelector('#myGrid'), gridOptions);
-
-        /* 3. Pas nu berichten uit Wix accepteren */
-        window.addEventListener('message', handleUpdateState);
-        });
 
         /* base grid settings */
         const baseGridOptions = {
@@ -270,6 +263,14 @@
 
         /* this object is reused for every state */
         const gridOptions = { ...baseGridOptions };
+
+        /* 2. Als de DOM klaar is → grid bouwen */
+        document.addEventListener('DOMContentLoaded', () => {
+        gridApi = agGrid.createGrid(document.querySelector('#myGrid'), gridOptions);
+
+        /* 3. Pas nu berichten uit Wix accepteren */
+        window.addEventListener('message', handleUpdateState);
+        });
 
         /* per-state tweaks and handlers */
         const stateHandlers = {
