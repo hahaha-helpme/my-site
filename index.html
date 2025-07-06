@@ -227,6 +227,7 @@
 
             gridApi.refreshCells();
 
+            if (!wheelAttached) {
             const el = document.querySelector('.ag-center-cols-viewport');
             el?.addEventListener('wheel', (e) => {
                 if (!e.shiftKey && e.deltaY) {
