@@ -305,7 +305,7 @@
         }
 
         window.addEventListener("message", (e) => {
-            if(e.data.action === "action") console.log(e, e.origin === "https://www-sellerrr-com.filesusr.com")
+            if(e.data.action === "updateState") console.log(e)
             const { action, payload } = e.data;
             if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
             if (action !== "updateState") return;
