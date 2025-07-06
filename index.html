@@ -176,14 +176,14 @@
                 }
             },
             editState: {
-            extraOptions: {
-                singleClickEdit: true,
-                suppressRowClickSelection: true
-            },
-            onRowClicked: (e) => {
-                sendToWix('rowClicked', e.data);
-                e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
-            }
+                extraOptions: {
+                    singleClickEdit: true,
+                    suppressRowClickSelection: true
+                },
+                onRowClicked: (e) => {
+                    sendToWix('rowClicked', e.data);
+                    e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
+                }
             }
         };
 
