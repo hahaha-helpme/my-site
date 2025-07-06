@@ -266,10 +266,10 @@
 
         /* 2. Als de DOM klaar is → grid bouwen */
         document.addEventListener('DOMContentLoaded', () => {
-        gridApi = agGrid.createGrid(document.querySelector('#myGrid'), gridOptions);
+            gridApi = agGrid.createGrid(document.querySelector('#myGrid'), gridOptions);
 
-        /* 3. Pas nu berichten uit Wix accepteren */
-        window.addEventListener('message', handleUpdateState);
+            /* 3. Pas nu berichten uit Wix accepteren */
+            window.addEventListener('message', handleUpdateState);
         });
 
         /* per-state tweaks and handlers */
