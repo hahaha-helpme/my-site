@@ -176,8 +176,9 @@
                         //sendToWix('cellClicked', e.data);
                         //showStockChart(e.data);
                     },
-                    onRowSelected: (e) => {
-                        console.log('Rij selectie gewijzigd:', e.data, 'Nieuwe status:', e.node.isSelected());
+                    onRowSelected: (event) => {
+                        console.log('Rij geselecteerd:', event.node.data);
+                        console.log('Is geselecteerd:', event.node.isSelected());
                     },
                 },
                 someOtherState: {
@@ -198,7 +199,8 @@
 
             /* eight explicit event bindings */
             gridOptions.onRowClicked       = h.onRowClicked       || null;
-            gridOptions.onCellClicked      = h.onCellClicked    || null;
+            gridOptions.onCellClicked      = h.onCellClicked      || null;
+            gridOptions.onRowSelected      = h.onRowSelected      || null;
             gridOptions.onColumnResized    = h.onColumnResized    || null;
             gridOptions.onSortChanged      = h.onSortChanged      || null;
             gridOptions.onFilterChanged    = h.onFilterChanged    || null;
