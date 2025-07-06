@@ -322,9 +322,7 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const eGridDiv = document.querySelector('#myGrid');
-            new agGrid.Grid(eGridDiv, gridOptions);
-            gridApi = gridOptions.api;
+            const gridApi = agGrid.createGrid(document.querySelector('#myGrid'), gridOptions);
         });
 
         function sendToWix(action, payload) {
