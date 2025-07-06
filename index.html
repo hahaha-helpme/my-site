@@ -304,7 +304,7 @@
         window.addEventListener("message", (e) => {
             if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
             const { action, payload } = e.data;
-            if (data.action !== "loadState") return;
+            if (data.action !== "updateState") return;
 
             const { state, columnDefs, rowData } = data.payload;
             currentState = state;
