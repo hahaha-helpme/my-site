@@ -329,10 +329,6 @@
             gridApi.refreshCells();
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            gridApi = agGrid.createGrid(document.querySelector('#myGrid'), gridOptions);
-        });
-
         function sendToWix(action, payload) {
             window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
         }
