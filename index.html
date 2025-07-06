@@ -175,7 +175,10 @@
                 onCellClicked: (e) => {
                     sendToWix('cellClicked', e.data);
                     showStockChart(e.data);
-                }
+                },
+                    onRowSelected: (event) => {
+        // 'event.node.isSelected()' is true als de rij is geselecteerd
+        console.log('Rij selectie gewijzigd:', event.data, 'Nieuwe status:', event.node.isSelected());
             },
             editState: {
                 extraOptions: {
