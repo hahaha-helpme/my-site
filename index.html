@@ -235,42 +235,19 @@
         // window.parent.postMessage({ action: "gridUpdated", status: "ok" }, "https://www-sellerrr-com.filesusr.com" );
 
 
+
         let gridApi;
         let currentState = null;
 
-
         /* base grid settings */
         const baseGridOptions = {
-            theme,
-            defaultColDef,
-            columnTypes,
-            pagination: true,
-            paginationPageSize: 10,
-            paginationPageSizeSelector: [10],
+            defaultColDef: { flex: 1, resizable: true },
             animateRows: true,
-            suppressCellFocus: true,
-            undoRedoCellEditing: false,
-            undoRedoCellEditingLimit: 5,
-            domLayout: "autoHeight",
-            loadThemeGoogleFonts: true,
-            suppressHorizontalScroll: true,
-            rowMultiSelectWithClick: true,
-            components: {
-                LinkRenderer: LinkRenderer,
-                ImageRenderer: ImageRenderer,
-                }
-            }
+            rowSelection: 'single'
+        };
 
         /* this object is reused for every state */
         const gridOptions = { ...baseGridOptions };
-
-        /* 2. Als de DOM klaar is → grid bouwen */
-        document.addEventListener('DOMContentLoaded', () => {
-            gridApi = agGrid.createGrid(document.querySelector('#myGrid'), gridOptions);
-
-            /* 3. Pas nu berichten uit Wix accepteren */
-            window.addEventListener('message', handleUpdateState);
-        });
 
         /* per-state tweaks and handlers */
         const stateHandlers = {
@@ -279,12 +256,7 @@
             onRowClicked: (e) => {
                 sendToWix('rowClicked', e.data);
                 showStockChart(e.data);
-                
-            },
-            onFilterChanged: (e) => {
-                // stuur het volledige filtermodel door
-                sendToWix('filterChanged', e.api.getFilterModel());
-            },
+            }
             },
             editState: {
             extraOptions: {
@@ -313,40 +285,35 @@
             gridOptions.onColumnVisible    = h.onColumnVisible    || null;
         }
 
-        // window.addEventListener("message", (e) => {
-        //     if(e.data.action === "updateState") console.log(e)
-        //     const { action, payload } = e.data;
-        //     if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
-        //     if (action !== "updateState") return;
+        window.addEventListener("message", ({ origin, data }) => {
+            if (origin !== "https://www-sellerrr-com.filesusr.com") return;
+            if (data.action !== "loadState") return;
 
-        //     const { state, columnDefs, rowData } = payload;
-        //     currentState = state;
+            const { state, columnDefs, rowData } = data.payload;
+            currentState = state;
 
-        //     applyState(state);
-
-        //     if (columnDefs) gridApi.setColumnDefs(columnDefs);
-        //     if (rowData)    gridApi.setRowData(rowData);
-
-        //     gridApi.refreshCells();
-        // });
-
-        function handleUpdateState(e) {
-            if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
-            const { action, payload } = e.data;
-            if (action !== 'updateState') return;
-
-            const { state, columnDefs, rowData } = payload;
             applyState(state);
 
             if (columnDefs) gridApi.setColumnDefs(columnDefs);
             if (rowData)    gridApi.setRowData(rowData);
 
             gridApi.refreshCells();
-        }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const eGridDiv = document.querySelector('#myGrid');
+            new agGrid.Grid(eGridDiv, gridOptions);
+            gridApi = gridOptions.api;
+        });
 
         function sendToWix(action, payload) {
             window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
         }
+
+        function showStockChart(row) {
+            console.log("📈 Show chart for:", row.symbol);
+        }
+
 
 
 
