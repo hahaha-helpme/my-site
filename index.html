@@ -172,8 +172,8 @@
                         width: 70,
                     },
                 },
-                onRowClicked: (e) => {
-                    sendToWix('rowClicked', e.data);
+                onCellClicked: (e) => {
+                    sendToWix('cellClicked', e.data);
                     showStockChart(e.data);
                 }
             },
