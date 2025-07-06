@@ -168,12 +168,12 @@
 
         /* per-state tweaks and handlers */
         const stateHandlers = {
-            stockState: {
-            extraOptions: { pagination: true },
-            // onRowClicked: (e) => {
-            //     sendToWix('rowClicked', e.data);
-            //     showStockChart(e.data);
-            // }
+                stockState: {
+                extraOptions: { pagination: true },
+                onRowClicked: (e) => {
+                    sendToWix('rowClicked', e.data);
+                    showStockChart(e.data);
+                }
             },
             editState: {
             extraOptions: {
