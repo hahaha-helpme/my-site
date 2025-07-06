@@ -306,7 +306,7 @@
             const { action, payload } = e.data;
             if (action !== "updateState") return;
 
-            const { state, columnDefs, rowData } = data.payload;
+            const { state, columnDefs, rowData } = payload;
             currentState = state;
 
             applyState(state);
