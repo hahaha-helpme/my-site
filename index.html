@@ -292,13 +292,9 @@
 
             /* eight explicit event bindings */
             gridOptions.onRowClicked       = h.onRowClicked       || null;
-            gridOptions.onRowDoubleClicked = h.onRowDoubleClicked || null;
-            gridOptions.onCellValueChanged = h.onCellValueChanged || null;
             gridOptions.onColumnResized    = h.onColumnResized    || null;
             gridOptions.onSortChanged      = h.onSortChanged      || null;
             gridOptions.onFilterChanged    = h.onFilterChanged    || null;
-            gridOptions.onColumnMoved      = h.onColumnMoved      || null;
-            gridOptions.onColumnVisible    = h.onColumnVisible    || null;
         }
 
         window.addEventListener("message", (e) => {
