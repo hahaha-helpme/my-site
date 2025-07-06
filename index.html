@@ -161,34 +161,35 @@
         /* per-state tweaks and handlers */
         const stateHandlers = {
                 stockState: {
-                extraOptions: { 
-                    pagination: true,
-                    rowSelection: { 
-                        mode: 'multiRow',
-                        headerCheckbox: false, 
+                    extraOptions: { 
+                        pagination: true,
+                        rowSelection: { 
+                            mode: 'multiRow',
+                            headerCheckbox: false, 
+                        },
+                        selectionColumnDef: {
+                            headerName: 'Track',
+                            width: 70,
+                        },
                     },
-                    selectionColumnDef: {
-                        headerName: 'Track',
-                        width: 70,
+                    onCellClicked: (e) => {
+                        console.log('e.data', e.data)
+                        //sendToWix('cellClicked', e.data);
+                        //showStockChart(e.data);
+                    },
+                    onRowSelected: (e) => {
+                        console.log('Rij selectie gewijzigd:', e.data, 'Nieuwe status:', e.node.isSelected());
                     },
                 },
-                onCellClicked: (e) => {
-                    console.log('e.data', e.data)
-                    //sendToWix('cellClicked', e.data);
-                    //showStockChart(e.data);
-                },
-                onRowSelected: (e) => {
-                    console.log('Rij selectie gewijzigd:', e.data, 'Nieuwe status:', e.node.isSelected());
-                },
-            someOtherState: {
-                extraOptions: {
-                    singleClickEdit: true,
-                    suppressRowClickSelection: true
-                },
-                onRowClicked: (e) => {
-                    sendToWix('rowClicked', e.data);
-                    e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
-                }
+                someOtherState: {
+                    extraOptions: {
+                        singleClickEdit: true,
+                        suppressRowClickSelection: true
+                    },
+                    onRowClicked: (e) => {
+                        sendToWix('rowClicked', e.data);
+                        e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
+                    }
             }
         };
 
