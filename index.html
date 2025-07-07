@@ -304,6 +304,16 @@ const baseGridOptions = {
 const stateHandlers = {
   stockState: {
     extraOptions: {
+
+                                rowSelection: { 
+                            mode: 'multiRow',
+                            headerCheckbox: false, 
+                        },
+                        selectionColumnDef: {
+                            headerName: 'Track',
+                            width: 80,
+                            sortable: true,
+                        },
       rowSelection: {
         mode: 'multiple',
         headerCheckbox: false 
