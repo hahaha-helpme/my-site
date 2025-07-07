@@ -287,6 +287,26 @@ const baseGridOptions = {
   suppressNoRowsOverlay: true // voorkom flitsend “No Rows To Show”
 };
 
+        const baseGridOptions = {
+            theme,
+            defaultColDef,
+            columnTypes,
+            pagination: true,
+            paginationPageSize: 10,
+            paginationPageSizeSelector: [10],
+            animateRows: true,
+            suppressCellFocus: true,
+            undoRedoCellEditing: false,
+            undoRedoCellEditingLimit: 5,
+            domLayout: "autoHeight",
+            loadThemeGoogleFonts: true,
+            suppressHorizontalScroll: true,
+            suppressNoRowsOverlay: true,
+            components: {
+                LinkRenderer: LinkRenderer,
+                ImageRenderer: ImageRenderer,
+            },
+
 /* ---------- 3.  Per-state config (“brains” of the app) ---------- */
 const stateHandlers = {
   /* --- 3.1  Stock state ---------------------------------------- */
