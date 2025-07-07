@@ -313,19 +313,11 @@ const stateHandlers = {
             headerName: 'Track',
             width: 80,
             sortable: true,
+            //   cellClassRules: {
+            //     'ag-disabled': p => p.data.isTrackingSyncing === true
+            //     }
         },
-    //   rowSelection: {
-    //     mode: 'multiple',
-    //     headerCheckbox: false 
-    //     },
-    //   rowSelectionColumn: {          // vervangt selectionColumnDef
-    //     headerName: 'Track',
-    //     width: 80,
-    //     sortable: true,
-    //     // cellClassRules: {
-    //     //   'ag-disabled': p => p.data.isTrackingSyncing === true
-    //     // }
-    //   }
+
     },
     listeners: {
       onSortChanged: p => {
