@@ -176,7 +176,7 @@
 
         /* per-state tweaks and handlers */
         const stateHandlers = {
-                stockState: {
+                resState: {
                     extraOptions: { 
                         rowSelection: { 
                             mode: 'multiRow',
@@ -197,6 +197,9 @@
                         console.log('Rij geselecteerd:', event.node.data);
                         console.log('Is geselecteerd:', event.node.isSelected());
                     },
+                        onSortChanged: requestDataFromServer,
+    onFilterChanged: requestDataFromServer,
+    onPaginationChanged: requestDataFromServer,
                 },
                 someOtherState: {
                     extraOptions: {
