@@ -158,6 +158,22 @@
         /* this object is reused for every state */
         const gridOptions = { ...baseGridOptions };
 
+
+        function requestDataFromServer() {
+            if (!gridApi) return;
+            gridApi.showLoadingOverlay(); // Toon laadindicator
+
+            const request = {
+                sortModel: gridApi.getSortModel(),
+                filterModel: gridApi.getFilterModel(),
+                pageNumber: gridApi.paginationGetCurrentPage(),
+                pageSize: PAGE_SIZE,
+            };
+
+            // Stuur de aanvraag naar de parent (Wix)
+            sendToWix('fetchGridData', request);
+        }
+
         /* per-state tweaks and handlers */
         const stateHandlers = {
                 stockState: {
