@@ -419,6 +419,17 @@ window.addEventListener('message', e => {
   gridApi.hideOverlay();
 });
 
+
+            if (!wheelAttached) {
+                const el = document.querySelector('.ag-center-cols-viewport');
+                el?.addEventListener('wheel', (e) => {
+                    if (!e.shiftKey && e.deltaY) {
+                        el.scrollLeft += e.deltaY;
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            }
+
     </script>
 </body>
 
