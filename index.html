@@ -402,6 +402,17 @@ window.addEventListener('message', e => {
         rowData
       }
     );
+
+        if (!wheelAttached) {
+    const el = document.querySelector('.ag-center-cols-viewport');
+    el?.addEventListener('wheel', (e) => {
+        if (!e.shiftKey && e.deltaY) {
+            el.scrollLeft += e.deltaY;
+            e.preventDefault();
+        }
+    }, { passive: false });
+}
+
   }
 
   /* 5B. Existing grid: switch state or just refresh -------------- */
