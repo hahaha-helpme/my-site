@@ -305,27 +305,27 @@ const stateHandlers = {
   stockState: {
     extraOptions: {
 
-                                rowSelection: { 
-                            mode: 'multiRow',
-                            headerCheckbox: false, 
-                        },
-                        selectionColumnDef: {
-                            headerName: 'Track',
-                            width: 80,
-                            sortable: true,
-                        },
-      rowSelection: {
-        mode: 'multiple',
-        headerCheckbox: false 
+                rowSelection: { 
+            mode: 'multiRow',
+            headerCheckbox: false, 
         },
-      rowSelectionColumn: {          // vervangt selectionColumnDef
-        headerName: 'Track',
-        width: 80,
-        sortable: true,
-        // cellClassRules: {
-        //   'ag-disabled': p => p.data.isTrackingSyncing === true
-        // }
-      }
+        selectionColumnDef: {
+            headerName: 'Track',
+            width: 80,
+            sortable: true,
+        },
+    //   rowSelection: {
+    //     mode: 'multiple',
+    //     headerCheckbox: false 
+    //     },
+    //   rowSelectionColumn: {          // vervangt selectionColumnDef
+    //     headerName: 'Track',
+    //     width: 80,
+    //     sortable: true,
+    //     // cellClassRules: {
+    //     //   'ag-disabled': p => p.data.isTrackingSyncing === true
+    //     // }
+    //   }
     },
     listeners: {
       onSortChanged: p => {
