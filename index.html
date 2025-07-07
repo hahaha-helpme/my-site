@@ -148,6 +148,7 @@
             domLayout: "autoHeight",
             loadThemeGoogleFonts: true,
             suppressHorizontalScroll: true,
+            suppressNoRowsOverlay: true,
             components: {
                 LinkRenderer: LinkRenderer,
                 ImageRenderer: ImageRenderer,
@@ -182,7 +183,7 @@
                             mode: 'multiRow',
                             headerCheckbox: false, 
                         },
-                        selectionColumnDef: {
+                        rowSelectionColumn: {
                             headerName: 'Track',
                             width: 80,
                             sortable: true,
