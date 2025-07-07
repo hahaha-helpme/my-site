@@ -332,14 +332,14 @@ const stateHandlers = {
           pageNumber:  0
         });
       },
-      onPaginationChanged: e => {
-        if (e.newData) return; // alleen paginawissel door gebruiker
-        gridApi.showLoadingOverlay();
-        dispatchGridAction('gridStateChanged', {
-          sortModel:   e.api.getSortModel(),
-          filterModel: e.api.getFilterModel(),
-          pageNumber:  e.api.paginationGetCurrentPage()
-        });
+    //   onPaginationChanged: e => {
+    //     if (e.newData) return; // alleen paginawissel door gebruiker
+    //     gridApi.showLoadingOverlay();
+    //     dispatchGridAction('gridStateChanged', {
+    //       sortModel:   e.api.getSortModel(),
+    //       filterModel: e.api.getFilterModel(),
+    //       pageNumber:  e.api.paginationGetCurrentPage()
+    //     });
       },
       onRowSelected: e => {
         dispatchGridAction('trackProduct', {
