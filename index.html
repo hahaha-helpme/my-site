@@ -303,7 +303,10 @@ const baseGridOptions = {
 const stateHandlers = {
   stockState: {
     extraOptions: {
-      rowSelection: 'multiple',      // officiële vorm
+      rowSelection: {
+        'multiple',
+        headerCheckbox: true 
+    },
       rowSelectionColumn: {          // vervangt selectionColumnDef
         headerName: 'Track',
         headerCheckboxSelection: false,
