@@ -412,8 +412,7 @@ window.addEventListener('message', e => {
   }
 
   /* 5C. Always update total rows & hide overlay ------------------ */
-  if (typeof totalCount === 'number')
-    gridApi.paginationSetRowCount(totalCount);
+  if (typeof totalCount === 'number') gridApi.setGridOption('paginationTotalRowCount', totalCount);
 
   gridApi.hideOverlay();
 });
