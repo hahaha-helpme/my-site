@@ -197,9 +197,10 @@
                         console.log('Rij geselecteerd:', event.node.data);
                         console.log('Is geselecteerd:', event.node.isSelected());
                     },
-                    onSortChanged: requestDataFromServer,
-                    onFilterChanged: requestDataFromServer,
-                    onPaginationChanged: requestDataFromServer,
+                    onRowSelected: requestDataFromServer(event),
+                    onSortChanged: requestDataFromServer(event),
+                    onFilterChanged: requestDataFromServer(event),
+                    onPaginationChanged: requestDataFromServer(event),
                 },
                 someOtherState: {
                     extraOptions: {
