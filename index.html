@@ -277,12 +277,18 @@ let   gridApi      = null;
 let   currentState = null;
 const PAGE_SIZE    = 10;
 let wheelAttached = false;
+const pendingRequests = new Map();
 
 /* ---------- 2.  Base grid options (never change) ---------- */
 const baseGridOptions = {
     theme,
     defaultColDef,
     columnTypes,
+
+    rowModelType:    'infinite',   // ADDED – Community "server side"
+    cacheBlockSize:  PAGE_SIZE,    // ADDED – één blok == één pagina
+    maxBlocksInCache: 2,           // ADDED – geheugen beperken
+
     pagination: true,
     paginationPageSize: 10,
     paginationPageSizeSelector: [10],
