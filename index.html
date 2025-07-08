@@ -308,18 +308,25 @@ const baseGridOptions = {
     },
 }
 
-const dataSource = {                                      // ADDED
-  getRows(params) {
-    const { startRow, endRow, sortModel, filterModel } = params;
-    pendingRequests.set(startRow, params);               // onthoud callback
+// --- Helper om sort/filter door te geven ---------------------------
+function notifyParent(event){
+  dispatchGridAction('gridStateChanged', {
+    sortModel:   event.api.getSortModel(),
+    filterModel: event.api.getFilterModel(),
+    pageNumber:  event.api.paginationGetCurrentPage()
+  });
+}
 
-    // Vraag data op bij de parent/Wix‑pagina
-    dispatchGridAction('fetchRows', {
-      startRow,
-      endRow,
-      sortModel,
-      filterModel,
-    });
+/***************************************
+ *  3. Datasource – ultralicht          *
+ ***************************************/
+const dataSource = {
+  getRows(params){
+    // Bewaar de callback voor als de server antwoordt
+    pending = params;
+
+    const {startRow,endRow,sortModel,filterModel} = params;
+    dispatchGridAction('fetchRows', { startRow,endRow,sortModel,filterModel });
   }
 };
 
