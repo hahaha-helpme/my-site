@@ -149,6 +149,11 @@ const baseGridOptions = {
     theme,
     defaultColDef,
     columnTypes,
+
+    rowModelType: 'infinite',          // 1️⃣ laad blokken via server
+    cacheBlockSize: PAGE_SIZE,         // 2️⃣ blok = 10 rijen
+    maxBlocksInCache: 2,               // 3️⃣ max twee blokken in RAM
+
     pagination: true,
     paginationPageSize: 10,
     paginationPageSizeSelector: [10],
