@@ -308,6 +308,21 @@ const baseGridOptions = {
     },
 }
 
+const dataSource = {                                      // ADDED
+  getRows(params) {
+    const { startRow, endRow, sortModel, filterModel } = params;
+    pendingRequests.set(startRow, params);               // onthoud callback
+
+    // Vraag data op bij de parent/Wix‑pagina
+    dispatchGridAction('fetchRows', {
+      startRow,
+      endRow,
+      sortModel,
+      filterModel,
+    });
+  }
+};
+
 /* ---------- 3.  Per-state config (“brains” of the app) ---------- */
 const stateHandlers = {
   stockState: {
