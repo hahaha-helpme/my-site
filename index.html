@@ -129,6 +129,140 @@
             });
 
 
+        // let gridApi = null;
+        // let currentState = null;
+        // let wheelAttached = false;
+
+        // /* base grid settings */
+        // const baseGridOptions = {
+        //     theme,
+        //     defaultColDef,
+        //     columnTypes,
+        //     pagination: true,
+        //     paginationPageSize: 10,
+        //     paginationPageSizeSelector: [10],
+        //     animateRows: true,
+        //     suppressCellFocus: true,
+        //     undoRedoCellEditing: false,
+        //     undoRedoCellEditingLimit: 5,
+        //     domLayout: "autoHeight",
+        //     loadThemeGoogleFonts: true,
+        //     suppressHorizontalScroll: true,
+        //     suppressNoRowsOverlay: true,
+        //     components: {
+        //         LinkRenderer: LinkRenderer,
+        //         ImageRenderer: ImageRenderer,
+        //     },
+
+        // };
+
+        // /* this object is reused for every state */
+        // const gridOptions = { ...baseGridOptions };
+
+
+        // function requestDataFromServer() {
+        //     if (!gridApi) return;
+        //     gridApi.showLoadingOverlay();
+
+        //     const request = {
+        //         sortModel: gridApi.getSortModel(),
+        //         filterModel: gridApi.getFilterModel(),
+        //         pageNumber: gridApi.paginationGetCurrentPage(),
+        //         pageSize: PAGE_SIZE,
+        //     };
+
+        //     // Stuur de aanvraag naar de parent (Wix)
+        //     sendToWix('fetchGridData', request);
+        // }
+
+        // /* per-state tweaks and handlers */
+        // const stateHandlers = {
+        //         resState: {
+        //             extraOptions: { 
+        //                 rowSelection: { 
+        //                     mode: 'multiRow',
+        //                     headerCheckbox: false, 
+        //                 },
+        //                 selectionColumnDef: {
+        //                     headerName: 'Track',
+        //                     width: 80,
+        //                     sortable: true,
+        //                 },
+        //             },
+        //             onCellClicked: (e) => {
+        //                 console.log('e.data', e.data)
+        //                 //sendToWix('cellClicked', e.data);
+        //                 //showStockChart(e.data);
+        //             },
+        //             onRowSelected: (event) => {
+        //                 console.log('Rij geselecteerd:', event.node.data);
+        //                 console.log('Is geselecteerd:', event.node.isSelected());
+        //             },
+        //             onRowSelected: requestDataFromServer(event),
+        //             onSortChanged: requestDataFromServer(event),
+        //             onFilterChanged: requestDataFromServer(event),
+        //             onPaginationChanged: requestDataFromServer(event),
+        //         },
+        //         someOtherState: {
+        //             extraOptions: {
+        //                 singleClickEdit: true,
+        //                 suppressRowClickSelection: true
+        //             },
+        //             onRowClicked: (e) => {
+        //                 sendToWix('rowClicked', e.data);
+        //                 e.api.startEditingCell({ rowIndex: e.rowIndex, colKey: 'price' });
+        //             }
+        //     }
+        // };
+
+        // function applyState(state) {
+        //     const h = stateHandlers[state] || {};
+        //     Object.assign(gridOptions, baseGridOptions, h.extraOptions || {});
+
+        //     /* eight explicit event bindings */
+        //     gridOptions.onRowClicked       = h.onRowClicked       || null;
+        //     gridOptions.onCellClicked      = h.onCellClicked      || null;
+        //     gridOptions.onRowSelected      = h.onRowSelected      || null;
+        //     gridOptions.onColumnResized    = h.onColumnResized    || null;
+        //     gridOptions.onSortChanged      = h.onSortChanged      || null;
+        //     gridOptions.onFilterChanged    = h.onFilterChanged    || null;
+        // }
+
+        // window.addEventListener("message", (e) => {
+        //     if (e.origin !== "https://www-sellerrr-com.filesusr.com") return;
+        //     const { action, payload } = e.data;
+        //     if (action !== "updateState") return;
+
+        //     const { state, columnDefs, rowData } = payload;
+        //     currentState = state;
+
+        //     applyState(state);
+        //     if (!gridApi) gridApi = agGrid.createGrid(document.querySelector("#myGrid"), gridOptions);
+        //     if (columnDefs) gridApi.setGridOption("columnDefs", payload.columnDefs);
+        //     if (rowData)    gridApi.setGridOption("rowData", payload.rowData);
+
+        //     gridApi.refreshCells();
+
+        //     if (!wheelAttached) {
+        //         const el = document.querySelector('.ag-center-cols-viewport');
+        //         el?.addEventListener('wheel', (e) => {
+        //             if (!e.shiftKey && e.deltaY) {
+        //                 el.scrollLeft += e.deltaY;
+        //                 e.preventDefault();
+        //             }
+        //         }, { passive: false });
+        //     }
+        // });
+
+        // function sendToWix(action, payload) {
+        //     window.parent.postMessage({ action, payload }, "https://www-sellerrr-com.filesusr.com");
+        // }
+
+
+        /* ==========================================================
+ *  Dynamic AG Grid setup with per-state options & listeners
+ *  – Community Edition, single-instance pattern            *
+ * ========================================================== */
 
 /* ---------- 0.  Utils ---------- */
 function dispatchGridAction(action, payload) {
@@ -149,11 +283,6 @@ const baseGridOptions = {
     theme,
     defaultColDef,
     columnTypes,
-
-    rowModelType: 'infinite',          // 1️⃣ laad blokken via server
-    cacheBlockSize: PAGE_SIZE,         // 2️⃣ blok = 10 rijen
-    maxBlocksInCache: 2,               // 3️⃣ max twee blokken in RAM
-
     pagination: true,
     paginationPageSize: 10,
     paginationPageSizeSelector: [10],
@@ -170,25 +299,6 @@ const baseGridOptions = {
         ImageRenderer: ImageRenderer,
     },
 }
-
-/******** AFTER – nieuw blok, boven stateHandlers ********/
-let latestParams = null;  // ⬅︎ bewaren voor async callback
-
-const datasource = {
-  getRows(params) {
-    latestParams = params;         // bewaren voor later
-
-    const { startRow, endRow, sortModel, filterModel } = params;
-
-    // stuur vraag naar parent-iframe (jouw bestaande kanaal)
-    dispatchGridAction('gridStateChanged', {
-      sortModel,
-      filterModel,
-      startRow,
-      endRow
-    });
-  }
-};
 
 /* ---------- 3.  Per-state config (“brains” of the app) ---------- */
 const stateHandlers = {
@@ -291,7 +401,7 @@ window.addEventListener('message', e => {
         ...extraOptions,
         ...listeners,
         columnDefs,   // meegeven voorkomt “No Rows”-flits
-        datasource
+        rowData
       }
     );
 
