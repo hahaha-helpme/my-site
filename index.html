@@ -171,6 +171,25 @@ const baseGridOptions = {
     },
 }
 
+/******** AFTER – nieuw blok, boven stateHandlers ********/
+let latestParams = null;  // ⬅︎ bewaren voor async callback
+
+const datasource = {
+  getRows(params) {
+    latestParams = params;         // bewaren voor later
+
+    const { startRow, endRow, sortModel, filterModel } = params;
+
+    // stuur vraag naar parent-iframe (jouw bestaande kanaal)
+    dispatchGridAction('gridStateChanged', {
+      sortModel,
+      filterModel,
+      startRow,
+      endRow
+    });
+  }
+};
+
 /* ---------- 3.  Per-state config (“brains” of the app) ---------- */
 const stateHandlers = {
   stockState: {
