@@ -277,11 +277,11 @@
 
     window.addEventListener('message', e => {
     if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
-      console.log('e', e)
     const { action, payload } = e.data;
 
     // --- ACTIE 1: Wix geeft een commando om de state te veranderen ---
     if (action === 'updateGrid') {
+      console.log('e', e)
         const { state } = payload; // We verwachten alleen de state.
         currentState = state;
 
