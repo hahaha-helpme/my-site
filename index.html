@@ -225,56 +225,56 @@
         .forEach(([k, v]) => gridApi.setGridOption(k, v));
     }
 
-    // --- DE KERN: Berichten van de Parent Ontvangen ---
-    window.addEventListener('message', e => {
-        if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
+    // // --- DE KERN: Berichten van de Parent Ontvangen ---
+    // window.addEventListener('message', e => {
+    //     if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
 
-        const { action, payload } = e.data;
-        if (action !== 'updateGrid') return;
+    //     const { action, payload } = e.data;
+    //     if (action !== 'updateGrid') return;
 
-        const { state, columnDefs, rowData, totalCount } = payload;
+    //     const { state, columnDefs, rowData, totalCount } = payload;
 
-        if (!gridApi) {
-            // Grid bestaat niet: bouw hem voor de eerste keer op.
-            currentState = state;
-            const { extraOptions = {}, listeners = {} } = stateHandlers[state] || {};
+    //     if (!gridApi) {
+    //         // Grid bestaat niet: bouw hem voor de eerste keer op.
+    //         currentState = state;
+    //         const { extraOptions = {}, listeners = {} } = stateHandlers[state] || {};
 
-            gridApi = agGrid.createGrid(document.querySelector('#myGrid'), {
-                ...baseGridOptions,
-                ...extraOptions,
-                ...listeners,
-                columnDefs,
-                datasource: createDatasource(),
-            });
+    //         gridApi = agGrid.createGrid(document.querySelector('#myGrid'), {
+    //             ...baseGridOptions,
+    //             ...extraOptions,
+    //             ...listeners,
+    //             columnDefs,
+    //             datasource: createDatasource(),
+    //         });
 
-            // Eenmalige setup (wheel listener, etc.)
-            const el = document.querySelector('.ag-center-cols-viewport');
-            el?.addEventListener('wheel', (e) => {
-                if (!e.shiftKey && e.deltaY) {
-                    el.scrollLeft += e.deltaY;
-                    e.preventDefault();
-                }
-            }, { passive: false });
+    //         // Eenmalige setup (wheel listener, etc.)
+    //         const el = document.querySelector('.ag-center-cols-viewport');
+    //         el?.addEventListener('wheel', (e) => {
+    //             if (!e.shiftKey && e.deltaY) {
+    //                 el.scrollLeft += e.deltaY;
+    //                 e.preventDefault();
+    //             }
+    //         }, { passive: false });
 
-        } else {
-            // Grid bestaat al: verwerk de update.
-            if (state && state !== currentState) {
-                currentState = state;
-                applyStateConfig(state);
-            }
-            if (columnDefs) {
-                gridApi.setGridOption('columnDefs', columnDefs);
-            }
-            if (pendingSuccessCallback && rowData) {
-                pendingSuccessCallback(rowData, totalCount);
-                pendingSuccessCallback = null;
-            }
-            gridApi.hideOverlay();
-        }
-    });
+    //     } else {
+    //         // Grid bestaat al: verwerk de update.
+    //         if (state && state !== currentState) {
+    //             currentState = state;
+    //             applyStateConfig(state);
+    //         }
+    //         if (columnDefs) {
+    //             gridApi.setGridOption('columnDefs', columnDefs);
+    //         }
+    //         if (pendingSuccessCallback && rowData) {
+    //             pendingSuccessCallback(rowData, totalCount);
+    //             pendingSuccessCallback = null;
+    //         }
+    //         gridApi.hideOverlay();
+    //     }
+    // });
 
 
-    
+
     window.addEventListener('message', e => {
     if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
 
