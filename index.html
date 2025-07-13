@@ -147,9 +147,10 @@
       theme,
       defaultColDef,
       columnTypes,
+      rowModelType: 'infinite', // <--- DIT IS NIEUW
+      cacheBlockSize: PAGE_SIZE, // 10 per page
+      paginationPageSize: PAGE_SIZE,
       pagination: true,
-      paginationPageSize: 10,
-
       
       paginationPageSizeSelector: [10],
       animateRows: true,
