@@ -137,21 +137,6 @@
         window.parent.postMessage({state, action, payload }, 'https://www-sellerrr-com.filesusr.com');
     }
 
-    // --- Datasource ---
-    function createDatasource() {
-        return {
-            getRows: (params) => {
-                pendingSuccessCallback = params.successCallback;
-                sendRequestToParent(currentState, 'getGridData', {
-                    startRow: params.startRow,
-                    endRow: params.endRow,
-                    sortModel: params.sortModel,
-                    filterModel: params.filterModel,
-                });
-            },
-        };
-    }
-
     // --- Grid Opties ---
     const baseGridOptions = {
       theme,
@@ -174,6 +159,21 @@
         LinkRenderer: LinkRenderer,
         ImageRenderer: ImageRenderer,
       },
+    }
+
+        // --- Datasource ---
+    function createDatasource() {
+        return {
+            getRows: (params) => {
+                pendingSuccessCallback = params.successCallback;
+                sendRequestToParent(currentState, 'getGridData', {
+                    startRow: params.startRow,
+                    endRow: params.endRow,
+                    sortModel: params.sortModel,
+                    filterModel: params.filterModel,
+                });
+            },
+        };
     }
 
     // --- State-specifieke Logica ---
