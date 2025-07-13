@@ -133,7 +133,7 @@
     let currentState = null;
     let pendingSuccessCallback = null;
 
-    function sendRequestToParent(action, state, payload) {
+    function sendRequestToParent(state, action, payload) {
         window.parent.postMessage({ action, payload }, 'https://www-sellerrr-com.filesusr.com');
     }
 
@@ -142,7 +142,7 @@
         return {
             getRows: (params) => {
                 pendingSuccessCallback = params.successCallback;
-                sendRequestToParent('getGridData', currentState, {
+                sendRequestToParent(currentState, 'getGridData', {
                     startRow: params.startRow,
                     endRow: params.endRow,
                     sortModel: params.sortModel,
@@ -197,7 +197,7 @@
                 onSortChanged: (p) => p.api.purgeInfiniteCache(),
                 onFilterChanged: (p) => p.api.purgeInfiniteCache(),
                 onRowSelected: (e) => {
-                    sendRequestToParent('trackProduct', currentState, {
+                    sendRequestToParent(currentState, 'trackProduct', {
                         productId: e.node.data.productId,
                         isBeingTracked: e.node.isSelected(),
                     });
