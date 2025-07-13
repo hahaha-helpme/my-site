@@ -286,6 +286,7 @@
         currentState = state;
 
         if (!gridApi) {
+            console.log('yes')
             // Grid bestaat niet: bouw een 'lege' grid met de juiste config en datasource.
             // De datasource zal dan ONMIDDELLIJK data opvragen.
             const { extraOptions = {}, listeners = {} } = stateHandlers[state] || {};
