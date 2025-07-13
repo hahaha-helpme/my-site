@@ -142,7 +142,7 @@
         return {
             getRows: (params) => {
                 pendingSuccessCallback = params.successCallback;
-                sendRequestToParent('getGridData', {
+                sendRequestToParent('getGridData', currentState, {
                     startRow: params.startRow,
                     endRow: params.endRow,
                     sortModel: params.sortModel,
