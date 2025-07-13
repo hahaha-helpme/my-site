@@ -133,7 +133,7 @@
     let currentState = null;
     let pendingSuccessCallback = null;
 
-    function sendRequestToParent(action, payload) {
+    function sendRequestToParent(action, state, payload) {
         window.parent.postMessage({ action, payload }, 'https://www-sellerrr-com.filesusr.com');
     }
 
