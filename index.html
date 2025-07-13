@@ -147,12 +147,12 @@
       theme,
       defaultColDef,
       columnTypes,
-      pagination: true,
-      paginationPageSize: 10,
-      rowModelType: 'infinite',
-
-      paginationPageSizeSelector: [10],
+      rowModelType: 'infinite', // 🔥 belangrijk!
+      cacheBlockSize: PAGE_SIZE, // aantal rijen per "pagina"
+      maxBlocksInCache: 10, // maximaal aantal blokken in cache (optioneel)
+      pagination: false, // 🔥 NIET combineren met infinite row model
       animateRows: true,
+
       suppressCellFocus: true,
       undoRedoCellEditing: false,
       undoRedoCellEditingLimit: 5,
