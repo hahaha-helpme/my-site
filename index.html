@@ -274,6 +274,56 @@
     });
 
 
+    
+    window.addEventListener('message', e => {
+    if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
+
+    const { action, payload } = e.data;
+
+    // --- ACTIE 1: Wix geeft een commando om de state te veranderen ---
+    if (action === 'updateGrid') {
+        const { state } = payload; // We verwachten alleen de state.
+        currentState = state;
+
+        if (!gridApi) {
+            // Grid bestaat niet: bouw een 'lege' grid met de juiste config en datasource.
+            // De datasource zal dan ONMIDDELLIJK data opvragen.
+            const { extraOptions = {}, listeners = {} } = stateHandlers[state] || {};
+            gridApi = agGrid.createGrid(document.querySelector('#myGrid'), {
+                ...baseGridOptions,
+                ...extraOptions,
+                ...listeners,
+                datasource: createDatasource(),
+            });
+
+        } else {
+            // Grid bestaat al: update de config en wis de oude data.
+            // Dit triggert de datasource om nieuwe data op te halen.
+            applyStateConfig(state);
+            gridApi.purgeInfiniteCache();
+        }
+        return; // Taak volbracht.
+    }
+
+    // --- ACTIE 2: Wix stuurt de gevraagde data terug ---
+    if (action === 'gridDataResponse') {
+        if (!pendingSuccessCallback) return; // Geen openstaand verzoek
+
+        const { columnDefs, rowData, totalCount } = payload;
+
+        // Belangrijk: Update eerst de kolommen, VOORDAT je de rij-data doorgeeft.
+        if (columnDefs) {
+            gridApi.setGridOption('columnDefs', columnDefs);
+        }
+
+        // Geef nu de data aan de grid via de opgeslagen callback.
+        pendingSuccessCallback(rowData, totalCount);
+        pendingSuccessCallback = null;
+        gridApi.hideOverlay();
+    }
+});
+
+
   </script>
 
 </body>
