@@ -197,7 +197,7 @@
                 onSortChanged: (p) => p.api.purgeInfiniteCache(),
                 onFilterChanged: (p) => p.api.purgeInfiniteCache(),
                 onRowSelected: (e) => {
-                    sendRequestToParent('trackProduct', {
+                    sendRequestToParent('trackProduct', currentState, {
                         productId: e.node.data.productId,
                         isBeingTracked: e.node.isSelected(),
                     });
