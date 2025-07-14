@@ -132,6 +132,7 @@
     let gridApi = null;
     let currentState = null;
     let pendingSuccessCallback = null;
+    let wheelAttached = false;
 
     function sendRequestToParent(state, action, payload) {
         window.parent.postMessage({state, action, payload }, 'https://www-sellerrr-com.filesusr.com');
