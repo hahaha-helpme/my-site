@@ -306,6 +306,7 @@
 
     // --- ACTIE 2: Wix stuurt de gevraagde data terug ---
     if (action === 'gridDataResponse') {
+        console.log()
         if (!pendingSuccessCallback) return; // Geen openstaand verzoek
 
         const { columnDefs, rowData, totalCount } = payload;
