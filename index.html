@@ -168,8 +168,8 @@
             getRows: (params) => {
                 pendingSuccessCallback = params.successCallback;
                 sendRequestToParent(currentState, 'getGridData', {
-                    startRow: params.startRow,
-                    endRow: params.endRow,
+                    offset: params.startRow,
+                    limit: params.endRow - params.startRow,
                     sort: params.sortModel,
                     filter: params.filterModel,
                 });
