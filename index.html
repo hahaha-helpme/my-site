@@ -201,7 +201,7 @@
                 onRowSelected: (e) => {
                     sendRequestToParent(currentState, 'trackProduct', {
                         productId: e.node.data.productId,
-                        isBeingTracked: e.node.isSelected(),
+                        rowSelected: e.node.isSelected(),
                     });
                 },
             },
