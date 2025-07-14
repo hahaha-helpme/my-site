@@ -134,6 +134,7 @@
     let pendingSuccessCallback = null;
 
     function sendRequestToParent(state, action, payload) {
+      console.log('3')
         window.parent.postMessage({state, action, payload }, 'https://www-sellerrr-com.filesusr.com');
     }
 
@@ -163,7 +164,6 @@
 
     // --- Datasource ---
     function createDatasource() {
-        console.log('2')
         return {
             getRows: (params) => {
                 pendingSuccessCallback = params.successCallback;
