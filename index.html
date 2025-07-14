@@ -164,6 +164,7 @@
 
     // --- Datasource ---
     function createDatasource() {
+      console.log('c', e)
         return {
             getRows: (params) => {
                 pendingSuccessCallback = params.successCallback;
@@ -285,7 +286,7 @@
         currentState = state;
 
         if (!gridApi) {
-            console.log('e', e)
+            console.log('a', e)
             // Grid bestaat niet: bouw een 'lege' grid met de juiste config en datasource.
             // De datasource zal dan ONMIDDELLIJK data opvragen.
             const { extraOptions = {}, listeners = {} } = stateHandlers[state] || {};
@@ -307,7 +308,7 @@
 
     // --- ACTIE 2: Wix stuurt de gevraagde data terug ---
     if (action === 'gridDataResponse') {
-        console.log('1', e)
+        console.log('b', e)
         if (!pendingSuccessCallback) return; // Geen openstaand verzoek
 
         const { columnDefs, rowData, totalCount } = payload;
