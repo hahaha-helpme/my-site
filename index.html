@@ -120,11 +120,11 @@
         valueFormatter: (params) => params.value ? new Date(params.value).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '', // Formatteert datums en tijden.
         sortable: true, // Datumkolommen zijn sorteerbaar.
       },
-      linkColumn: {
+      customLinkColumn: {
         cellRenderer: 'LinkRenderer',
         cellClass: 'link-cell',
       },
-      imageColumn: {
+      customImageColumn: {
         cellRenderer: 'ImageRenderer', // Gebruikt de custom ImageRenderer.
         cellClass: "image-cell", // CSS-klasse voor centreren van inhoud.
       },
