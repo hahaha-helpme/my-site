@@ -352,17 +352,12 @@
         const { columnDefs, rowData, totalCount } = payload;
 
         if (columnDefs) {
-              const newColumnDefsString = JSON.stringify(columnDefs);
-
-    // VERGELIJK: Alleen de kolommen updaten als ze daadwerkelijk anders zijn.
-    if (newColumnDefsString !== lastAppliedColumnDefs) {
-      console.log("Column definitions have changed. Applying new set.");
-      
-      // Update de grid en onthoud de nieuwe staat.
-      gridApi.setGridOption('columnDefs', columnDefs);
-      lastAppliedColumnDefs = newColumnDefsString;
-    }
-          gridApi.setGridOption('columnDefs', columnDefs);
+            const newColumnDefsString = JSON.stringify(columnDefs);
+            if (newColumnDefsString !== lastAppliedColumnDefs) {
+              console.log("Column definitions have changed. Applying new set.");
+              gridApi.setGridOption('columnDefs', columnDefs);
+              lastAppliedColumnDefs = newColumnDefsString;
+            }
         }
 
         // Geef nu de data aan de grid via de opgeslagen callback.
