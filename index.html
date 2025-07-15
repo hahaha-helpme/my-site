@@ -120,12 +120,26 @@
       },
       customCurrencyColumn: {
         cellDataType: 'number',
-        type: 'customNumericColumn',
+        filter: 'agNumberColumnFilter',
+        filterParams: {
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: ['equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank',],
+        },
         valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
       },
       customCurrencyColumnCompact: {
         cellDataType: 'number',
-        type: 'customNumericColumn',
+        filter: 'agNumberColumnFilter',
+        filterParams: {
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: ['equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank',],
+        },
         valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
       },
       customDateColumn: {
