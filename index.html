@@ -36,11 +36,16 @@
 
   <style>
     html,
-    body { margin: 0; padding: 0; }
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-    #myGrid { overflow-x: auto; }
+    #myGrid {
+      overflow-x: auto;
+    }
 
-        /* Ingesteld voor popup/menu van filter */
+    /* Ingesteld voor popup/menu van filter */
     .ag-simple-filter-body-wrapper {
       padding: 12px 12px 0px 12px !important;
     }
@@ -67,7 +72,6 @@
     .ag-filter {
       font-size: 13px;
     }
-
   </style>
 </head>
 
@@ -123,7 +127,7 @@
           maxNumConditions: 1,
           trimInput: true,
           closeOnApply: true,
-          filterOptions: [ 'equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank', ],
+          filterOptions: ['equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank',],
         },
         valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
       },
@@ -135,7 +139,7 @@
           maxNumConditions: 1,
           trimInput: true,
           closeOnApply: true,
-          filterOptions: [ 'equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank', ],
+          filterOptions: ['equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank',],
         },
         valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
       },
@@ -147,7 +151,7 @@
           maxNumConditions: 1,
           trimInput: true,
           closeOnApply: true,
-          filterOptions: [ 'equals', 'notEqual', 'lessThan', 'greaterThan', 'inRange', 'blank', 'notBlank' ],
+          filterOptions: ['equals', 'notEqual', 'lessThan', 'greaterThan', 'inRange', 'blank', 'notBlank'],
         },
         valueFormatter: (params) => params.value ? new Date(params.value).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '', // Formatteert datums en tijden.
 
@@ -158,7 +162,7 @@
       },
       customImageColumn: {
         cellRenderer: 'ImageRenderer',
-        cellClass: "image-cell", 
+        cellClass: "image-cell",
         filter: false,
         sortable: false,
       },
@@ -193,8 +197,6 @@
         inputTextColor: '#454745', // Ingesteld voor popup/menu van filter
         inputPlaceholderTextColor: '#454745', // Ingesteld voor popup/menu van filter
         buttonHoverBackgroundColor: '#ffffff',// Ingesteld voor popup/menu van filter
-            inputFocusBorder: 'none',
-    inputFocusBoxShadow: 'none', // Schakel box-shadow uit
       });
 
 
