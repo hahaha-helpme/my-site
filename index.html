@@ -119,7 +119,7 @@
         }
       },
       customCurrencyColumn: {
-        type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
+        cellDataType: 'number',
         filter: 'agNumberColumnFilter',
         filterParams: {
           buttons: ['apply', 'reset'],
@@ -131,7 +131,7 @@
         valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
       },
       customCurrencyColumnCompact: {
-        type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
+        cellDataType: 'number',
         filter: 'agNumberColumnFilter',
         filterParams: {
           buttons: ['apply', 'reset'],
