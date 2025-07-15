@@ -350,7 +350,6 @@
 
         const { columnDefs, rowData, totalCount } = payload;
 
-        // Belangrijk: Update eerst de kolommen, VOORDAT je de rij-data doorgeeft.
         if (columnDefs) {
           gridApi.setGridOption('columnDefs', columnDefs);
         }
