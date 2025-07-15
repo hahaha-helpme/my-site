@@ -127,17 +127,7 @@
           maxNumConditions: 1,
           trimInput: true,
           closeOnApply: true,
-          filterOptions: [
-            'equals',
-            'notEqual',
-            'greaterThan',
-            'greaterThanOrEqual',
-            'lessThan',
-            'lessThanOrEqual',
-            'inRange',
-            'blank',
-            'notBlank',
-          ],
+          filterOptions: [ 'equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank', ],
         },
         valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
       },
@@ -149,17 +139,7 @@
           maxNumConditions: 1,
           trimInput: true,
           closeOnApply: true,
-          filterOptions: [
-            'equals',
-            'notEqual',
-            'greaterThan',
-            'greaterThanOrEqual',
-            'lessThan',
-            'lessThanOrEqual',
-            'inRange',
-            'blank',
-            'notBlank',
-          ],
+          filterOptions: [ 'equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank', ],
         },
         valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
       },
@@ -171,15 +151,7 @@
           maxNumConditions: 1,
           trimInput: true,
           closeOnApply: true,
-          filterOptions: [
-            'equals',
-            'notEqual',
-            'lessThan',
-            'greaterThan',
-            'inRange',
-            'blank',
-            'notBlank'
-          ],
+          filterOptions: [ 'equals', 'notEqual', 'lessThan', 'greaterThan', 'inRange', 'blank', 'notBlank' ],
         },
         valueFormatter: (params) => params.value ? new Date(params.value).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '', // Formatteert datums en tijden.
 
