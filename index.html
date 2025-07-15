@@ -106,15 +106,15 @@
         // editable: true, // Numerieke kolommen zijn standaard bewerkbaar als dit type wordt gebruikt.
         // sortable: true, // Numerieke kolommen zijn sorteerbaar.
       },
-      currencyColumn: {
+      customCurrencyColumn: {
         type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
         valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
       },
-      currencyColumnCompact: {
+      customCurrencyColumnCompact: {
         type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
         valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
       },
-      dateColumn: {
+      customDateColumn: {
         cellDataType: 'dateString', // Dwingt het datatype af naar 'dateString'.
         filter: 'agDateColumnFilter', // Gebruikt de ingebouwde datumfilter.
         valueFormatter: (params) => params.value ? new Date(params.value).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '', // Formatteert datums en tijden.
