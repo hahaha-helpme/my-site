@@ -352,7 +352,23 @@
 
         // Belangrijk: Update eerst de kolommen, VOORDAT je de rij-data doorgeeft.
         if (columnDefs) {
-          gridApi.setGridOption('columnDefs', columnDefs);
+              // 1. Sla de huidige listeners op
+    const onSortChangedListener = gridApi.getGridOption('onSortChanged');
+    const onFilterChangedListener = gridApi.getGridOption('onFilterChanged');
+
+    // 2. Maak de grid "doof"
+    gridApi.setGridOption('onSortChanged', undefined);
+    gridApi.setGridOption('onFilterChanged', undefined);
+
+    // 3. Voer de kolom-update veilig uit
+    gridApi.setGridOption('columnDefs', columnDefs);
+
+    // 4. Maak de grid weer "horend" (gebruik een korte timeout om zeker te zijn 
+    //    dat de kolom-update is verwerkt voordat de listeners terug zijn)
+    setTimeout(() => {
+      gridApi.setGridOption('onSortChanged', onSortChangedListener);
+      gridApi.setGridOption('onFilterChanged', onFilterChangedListener);
+    }, 0);
         }
 
         // Geef nu de data aan de grid via de opgeslagen callback.
