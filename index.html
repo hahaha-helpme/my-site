@@ -120,11 +120,23 @@
       customNumericColumn: {
         cellDataType: 'number',
         filter: 'agNumberColumnFilter',
-        // cellEditor: 'agNumberCellEditor',
-        // cellStyle: { textAlign: 'left' }, // Lijn de *getallen in de cellen* rechts uit.
-        // headerStyle: { textAlign: 'left' }, // <--- HIER LIJN JE DE *HEADER TEKST* LINKS UIT.
-        // editable: true, // Numerieke kolommen zijn standaard bewerkbaar als dit type wordt gebruikt.
-        // sortable: true, // Numerieke kolommen zijn sorteerbaar.
+        filterParams: {
+            buttons: ['apply', 'reset'],
+            maxNumConditions: 1,
+            trimInput: true,
+            closeOnApply: true,
+            filterOptions: [
+                'equals',
+                'notEqual',
+                'greaterThan',
+                'greaterThanOrEqual',
+                'lessThan',
+                'lessThanOrEqual',
+                'inRange',
+                'blank',
+                'notBlank',
+            ],
+        }
       },
       customCurrencyColumn: {
         type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
