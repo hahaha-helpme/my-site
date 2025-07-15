@@ -121,51 +121,87 @@
         cellDataType: 'number',
         filter: 'agNumberColumnFilter',
         filterParams: {
-            buttons: ['apply', 'reset'],
-            maxNumConditions: 1,
-            trimInput: true,
-            closeOnApply: true,
-            filterOptions: [
-                'equals',
-                'notEqual',
-                'greaterThan',
-                'greaterThanOrEqual',
-                'lessThan',
-                'lessThanOrEqual',
-                'inRange',
-                'blank',
-                'notBlank',
-            ],
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: [
+            'equals',
+            'notEqual',
+            'greaterThan',
+            'greaterThanOrEqual',
+            'lessThan',
+            'lessThanOrEqual',
+            'inRange',
+            'blank',
+            'notBlank',
+          ],
         }
       },
       customCurrencyColumn: {
         type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
+        filter: 'agNumberColumnFilter',
+        filterParams: {
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: [
+            'equals',
+            'notEqual',
+            'greaterThan',
+            'greaterThanOrEqual',
+            'lessThan',
+            'lessThanOrEqual',
+            'inRange',
+            'blank',
+            'notBlank',
+          ],
+        },
         valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
       },
       customCurrencyColumnCompact: {
         type: 'numericColumn', // Erft alle eigenschappen van `numericColumn`.
+        filter: 'agNumberColumnFilter',
+        filterParams: {
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: [
+            'equals',
+            'notEqual',
+            'greaterThan',
+            'greaterThanOrEqual',
+            'lessThan',
+            'lessThanOrEqual',
+            'inRange',
+            'blank',
+            'notBlank',
+          ],
+        },
         valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
       },
       customDateColumn: {
         cellDataType: 'dateString', // Dwingt het datatype af naar 'dateString'.
         filter: 'agDateColumnFilter',
-          filterParams: {
-              buttons: ['apply', 'reset'],
-              maxNumConditions: 1,
-              trimInput: true,
-              closeOnApply: true,
-              filterOptions: [
-                  'equals',
-                  'notEqual',
-                  'lessThan',
-                  'greaterThan',
-                  'inRange',
-                  'blank',
-                  'notBlank'
-              ],
+        filterParams: {
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: [
+            'equals',
+            'notEqual',
+            'lessThan',
+            'greaterThan',
+            'inRange',
+            'blank',
+            'notBlank'
+          ],
         },
         valueFormatter: (params) => params.value ? new Date(params.value).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '', // Formatteert datums en tijden.
-        
+
       },
       customLinkColumn: {
         cellRenderer: 'LinkRenderer',
