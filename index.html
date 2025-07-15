@@ -98,7 +98,26 @@
 
     const columnTypes = {
       customTextColumn: {
+        filter: "agTextColumnFilter",
+        filterParams: {
+          buttons: ['apply', 'reset'],
 
+          // Vaak gebruikt in combinatie met de 'apply' knop:
+          closeOnApply: true,
+          filterOptions: [
+            'contains',
+            'notContains',
+            'equals',
+            'notEqual',
+            'startsWith',
+            'endsWith',
+            'blank',
+            'notBlank',
+
+          ],
+          maxNumConditions: 1,
+          trimInput: true,
+        }
       },
       customNumericColumn: {
         cellDataType: 'number',
