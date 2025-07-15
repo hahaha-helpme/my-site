@@ -351,7 +351,25 @@
         const { columnDefs, rowData, totalCount } = payload;
 
         if (columnDefs) {
-          gridApi.setGridOption('columnDefs', columnDefs);
+              // 1. Sla een referentie naar je huidige listener op.
+    // Let op: vervang 'stateHandlers.resState.listeners.onSortChanged' met de daadwerkelijke functie
+    // die je gebruikt, zodat je exact dezelfde functie terugzet.
+    const onSortChangedHandler = stateHandlers.resState.listeners.onSortChanged; 
+    const onFilterChangedHandler = stateHandlers.resState.listeners.onFilterChanged; 
+
+    // 2. Schakel de listeners uit door ze op 'undefined' te zetten.
+    gridApi.setGridOption('onSortChanged', undefined);
+    gridApi.setGridOption('onFilterChanged', undefined);
+
+    // 3. Update nu veilig de kolomdefinities.
+    gridApi.setGridOption('columnDefs', columnDefs);
+
+    // 4. Zet de listeners weer terug. De setTimeout zorgt ervoor dat dit gebeurt
+    //    nadat de grid de kolom-update heeft verwerkt.
+    setTimeout(() => {
+        gridApi.setGridOption('onSortChanged', onSortChangedHandler);
+        gridApi.setGridOption('onFilterChanged', onFilterChangedHandler);
+    }, 0);
         }
 
         // Geef nu de data aan de grid via de opgeslagen callback.
