@@ -275,8 +275,8 @@
           },
         },
         listeners: {
-          onSortChanged: (p) => p.api.purgeInfiniteCache(),
-          onFilterChanged: (p) => p.api.purgeInfiniteCache(),
+          onSortChanged: (p) => null, // p.api.purgeInfiniteCache()
+          onFilterChanged: (p) => null, // p.api.purgeInfiniteCache()
           onRowSelected: (e) => {
             sendRequestToParent(currentState, 'trackProduct', {
               productId: e.node.data.productId,
