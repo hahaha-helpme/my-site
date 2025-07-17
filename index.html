@@ -286,7 +286,7 @@
               rowSelected: e.node.isSelected(),
             });
           },
-          onRowDataUpdated: (e) => {  // dit werkt misschien niet
+          onModelUpdated: (e) => {  // dit werkt misschien niet
             console.log('🔁 onRowDataUpdated werd aangeroepen');
             e.api.forEachNode((node) => {
               if (node.data?.isTracked) {
@@ -311,7 +311,7 @@
       gridApi.setGridOption('onSortChanged', listeners.onSortChanged);
       gridApi.setGridOption('onFilterChanged', listeners.onFilterChanged);
       gridApi.setGridOption('onRowSelected', listeners.onRowSelected);
-      gridApi.setGridOption('onRowDataUpdated', listeners.onRowDataUpdated);
+      gridApi.setGridOption('onModelUpdated', listeners.onModelUpdated);
 
       /* 4C. Apply new extra options */
       Object.entries(extraOptions)
