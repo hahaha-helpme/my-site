@@ -288,12 +288,20 @@
             });
           },
           onModelUpdated: (e) => {  // dit werkt misschien niet
-            console.log('🔁 onRowDataUpdated werd aangeroepen');
-            e.api.forEachNode((node) => {
-              if (node.data?.isTracked) {
-                node.setSelected(true, false, true);
-              }
+            const nodesToSelect = [];
+            e.api.forEachNode(node => {
+                if (node.data?.isTracked) {
+                    nodesToSelect.push(node);
+                }
             });
+
+            if (nodesToSelect.length > 0) {
+                e.api.setNodesSelected({
+                    nodes: nodesToSelect,
+                    newValue: true,
+                    source: 'initial' // Zelfverzonnen bron, geen 'user'
+                });
+            }
           },
         },
       },
