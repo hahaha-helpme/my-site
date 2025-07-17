@@ -286,6 +286,13 @@
               rowSelected: e.node.isSelected(),
             });
           },
+          onRowDataUpdated: (e) => {
+            e.api.forEachNode((node) => {
+              if (node.data?.isTracked) {
+                node.setSelected(true, false, true);
+              }
+            });
+          },
         },
       },
       someOtherState: { /* ... */ }
