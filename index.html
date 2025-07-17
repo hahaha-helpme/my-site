@@ -293,6 +293,10 @@
               }
             });
           },
+          onRowDataUpdated: (e) => {
+            console.log('🔁 onRowDataUpdated werd aangeroepen');
+            // ... rest van de logica ...
+          }
         },
       },
       someOtherState: { /* ... */ }
@@ -310,6 +314,8 @@
       gridApi.setGridOption('onSortChanged', listeners.onSortChanged);
       gridApi.setGridOption('onFilterChanged', listeners.onFilterChanged);
       gridApi.setGridOption('onRowSelected', listeners.onRowSelected);
+      gridApi.setGridOption('onRowDataUpdated', listeners.onRowDataUpdated);
+      gridApi.setGridOption('onRowDataUpdated', listeners.onRowDataUpdated);
 
       /* 4C. Apply new extra options */
       Object.entries(extraOptions)
