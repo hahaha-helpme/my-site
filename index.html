@@ -263,7 +263,7 @@
     const stateHandlers = {
       resState: {
         extraOptions: {
-          getRowId: (params) => `${params.data.ProductID}-${params.data.HostName}`,
+          getRowId: (params) => `${params.data.ProductID}-${params.data.HostName}`, // dit werkt misschien niet 
           rowSelection: {
             mode: 'multiRow',
             headerCheckbox: false
@@ -280,13 +280,13 @@
         listeners: {
           onSortChanged: (p) => null, // p.api.purgeInfiniteCache()
           onFilterChanged: (p) => null, // p.api.purgeInfiniteCache()
-          onRowSelected: (e) => {
+          onRowSelected: (e) => { 
             sendRequestToParent(currentState, 'trackProduct', {
               productId: e.node.data.productId,
               rowSelected: e.node.isSelected(),
             });
           },
-          onRowDataUpdated: (e) => {
+          onRowDataUpdated: (e) => {  // dit werkt misschien niet 
             e.api.forEachNode((node) => {
               if (node.data?.isTracked) {
                 node.setSelected(true, false, true);
