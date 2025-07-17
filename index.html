@@ -283,6 +283,7 @@
           onRowSelected: (e) => { 
             sendRequestToParent(currentState, 'trackProduct', {
               productId: e.node.data.productId,
+              productHostname: e.node.data.productHostname,
               rowSelected: e.node.isSelected(),
             });
           },
