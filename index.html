@@ -283,6 +283,7 @@
           onRowSelected: (e) => { 
             if (e.source !== 'initialLoad') {
               sendRequestToParent(currentState, 'trackProduct', {
+                productId: e.node.data.productHostname,
                 productId: e.node.data.productId,
                 rowSelected: e.node.isSelected(),
               });
