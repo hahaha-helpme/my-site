@@ -289,18 +289,14 @@
             }
           },
           onModelUpdated: (e) => {  // dit werkt misschien niet
-            const nodesToSelect = [];
-            e.api.forEachNode(node => {
-                if (node.data?.isTracked) {
-                    nodesToSelect.push(node);
-                }
-            });
+            const trackedNodes = [];
+            e.api.forEachNode(n => n.data?.isTracked && trackedNodes.push(n));
 
-            if (nodesToSelect.length > 0) {
+            if (trackedNodes.length) {
                 e.api.setNodesSelected({
-                    nodes: nodesToSelect,
+                    nodes: trackedNodes,
                     newValue: true,
-                    source: 'initialLoad' // Zelfverzonnen bron, geen 'user'
+                    source: 'initialLoad',
                 });
             }
           },
