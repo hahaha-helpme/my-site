@@ -281,11 +281,12 @@
           onSortChanged: (p) => null, // p.api.purgeInfiniteCache()
           onFilterChanged: (p) => null, // p.api.purgeInfiniteCache()
           onRowSelected: (e) => { 
-            sendRequestToParent(currentState, 'trackProduct', {
-              productId: e.node.data.productId,
-              productHostname: e.node.data.productHostname,
-              rowSelected: e.node.isSelected(),
-            });
+            if (e.source !== 'initialLoad') {
+              sendRequestToParent(currentState, 'trackProduct', {
+                productId: e.node.data.productId,
+                rowSelected: e.node.isSelected(),
+              });
+            }
           },
           onModelUpdated: (e) => {  // dit werkt misschien niet
             const nodesToSelect = [];
