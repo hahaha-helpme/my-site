@@ -263,7 +263,7 @@
     const stateHandlers = {
       resState: {
         extraOptions: {
-          getRowId: (params) => `${params.data.productID}-${params.data.hostName}`, // dit werkt misschien niet 
+          getRowId: (params) => `${params.data.productId}-${params.data.productHostname}`, // dit werkt misschien niet 
           rowSelection: {
             mode: 'multiRow',
             headerCheckbox: false
