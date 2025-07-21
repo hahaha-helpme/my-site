@@ -284,7 +284,10 @@
           onRowSelected: (e) => { 
             if (e.source === 'initialLoad') return;
 
-            e.node.setRowSelectable(false);
+            // 1. Voeg vlag toe aan data
+            e.node.data.isTrackingSyncing = true;
+            // 2. Herteken alleen deze rij
+            gridApi.redrawRows({ rowNodes: [e.node] });
 
             sendRequestToParent(currentState, 'trackProduct', {
               productId: e.node.data.productId,
