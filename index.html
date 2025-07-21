@@ -393,6 +393,7 @@
       }
 
       else if (action === 'trackProduct') {
+        
         const rowId = `${payload.productId}-${payload.productHostname}`;
         const rowNode = gridApi.getRowNode(rowId);
 
