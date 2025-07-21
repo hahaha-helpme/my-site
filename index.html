@@ -216,7 +216,7 @@
       theme,
       defaultColDef,
       columnTypes,
-      getRowId: (params) => params.data.uniqueId,
+      getRowId: (params) => params.data.gridRowId,
       pagination: true,
       rowModelType: 'infinite',
       paginationPageSize: 10,
@@ -376,7 +376,7 @@
         if (columnDefs) {
               gridApi.setGridOption('columnDefs', columnDefs);
         }
-        
+
         // Verrijk elke rij met een simpel, oplopend ID
         const rowDataWithIds = rowData.map(dataItem => ({ ...dataItem, gridRowId: `grid_row_${rowIdCounter++}` }));
 
