@@ -201,6 +201,7 @@
 
     // --- Globals & Communicatie ---
     let gridApi = null;
+    let rowIdCounter = 0;
     let currentState = null;
     let pendingSuccessCallback = null;
     let wheelAttached = false;
@@ -375,14 +376,12 @@
         if (columnDefs) {
               gridApi.setGridOption('columnDefs', columnDefs);
         }
-          // Verrijk elke rij met een simpel, oplopend ID
-  const rowDataWithIds = rowData.map(dataItem => ({
-    ...dataItem,
-    gridRowId: `grid_row_${rowIdCounter++}`
-  }));
+        
+        // Verrijk elke rij met een simpel, oplopend ID
+        const rowDataWithIds = rowData.map(dataItem => ({ ...dataItem, gridRowId: `grid_row_${rowIdCounter++}` }));
 
         // Geef nu de data aan de grid via de opgeslagen callback.
-        pendingSuccessCallback(rowData, totalCount);
+        pendingSuccessCallback(rowDataWithIds, totalCount);
         pendingSuccessCallback = null;
         gridApi.hideOverlay();
       }
