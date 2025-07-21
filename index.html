@@ -375,6 +375,11 @@
         if (columnDefs) {
               gridApi.setGridOption('columnDefs', columnDefs);
         }
+          // Verrijk elke rij met een simpel, oplopend ID
+  const rowDataWithIds = rowData.map(dataItem => ({
+    ...dataItem,
+    gridRowId: `grid_row_${rowIdCounter++}` // Geeft ID's als 'grid_row_0', 'grid_row_1', etc.
+  }));
 
         // Geef nu de data aan de grid via de opgeslagen callback.
         pendingSuccessCallback(rowData, totalCount);
