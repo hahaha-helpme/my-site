@@ -385,11 +385,12 @@
       }
 
       else if (action === 'trackProduct') {
-        const rowId = `${payload.productId}-${payload.productHostname}`;
-        const rowNode = gridApi.getRowNode(rowId);
-
+        const rowNode = gridApi.getRowNode(payload.gridRowId);
         if (rowNode) {
-          rowNode.setRowSelectable(true);
+          // 1. Verwijder vlag uit data
+          delete rowNode.data.isTrackingSyncing;
+          // 2. Herteken de rij opnieuw
+          gridApi.redrawRows({ rowNodes: [rowNode] });
         }
       }
     });
