@@ -392,15 +392,6 @@
         gridApi.hideOverlay();
       }
 
-      else if (action === 'trackProduct') {
-        console.log('yes')
-        const rowId = `${payload.productId}-${payload.productHostname}`;
-        const rowNode = gridApi.getRowNode(rowId);
-
-        if (rowNode) {
-          rowNode.setRowSelectable(true);
-        }
-      }
     });
 
 
