@@ -263,11 +263,11 @@
     const stateHandlers = {
       resState: {
         extraOptions: {
-          isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
           rowSelection: {
             mode: 'multiRow',
             headerCheckbox: false,
-            showDisabledCheckboxes: true
+            showDisabledCheckboxes: true,
+            isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing
           },
           selectionColumnDef: {
             headerName: 'Track',
