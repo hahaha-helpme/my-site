@@ -381,8 +381,7 @@
         gridApi.hideOverlay();
       }
 
-      else if (action === 'trackProductSuccess') {
-        if (!gridApi) return;
+      else if (action === 'trackProduct') {
 
         const rowId = `${payload.productId}-${payload.productHostname}`;
         const rowNode = gridApi.getRowNode(rowId);
