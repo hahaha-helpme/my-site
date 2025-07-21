@@ -373,10 +373,8 @@
 
         if (columnDefs) { gridApi.setGridOption('columnDefs', columnDefs); }
 
-        const rowDataWithIds = rowData.map(dataItem => ({ ...dataItem, gridRowId: `grid_row_${rowIdCounter++}` }));
-
         // Geef nu de data aan de grid via de opgeslagen callback.
-        pendingSuccessCallback(rowDataWithIds, totalCount);
+        pendingSuccessCallback(rowData, totalCount);
         pendingSuccessCallback = null;
         gridApi.hideOverlay();
       }
