@@ -282,16 +282,7 @@
           onRowSelected: (e) => { 
             if (e.source === 'initialLoad') return;
 
-            const selectionCol = e.api.getColumns().find(c => c.getColId() === 'ag-Grid-AutoColumn-selection');
-            console.log(selectionCol)
-            
-            if (selectionCol) {
-                const cell = e.node.getRenderedCellForColumn(selectionCol);
-                if (cell) {
-                    const checkbox = cell.querySelector('input[type="checkbox"]');
-                    if (checkbox) checkbox.disabled = true;
-                }
-            }
+            e.node.setRowSelectable(false);
 
             sendRequestToParent(currentState, 'trackProduct', {
               productId: e.node.data.productId,
