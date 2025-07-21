@@ -215,6 +215,7 @@
       theme,
       defaultColDef,
       columnTypes,
+      getRowId: (params) => params.data.uniqueId,
       pagination: true,
       rowModelType: 'infinite',
       paginationPageSize: 10,
@@ -261,7 +262,7 @@
     const stateHandlers = {
       resState: {
         extraOptions: {
-          getRowId: (params) => `${params.data.productId}-${params.data.productHostname}`, // dit werkt misschien niet 
+          // getRowId: (params) => `${params.data.productId}-${params.data.productHostname}`, // dit werkt misschien niet 
           rowSelection: {
             mode: 'multiRow',
             headerCheckbox: false,
