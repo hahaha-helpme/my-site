@@ -263,7 +263,7 @@
     const stateHandlers = {
       resState: {
         extraOptions: {
-          // getRowId: (params) => `${params.data.productId}-${params.data.productHostname}`, // dit werkt misschien niet 
+          isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
           rowSelection: {
             mode: 'multiRow',
             headerCheckbox: false,
