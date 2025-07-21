@@ -380,6 +380,18 @@
         pendingSuccessCallback = null;
         gridApi.hideOverlay();
       }
+
+      else if (action === 'trackProductSuccess') {
+        if (!gridApi) return;
+
+        const rowId = `${payload.productId}-${payload.productHostname}`;
+        const rowNode = gridApi.getRowNode(rowId);
+
+        if (rowNode) {
+          // 1. Schakel de rij weer in
+          rowNode.setRowSelectable(true);
+        }
+      }
     });
 
 
