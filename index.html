@@ -264,7 +264,8 @@
           getRowId: (params) => `${params.data.productId}-${params.data.productHostname}`, // dit werkt misschien niet 
           rowSelection: {
             mode: 'multiRow',
-            headerCheckbox: false
+            headerCheckbox: false,
+            showDisabledCheckboxes: true
           },
           selectionColumnDef: {
             headerName: 'Track',
