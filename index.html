@@ -201,6 +201,7 @@
 
     // --- Globals & Communicatie ---
     let gridApi = null;
+    let rowIdCounter = 0;
     let currentState = null;
     let pendingSuccessCallback = null;
     let wheelAttached = false;
@@ -215,6 +216,7 @@
       theme,
       defaultColDef,
       columnTypes,
+      getRowId: (params) => params.data.gridRowId,
       pagination: true,
       rowModelType: 'infinite',
       paginationPageSize: 10,
@@ -378,19 +380,21 @@
               gridApi.setGridOption('columnDefs', columnDefs);
         }
 
+        // Verrijk elke rij met een simpel, oplopend ID
+        const rowDataWithIds = rowData.map(dataItem => ({ ...dataItem, gridRowId: `grid_row_${rowIdCounter++}` }));
+
         // Geef nu de data aan de grid via de opgeslagen callback.
-        pendingSuccessCallback(rowData, totalCount);
+        pendingSuccessCallback(rowDataWithIds, totalCount);
         pendingSuccessCallback = null;
         gridApi.hideOverlay();
       }
 
       else if (action === 'trackProduct') {
-        const rowNode = gridApi.getRowNode(payload.gridRowId);
+        const rowId = `${payload.productId}-${payload.productHostname}`;
+        const rowNode = gridApi.getRowNode(rowId);
+
         if (rowNode) {
-          // 1. Verwijder vlag uit data
-          delete rowNode.data.isTrackingSyncing;
-          // 2. Herteken de rij opnieuw
-          gridApi.redrawRows({ rowNodes: [rowNode] });
+          rowNode.setRowSelectable(true);
         }
       }
     });
