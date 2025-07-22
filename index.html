@@ -280,6 +280,14 @@
         listeners: {
           onSortChanged: (p) => null, // p.api.purgeInfiniteCache()
           onFilterChanged: (p) => null, // p.api.purgeInfiniteCache()
+          onCellClicked: (params) => {
+            // Controleer of de geklikte kolom 'unitsSold' is
+            if (params.column.getColId() === 'unitsSold') {
+              // Roep de functie aan om de grafiek te tonen
+              // We geven hier de data van de geklikte rij mee
+              showStockChart([], params.node); 
+            }
+          },
           onRowSelected: (e) => { 
             if (e.source === 'initialLoad') return;
 
