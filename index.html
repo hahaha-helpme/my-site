@@ -294,12 +294,16 @@
               if (params.column.getColId() === 'selectionColumn') {
 
               const isSelected = !params.node.isSelected();
-
-              sendRequestToParent(currentState, 'trackProduct', {
+                console.log({
                 productId: params.data.productId,
                 productHostname: params.data.productHostname,
                 rowSelected: isSelected,
-              });
+              })
+              // sendRequestToParent(currentState, 'trackProduct', {
+              //   productId: params.data.productId,
+              //   productHostname: params.data.productHostname,
+              //   rowSelected: isSelected,
+              // });
               return; // Stop verdere uitvoering voor deze klik
             }
 
