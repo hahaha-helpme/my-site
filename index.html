@@ -306,6 +306,7 @@
           },
           onCellClicked: (params) => {
             // Controleer of de geklikte kolom 'unitsSold' is
+            console.log(params)
             if (params.column.getColId() === 'unitsSold') {
               // Roep de functie aan om de grafiek te tonen
               // We geven hier de data van de geklikte rij mee
