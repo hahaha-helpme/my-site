@@ -273,10 +273,13 @@
             width: 80,
             sortable: false,
             filter: true,
-            filterParams: {
-              values: [true, false],
-              buttons: ['apply', 'reset'],
-            },
+                    filterParams: {
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: ['true', 'false'],
+          },
           },
         },
         listeners: {
