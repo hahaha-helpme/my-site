@@ -284,6 +284,19 @@
           // },
         },
         listeners: {
+          onCellValueChanged: (event) => {
+            // Check of de verandering uit de juiste kolom komt
+            if (event.colDef.field === 'trackEnabled') {
+              
+              console.log('Checkbox waarde veranderd!', event); // Voor testen
+              
+              // sendRequestToParent(currentState, 'trackProduct', {
+              //   productId: event.data.productId,
+              //   productHostname: event.data.productHostname,
+              //   rowSelected: event.newValue, // De nieuwe waarde (true/false)
+              // });
+            }
+          },
           onCellClicked: (params) => {
             // Controleer of de geklikte kolom 'unitsSold' is
             if (params.column.getColId() === 'unitsSold') {
