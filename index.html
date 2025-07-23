@@ -314,15 +314,15 @@
             }
           }
           ,
-          onRowSelected: (e) => { 
-            if (e.source === 'initialLoad') return;
+          // onRowSelected: (e) => { 
+          //   if (e.source === 'initialLoad') return;
 
-            sendRequestToParent(currentState, 'trackProduct', {
-              productId: e.node.data.productId,
-              productHostname: e.node.data.productHostname,
-              rowSelected: e.node.isSelected(),
-            });
-          },
+          //   sendRequestToParent(currentState, 'trackProduct', {
+          //     productId: e.node.data.productId,
+          //     productHostname: e.node.data.productHostname,
+          //     rowSelected: e.node.isSelected(),
+          //   });
+          // },
           onModelUpdated: (e) => {  // dit werkt misschien niet
             const trackedNodes = [];
             e.api.forEachNode(n => n.data?.trackEnabled && trackedNodes.push(n)); // n.data?.isTracked
