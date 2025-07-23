@@ -280,6 +280,7 @@
         listeners: {
           onSortChanged: (p) => null, // p.api.purgeInfiniteCache()
           onFilterChanged: (p) => null, // p.api.purgeInfiniteCache()
+          onPaginationChanged: (p) => p.api.purgeInfiniteCache(),
           onCellClicked: (params) => {
             // Controleer of de geklikte kolom 'unitsSold' is
             if (params.column.getColId() === 'unitsSold') {
