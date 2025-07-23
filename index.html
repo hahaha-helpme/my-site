@@ -165,6 +165,16 @@
         filter: false,
         sortable: false,
       },
+      customBooleanColumn: {
+        field: 'trackEnabled',
+        headerName: 'Track Enabled',
+        // Set filter is default for AG Grid Enterprise, can still be explicit in Community
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          values: [true, false],
+          // valueFormatter: (params) => (params.value ? 'Enabled' : 'Disabled'),
+        },
+    }
     };
 
 
@@ -266,7 +276,8 @@
             mode: 'multiRow',
             headerCheckbox: false,
             showDisabledCheckboxes: true,
-            isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing
+            isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
+            colId: 'selectColumn'
           },
           selectionColumnDef: {
             headerName: 'Track',
