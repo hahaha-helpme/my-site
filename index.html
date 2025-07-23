@@ -164,20 +164,7 @@
         cellClass: "image-cell",
         filter: false,
         sortable: false,
-      },
-      customBooleanColumn: {
-          cellDataType: 'boolean', // Use the boolean cell data type
-          filter: 'agSetColumnFilter',
-          filterParams: {
-              values: [true, false],
-              buttons: ['apply', 'reset'],
-              closeOnApply: true,
-              // Optional: improves readability in the filter menu
-              valueFormatter: (params) => (params.value ? 'Selected' : 'Not Selected'),
-          },
-          // This ensures the cell displays a checkbox
-          cellRenderer: 'agCheckboxCellRenderer', 
-      },
+      }
     };
 
 
