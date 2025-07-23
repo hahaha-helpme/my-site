@@ -168,13 +168,15 @@
       customCheckboxColumn: {
         cellRenderer: 'agCheckboxCellRenderer',
         cellEditor: 'agCheckboxCellEditor',
-        filter: 'agSetColumnFilter',
         editable: true,
-        //filter: true,
+        filter: true,
         filterParams: {
-    values: [true, false],  // Expliciete waarden
-    valueFormatter: params => params.value ? 'Ja' : 'Nee',  // Nederlandse labels
-    buttons: ['reset', 'apply']
+          buttons: ['apply', 'reset'],
+          maxNumConditions: 1,
+          trimInput: true,
+          closeOnApply: true,
+          filterOptions: ['Tracking Enabled', 'Tracking Disabled'],
+          sortable: false,
         }
       }
     };
