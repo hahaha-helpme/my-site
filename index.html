@@ -285,27 +285,12 @@
         },
         listeners: {
           onCellClicked: (params) => {
-            // // Controleer of de geklikte kolom 'unitsSold' is
-            // if (params.column.getColId() === 'unitsSold') {
-            //   // Roep de functie aan om de grafiek te tonen
-            //   // We geven hier de data van de geklikte rij mee
-            //   showStockChart([], params.node); 
-            // }
-            console.log('params', params)
-              if (params.column.getColId() === 'selectionColumn') {
-
-              const isSelected = !params.node.isSelected();
-                console.log({
-                productId: params.data.productId,
-                productHostname: params.data.productHostname,
-                rowSelected: isSelected,
-              })
-              // sendRequestToParent(currentState, 'trackProduct', {
-              //   productId: params.data.productId,
-              //   productHostname: params.data.productHostname,
-              //   rowSelected: isSelected,
-              // });
-              return; // Stop verdere uitvoering voor deze klik
+            // Controleer of de geklikte kolom 'unitsSold' is
+            if (params.column.getColId() === 'unitsSold') {
+              // Roep de functie aan om de grafiek te tonen
+              // We geven hier de data van de geklikte rij mee
+              showStockChart([], params.node); 
+            }
             }
 
           },
