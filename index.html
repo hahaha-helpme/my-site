@@ -221,7 +221,7 @@
       paginationPageSize: 10,
       cacheBlockSize: 10,
       maxConcurrentDatasourceRequests: 1,
-      maxBlocksInCache: 1,
+      maxBlocksInCache: 0,
 
       paginationPageSizeSelector: false,
       animateRows: true,
@@ -278,9 +278,6 @@
           },
         },
         listeners: {
-          onSortChanged: (p) => p.api.purgeInfiniteCache(),
-          onFilterChanged: (p) => p.api.purgeInfiniteCache(),
-          onPaginationChanged: (p) => p.api.purgeInfiniteCache(),
           onCellClicked: (params) => {
             // Controleer of de geklikte kolom 'unitsSold' is
             if (params.column.getColId() === 'unitsSold') {
