@@ -169,16 +169,16 @@
         cellRenderer: 'agCheckboxCellRenderer',
         cellEditor: 'agCheckboxCellEditor',
         editable: true,
-        filter: false,
-                filterParams: {
+        filter: true,
+        filterParams: {
           browserDatePicker: true,
           buttons: ['apply', 'reset'],
           maxNumConditions: 1,
           trimInput: true,
           closeOnApply: true,
           filterOptions: ['equals', 'notEqual', 'lessThan', 'greaterThan', 'inRange', 'blank', 'notBlank'],
-        sortable: false,
-      }
+          sortable: false,
+        }
     };
 
 
