@@ -262,12 +262,12 @@
     const stateHandlers = {
       resState: {
         extraOptions: {
-          // rowSelection: {
-          //   mode: 'multiRow',
-          //   headerCheckbox: false,
-          //   showDisabledCheckboxes: true,
-          //   isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
-          // },
+          rowSelection: {
+            mode: 'multiRow',
+            headerCheckbox: false,
+            showDisabledCheckboxes: true,
+            isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
+          },
           selectionColumnDef: {
             headerName: 'Track',
             width: 100,
@@ -284,8 +284,13 @@
           },
         },
         listeners: {
-          checkboxSelected: (params) => {
-
+          onCellClicked: (params) => {
+            // // Controleer of de geklikte kolom 'unitsSold' is
+            // if (params.column.getColId() === 'unitsSold') {
+            //   // Roep de functie aan om de grafiek te tonen
+            //   // We geven hier de data van de geklikte rij mee
+            //   showStockChart([], params.node); 
+            // }
             console.log('params', params)
               if (params.column.getColId() === 'selectionColumn') {
 
@@ -304,25 +309,15 @@
             }
 
           },
-          onCellClicked: (params) => {
-            // Controleer of de geklikte kolom 'unitsSold' is
-            console.log(params)
-            if (params.column.getColId() === 'unitsSold') {
-              // Roep de functie aan om de grafiek te tonen
-              // We geven hier de data van de geklikte rij mee
-              showStockChart([], params.node); 
-            }
-          }
-          ,
-          // onRowSelected: (e) => { 
-          //   if (e.source === 'initialLoad') return;
+          onRowSelected: (e) => { 
+            if (e.source === 'initialLoad') return;
 
-          //   sendRequestToParent(currentState, 'trackProduct', {
-          //     productId: e.node.data.productId,
-          //     productHostname: e.node.data.productHostname,
-          //     rowSelected: e.node.isSelected(),
-          //   });
-          // },
+            sendRequestToParent(currentState, 'trackProduct', {
+              productId: e.node.data.productId,
+              productHostname: e.node.data.productHostname,
+              rowSelected: e.node.isSelected(),
+            });
+          },
           onModelUpdated: (e) => {  // dit werkt misschien niet
             const trackedNodes = [];
             e.api.forEachNode(n => n.data?.trackEnabled && trackedNodes.push(n)); // n.data?.isTracked
@@ -351,8 +346,7 @@
       /* 4B. (Re)bind listeners */
       gridApi.setGridOption('onSortChanged', listeners.onSortChanged);
       gridApi.setGridOption('onFilterChanged', listeners.onFilterChanged);
-      gridApi.setGridOption('onCellClicked', listeners.onCellClicked);
-      //gridApi.setGridOption('onRowSelected', listeners.onRowSelected);
+      gridApi.setGridOption('onRowSelected', listeners.onRowSelected);
       gridApi.setGridOption('onModelUpdated', listeners.onModelUpdated);
 
       /* 4C. Apply new extra options */
