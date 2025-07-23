@@ -279,7 +279,8 @@
             mode: 'multiRow',
             headerCheckbox: false,
             showDisabledCheckboxes: true,
-            isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing
+            isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
+            type: "customBooleanColumn",
           },
           selectionColumnDef: {
             headerName: 'Track',
