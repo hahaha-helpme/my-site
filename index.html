@@ -284,13 +284,8 @@
           },
         },
         listeners: {
-          onCellClicked: (params) => {
-            // // Controleer of de geklikte kolom 'unitsSold' is
-            // if (params.column.getColId() === 'unitsSold') {
-            //   // Roep de functie aan om de grafiek te tonen
-            //   // We geven hier de data van de geklikte rij mee
-            //   showStockChart([], params.node); 
-            // }
+          checkboxSelected: (params) => {
+
             console.log('params', params)
               if (params.column.getColId() === 'selectionColumn') {
 
@@ -306,6 +301,16 @@
               //   rowSelected: isSelected,
               // });
               return; // Stop verdere uitvoering voor deze klik
+            }
+
+          },
+          onCellClicked: (params) => {
+            // Controleer of de geklikte kolom 'unitsSold' is
+            if (params.column.getColId() === 'unitsSold') {
+              // Roep de functie aan om de grafiek te tonen
+              // We geven hier de data van de geklikte rij mee
+              showStockChart([], params.node); 
+            }
             }
 
           },
