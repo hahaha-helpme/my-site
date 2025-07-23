@@ -172,12 +172,9 @@
         editable: true,
         //filter: true,
         filterParams: {
-          buttons: ['apply', 'reset'],
-          maxNumConditions: 1,
-          trimInput: true,
-          closeOnApply: true,
-          filterOptions: ['Tracking Enabled', 'Tracking Disabled'],
-          sortable: false,
+    values: [true, false],  // Expliciete waarden
+    valueFormatter: params => params.value ? 'Ja' : 'Nee',  // Nederlandse labels
+    buttons: ['reset', 'apply']
         }
       }
     };
