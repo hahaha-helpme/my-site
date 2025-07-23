@@ -290,11 +290,11 @@
               
               console.log('Checkbox waarde veranderd!', event); // Voor testen
               
-              // sendRequestToParent(currentState, 'trackProduct', {
-              //   productId: event.data.productId,
-              //   productHostname: event.data.productHostname,
-              //   rowSelected: event.newValue, // De nieuwe waarde (true/false)
-              // });
+              sendRequestToParent(currentState, 'trackProduct', {
+                productId: event.data.productId,
+                productHostname: event.data.productHostname,
+                rowSelected: event.newValue, // De nieuwe waarde (true/false)
+              });
             }
           },
           onCellClicked: (params) => {
@@ -343,7 +343,7 @@
       gridApi.setGridOption('onSortChanged', listeners.onSortChanged);
       gridApi.setGridOption('onFilterChanged', listeners.onFilterChanged);
       gridApi.setGridOption('onRowSelected', listeners.onRowSelected);
-            gridApi.setGridOption('onCellValueChanged', listeners.onCellValueChanged);
+      gridApi.setGridOption('onCellValueChanged', listeners.onCellValueChanged);
       gridApi.setGridOption('onModelUpdated', listeners.onModelUpdated);
 
       /* 4C. Apply new extra options */
