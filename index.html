@@ -280,13 +280,12 @@
             headerCheckbox: false,
             showDisabledCheckboxes: true,
             isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
-            sortable: false,
-            type: "customBooleanColumn",
           },
           selectionColumnDef: {
             headerName: 'Track',
             width: 80,
-            sortable: true,
+            sortable: false,
+            type: "customBooleanColumn",
             // cellClassRules: {
             // 'ag-disabled': p => p.data.isTrackingSyncing === true
             // }
