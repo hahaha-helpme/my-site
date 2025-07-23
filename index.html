@@ -312,15 +312,6 @@
               showStockChart([], params.node); 
             }
           },
-          onRowSelected: (e) => { 
-            if (e.source === 'initialLoad') return;
-
-            sendRequestToParent(currentState, 'trackProduct', {
-              productId: e.node.data.productId,
-              productHostname: e.node.data.productHostname,
-              rowSelected: e.node.isSelected(),
-            });
-          },
           onModelUpdated: (e) => {  // dit werkt misschien niet
             const trackedNodes = [];
             e.api.forEachNode(n => n.data?.trackEnabled && trackedNodes.push(n)); // n.data?.isTracked
@@ -349,7 +340,6 @@
       /* 4B. (Re)bind listeners */
       gridApi.setGridOption('onSortChanged', listeners.onSortChanged);
       gridApi.setGridOption('onFilterChanged', listeners.onFilterChanged);
-      gridApi.setGridOption('onRowSelected', listeners.onRowSelected);
       gridApi.setGridOption('onCellValueChanged', listeners.onCellValueChanged);
       gridApi.setGridOption('onModelUpdated', listeners.onModelUpdated);
 
