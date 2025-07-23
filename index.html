@@ -291,8 +291,18 @@
             //   // We geven hier de data van de geklikte rij mee
             //   showStockChart([], params.node); 
             // }
+              if (params.column.getColId() === 'selectionColumn') {
 
-            
+              const isSelected = !params.node.isSelected();
+
+              sendRequestToParent(currentState, 'trackProduct', {
+                productId: params.data.productId,
+                productHostname: params.data.productHostname,
+                rowSelected: isSelected,
+              });
+              return; // Stop verdere uitvoering voor deze klik
+            }
+
           },
           onRowSelected: (e) => { 
             if (e.source === 'initialLoad') return;
