@@ -297,7 +297,7 @@
           },
           onModelUpdated: (e) => {  // dit werkt misschien niet
             const trackedNodes = [];
-            e.api.forEachNode(n => n.data?.isTracked && trackedNodes.push(n));
+            e.api.forEachNode(n => n.data?.isTracked && trackedNodes.push(n)); // n.data?.isTracked
 
             if (trackedNodes.length) {
                 e.api.setNodesSelected({
