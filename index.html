@@ -180,16 +180,19 @@
             {
               displayKey: 'true',
               displayName: 'Tracking Enabled',
+              predicate: (_, value) => value === false,
               numberOfInputs: 0,
             },
             {
               displayKey: 'false',
               displayName: 'Tracking Disabled',
+              predicate: (_, value) => value === false,
               numberOfInputs: 0,
             },
             {
               displayKey: 'true-and-false',
               displayName: 'All',
+              predicate: () => true,
               numberOfInputs: 0,
             },
           ],
