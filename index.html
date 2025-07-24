@@ -176,10 +176,30 @@
           filterOptions: ['equals'],
           maxNumConditions: 1,
           trimInput: true,
+          filterOptions: [
+            {
+              displayKey: 'true',
+              displayName: 'Tracking Enabled',
+              predicate: (_, value) => value === false,
+              numberOfInputs: 0,
+            },
+            {
+              displayKey: 'false',
+              displayName: 'Tracking Disabled',
+              predicate: (_, value) => value === false,
+              numberOfInputs: 0,
+            },
+            {
+              displayKey: 'true-and-false',
+              displayName: 'All',
+              predicate: () => true,
+              numberOfInputs: 0,
+            },
+          ],
+          suppressAndOrCondition: true
         },
         valueFormatter: (params) => params.value === true ? 'Tracking Enabled' : 'Tracking Disabled',
         sortable: false,
-        suppressAndOrCondition: true
       }
       // customCheckboxColumn: {
       //   cellRenderer: 'agCheckboxCellRenderer',
