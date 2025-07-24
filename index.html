@@ -169,19 +169,17 @@
         cellRenderer: 'agCheckboxCellRenderer',
         cellEditor: 'agCheckboxCellEditor',
         editable: true,
-        // filter: true,
-        // filterParams: {
-        //   buttons: ['apply', 'reset'],
-        //   maxNumConditions: 1,
-        //   trimInput: true,
-        //   closeOnApply: true,
-        //   filterOptions: ['Tracking Enabled', 'Tracking Disabled'],
-        // },
         filter: 'agNumberColumnFilter',
         filterParams: {
           closeOnApply: true,
           buttons: ['apply', 'reset'],
           filterOptions: [
+            {
+              displayKey: 'true-and-false',
+              displayName: 'All',
+              predicate: () => true,
+              numberOfInputs: 0,
+            },
             {
               displayKey: 'true',
               displayName: 'Tracking Enabled',
@@ -193,13 +191,7 @@
               displayName: 'Tracking Disabled',
               predicate: (_, value) => value === false,
               numberOfInputs: 0,
-            },
-            {
-              displayKey: 'true-and-false',
-              displayName: 'All',
-              predicate: () => true,
-              numberOfInputs: 0,
-            },
+            }
           ],
           suppressAndOrCondition: true,
           maxNumConditions: 1,
