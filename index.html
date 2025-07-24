@@ -170,37 +170,37 @@
         cellEditor: 'agCheckboxCellEditor',
         editable: true,
         filter: true,
+        // filterParams: {
+        //   buttons: ['apply', 'reset'],
+        //   maxNumConditions: 1,
+        //   trimInput: true,
+        //   closeOnApply: true,
+        //   filterOptions: ['Tracking Enabled', 'Tracking Disabled'],
+        // },
         filterParams: {
-          buttons: ['apply', 'reset'],
+          filterOptions: [
+            {
+              displayKey: 'enabled',
+              displayName: 'Tracking Enabled',
+              predicate: (_, value) => value === true,
+              numberOfInputs: 0,
+            },
+            {
+              displayKey: 'disabled',
+              displayName: 'Tracking Disabled',
+              predicate: (_, value) => value === false,
+              numberOfInputs: 0,
+            },
+            {
+              displayKey: 'all',
+              displayName: 'All',
+              predicate: () => true,
+              numberOfInputs: 0,
+            },
+          ],
+          suppressAndOrCondition: true,
           maxNumConditions: 1,
-          trimInput: true,
-          closeOnApply: true,
-          filterOptions: ['Tracking Enabled', 'Tracking Disabled'],
         },
-        {
-  filterOptions: [
-    {
-      displayKey: 'enabled',
-      displayName: 'Tracking Enabled',
-      predicate: (_, value) => value === true,
-      numberOfInputs: 0,
-    },
-    {
-      displayKey: 'disabled',
-      displayName: 'Tracking Disabled',
-      predicate: (_, value) => value === false,
-      numberOfInputs: 0,
-    },
-    {
-      displayKey: 'all',
-      displayName: 'All',
-      predicate: () => true,
-      numberOfInputs: 0,
-    },
-  ],
-  suppressAndOrCondition: true,
-  maxNumConditions: 1,
-}
         sortable: false,
       }
     };
