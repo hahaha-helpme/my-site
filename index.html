@@ -300,7 +300,7 @@
         listeners: {
           onCellValueChanged: (event) => {
             // Check of de verandering uit de juiste kolom komt
-            if (event.colDef.field === 'trackEnabled' && event.source === 'commit') {
+            if (event.colDef.field === 'trackEnabled') { // && event.source === 'commit'
               
               console.log('Checkbox waarde veranderd!', event); // Voor testen
               
