@@ -165,21 +165,21 @@
         filter: false,
         sortable: false,
       },
-customCheckboxColumn: {
-  cellRenderer: 'agCheckboxCellRenderer',
-  cellEditor: 'agCheckboxCellEditor',
-  editable: true,
-  filter: 'agTextColumnFilter',
-  filterParams: {
-    buttons: ['apply', 'reset'],
-    closeOnApply: true,
-    filterOptions: ['equals'],
-    maxNumConditions: 1,
-    trimInput: true,
-  },
-  valueFormatter: (params) => params.value === true ? 'Tracking Enabled' : 'Tracking Disabled',
-  sortable: false,
-}
+      customCheckboxColumn: {
+        cellRenderer: 'agCheckboxCellRenderer',
+        cellEditor: 'agCheckboxCellEditor',
+        editable: true,
+        filter: 'agTextColumnFilter',
+        filterParams: {
+          buttons: ['apply', 'reset'],
+          closeOnApply: true,
+          filterOptions: ['equals'],
+          maxNumConditions: 1,
+          trimInput: true,
+        },
+        valueFormatter: (params) => params.value === true ? 'Tracking Enabled' : 'Tracking Disabled',
+        sortable: false,
+      }
     };
 
 
