@@ -1,3 +1,0 @@
-{
-  "postStartCommand": "npx nodemon -e html,js --exec 'node auto-deploy.js'"
-}
