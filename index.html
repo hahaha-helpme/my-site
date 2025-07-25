@@ -128,7 +128,10 @@
           filterOptions: ['equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank'],
         },
         // valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
-        valueFormatter: (params) => formatCurrency(params.value , 'de'), // Specifieke valuta formatter.
+        valueFormatter: (params) => {
+          const countryCode = (params?.data?.productHostname || 'kaufland.de').slice(-2);
+          return formatCurrency(params.value, countryCode); // Daarna gewoon de waarde formatteren
+        }
       },
       customCurrencyColumnCompact: {
         cellDataType: 'number',
@@ -142,7 +145,6 @@
         },
         // valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
         valueFormatter: (params) => {
-          console.log("valueFormatter params:", params); // Log alles in params
           const countryCode = (params?.data?.productHostname || 'kaufland.de').slice(-2);
           return formatCurrencyCompact(params.value, countryCode); // Daarna gewoon de waarde formatteren
         }
