@@ -142,7 +142,7 @@
         // valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
         valueFormatter: (params) => {
           console.log("valueFormatter params:", params); // Log alles in params
-          return formatCurrencyCompact(params.value); // Daarna gewoon de waarde formatteren
+          return formatCurrencyCompact(params.value, 'de'); // Daarna gewoon de waarde formatteren
         }
 
       },
