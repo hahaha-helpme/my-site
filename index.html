@@ -128,7 +128,7 @@
           filterOptions: ['equals', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual', 'inRange', 'blank', 'notBlank'],
         },
         // valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
-        valueFormatter: (params) => formatEuro(params.value), // Specifieke valuta formatter.
+        valueFormatter: (params) => formatCurrency(params.value , 'de'), // Specifieke valuta formatter.
       },
       customCurrencyColumnCompact: {
         cellDataType: 'number',
