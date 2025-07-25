@@ -14,7 +14,7 @@
     init(params) {
       this.eGui = document.createElement('a');
       this.eGui.href = params.value;
-      this.eGui.textContent = params.value ? params.value.split('/')[2] : 'link';
+      this.eGui.textContent = params.value ? params.value.split('/')[2] : '';
       this.eGui.target = '_blank';
     }
     getGui() { return this.eGui; }
