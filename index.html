@@ -141,9 +141,9 @@
         },
         // valueFormatter: (params) => formatEuroCompact(params.value), // Specifieke valuta formatter.
         valueFormatter: (params) => {
-  console.log("valueFormatter params:", params); // Log alles in params
-  return formatEuroCompact(params.value); // Daarna gewoon de waarde formatteren
-}
+          console.log("valueFormatter params:", params); // Log alles in params
+          return formatEuroCompact(params.value); // Daarna gewoon de waarde formatteren
+        }
       },
       customDateColumn: {
         cellDataType: 'dateString', // Dwingt het datatype af naar 'dateString'.
