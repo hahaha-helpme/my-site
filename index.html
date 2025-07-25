@@ -19,11 +19,11 @@
   <!-- ImageRenderer: cellRenderer voor afbeelding-kolommen -->
   <script src="script/image-renderer.js"></script>
 
-  <!-- formatEuroCompact() : compacte €-notatie (K / M) -->
-  <script src="script/format-euro-compact.js"></script>
+  <!-- formatCurrencyCompact() : compacte €-notatie (K / M) -->
+  <script src="script/format-currency-compact.js"></script>
 
-  <!-- formatEuro() : standaard €-notatie met twee decimalen -->
-  <script src="script/format-euro.js"></script>
+  <!-- formatCurrency() : standaard €-notatie met twee decimalen -->
+  <script src="script/format-currency.js"></script>
 
   <!-- showStockChart() : Chart-logica -->
   <script src="script/chart.js"></script>
@@ -144,7 +144,7 @@
           console.log("valueFormatter params:", params); // Log alles in params
           return formatEuroCompact(params.value); // Daarna gewoon de waarde formatteren
         }
-        
+
       },
       customDateColumn: {
         cellDataType: 'dateString', // Dwingt het datatype af naar 'dateString'.
