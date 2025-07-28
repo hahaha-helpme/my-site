@@ -130,7 +130,7 @@
                 chartOptions.container = ui.chartContainer;
                 chartInstance = agCharts.AgCharts.create(chartOptions);
             } else {
-                agCharts.AgCharts.update(chartInstance, chartOptions);
+                chartInstance.update(chartOptions);
             }
         };
 
