@@ -341,9 +341,10 @@
             }
           },
           onCellClicked: (params) => {
-            // Controleer of de geklikte kolom 'unitsSold' is
-            if (params.column.getColId() === 'unitsSold') {
-              showStockChart([], params.node); 
+            const clickableColumns = ['avgWeightedPrice', 'revenue', 'unitsSold', 'sellerCount'];
+            if (clickableColumns.includes(params.column.getColId())) {
+              // Roep de nieuwe, beknopte functie aan
+              renderChart(params.column.getColId(), params.node);
             }
           },
           onModelUpdated: (e) => {  // dit werkt misschien niet
