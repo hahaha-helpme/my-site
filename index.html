@@ -331,8 +331,6 @@
             // Check of de verandering uit de juiste kolom komt
             if (event.colDef.field === 'trackEnabled' && event.source === 'commit') { // er gaan twee events af en source commit is de juiste
               
-              console.log('Checkbox waarde veranderd!', event); // Voor testen
-              
               sendRequestToParent(currentState, 'trackProduct', {
                 productId: event.data.productId,
                 productHostname: event.data.productHostname,
