@@ -250,7 +250,6 @@
     let lastAppliedColumnDefs = null;
 
     function sendRequestToParent(state, action, payload) {
-      console.log({ state, action, payload })
       window.parent.postMessage({ state, action, payload }, 'https://www-sellerrr-com.filesusr.com');
     }
 
