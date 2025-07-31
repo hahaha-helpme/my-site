@@ -304,28 +304,7 @@
     // --- State-specifieke Logica ---
     const stateHandlers = {
       resState: {
-        extraOptions: {
-          // rowSelection: {
-          //   mode: 'multiRow',
-          //   headerCheckbox: false,
-          //   showDisabledCheckboxes: true,
-          //   isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
-          // },
-          // selectionColumnDef: {
-          //   headerName: 'Track',
-          //   width: 100,
-          //   sortable: false,
-          //   filter: true,
-          //   filterParams: {
-          //     filter: 'agSetColumnFilter',
-          //     buttons: ['apply', 'reset'],
-          //     maxNumConditions: 1,
-          //     trimInput: true,
-          //     closeOnApply: true,
-          //     filterOptions: ['Tracking Enabled', 'Tracking Disabled'],
-          //   },
-          // },
-        },
+        extraOptions: {},
         listeners: {
           onCellValueChanged: (event) => {
             // Check of de verandering uit de juiste kolom komt
