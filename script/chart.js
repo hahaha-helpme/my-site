@@ -77,17 +77,11 @@
             const getPeriodKey = (timestamp) => {
                 const d = new Date(timestamp);
                 if (selectedPeriod === 'weekly') {
-                    // --- START VAN DE CORRECTIE ---
-                    // Maak een kopie van de datum om de originele 'd' niet te wijzigen.
                     const tempDate = new Date(d);
-                    const day = tempDate.getDay(); // Zondag = 0, Maandag = 1, etc.
-                    // Bereken het verschil naar de voorgaande maandag.
-                    // Als het zondag is (dag 0), ga 6 dagen terug. Anders, ga (dag - 1) dagen terug.
+                    const day = tempDate.getDay();
                     const diff = tempDate.getDate() - day + (day === 0 ? -6 : 1);
                     const weekStart = new Date(tempDate.setDate(diff));
-                    
                     return weekStart.toISOString().split('T')[0];
-                    // --- EINDE VAN DE CORRECTIE ---
                 }
                 if (selectedPeriod === 'monthly') {
                     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
@@ -95,7 +89,6 @@
                 return d.toISOString().split('T')[0]; // Daily
             };
 
-            // --- START VAN DE AANPASSING ---
             const aggregated = [...filteredOffers.reduce((map, offer) => {
                 const key = getPeriodKey(offer.scrapeTimestamp);
                 const entry = map.get(key) || { 
@@ -107,9 +100,8 @@
                 entry.revenue += Number(offer.revenue) || 0;
                 entry.unitsSold += Number(offer.unitsSold) || 0;
                 entry.priceSum += Number(offer.price) || 0;
-                entry.sellers.add(offer.sellerId);
+                entry.sellers.add(offer.sellerId); // HIER WORDT DE VERKOPER GETELD
 
-                // Aggregeer de nieuwe velden
                 entry.deliveryRateSum += Number(offer.deliveryRate) || 0;
                 entry.stockLeftSum += Number(offer.stockLeft) || 0;
                 entry.deliveryTimeMinSum += Number(offer.deliveryTimeRangeDaysMin) || 0;
@@ -117,7 +109,7 @@
                 if (offer.buyBox) {
                     entry.buyBoxCount++;
                 }
-                entry.offerCount++; // Belangrijk voor het berekenen van gemiddeldes
+                entry.offerCount++;
                 
                 return map.set(key, entry);
             }, new Map()).values()].sort((a,b) => new Date(a.date) - new Date(b.date));
@@ -128,15 +120,13 @@
                 'revenue': d => d.revenue,
                 'unitsSold': d => d.unitsSold,
                 'avgWeightedPrice': d => d.offerCount > 0 ? d.priceSum / d.offerCount : 0,
-                'sellerCount': d => d.sellers.size,
-                // Nieuwe mappings voor de toegevoegde velden
+                'sellerCount': d => d.sellers.size, // HIER WORDT DE WAARDE GEMAPT
                 'deliveryRate': d => d.offerCount > 0 ? d.deliveryRateSum / d.offerCount : 0,
-                'stockLeft': d => d.offerCount > 0 ? d.stockLeftSum / d.offerCount : 0, // Gemiddelde voorraad
-                'deliveryTimeMin': d => d.offerCount > 0 ? d.deliveryTimeMinSum / d.offerCount : 0, // Gem. min. levertijd
-                'deliveryTimeMax': d => d.offerCount > 0 ? d.deliveryTimeMaxSum / d.offerCount : 0, // Gem. max. levertijd
-                'buyBox': d => d.buyBoxCount, // Totaal aantal Buy Box wins in de periode
+                'stockLeft': d => d.offerCount > 0 ? d.stockLeftSum / d.offerCount : 0,
+                'deliveryTimeMin': d => d.offerCount > 0 ? d.deliveryTimeMinSum / d.offerCount : 0,
+                'deliveryTimeMax': d => d.offerCount > 0 ? d.deliveryTimeMaxSum / d.offerCount : 0,
+                'buyBox': d => d.buyBoxCount,
             };
-            // --- EINDE VAN DE AANPASSING ---
 
             const chartData = aggregated.map(d => ({
                 date: new Date(d.date).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }),
@@ -187,4 +177,4 @@
 
         updateChart(); // Eerste render
     };
-})();
+})();```
