@@ -1,7 +1,7 @@
 // chart.js
 
 (function () {
-    // Styling wordt één keer toegevoegd voor een consistente popup.
+    // CSS wordt één keer gedefinieerd en toegevoegd voor een consistente styling.
     const style = document.createElement("style");
     style.textContent = `
       .chart-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; max-width: 90vw; height: 500px; max-height: 80vh; background-color: #f2f2f2; border-radius: 8px; z-index: 1000; display: flex; flex-direction: column; font-family: "Inter", sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
@@ -19,16 +19,19 @@
         if (existing) existing.remove();
     }
 
-    // De definitieve functie die de grafiek rendert.
+    // De centrale, herbruikbare functie voor het renderen van grafieken.
     window.renderChart = function (columnId, rowNode) {
         removeExistingChartPopup();
         const { data: productData } = rowNode;
-        if (!productData?.offers?.length) return;
+        if (!productData?.offers?.length) return; // Vroege return als er geen data is
 
-        // --- Stap 1: Bouw de UI met een simpele HTML template ---
+        // --- Stap 1: Bouw de popup-structuur efficiënt met een template ---
         const popup = document.createElement("div");
         popup.className = "chart-popup";
+
         const sellers = [...new Map(productData.offers.map(o => [o.sellerId, o.sellerName])).entries()];
+        const sellerOptions = sellers.map(([id, name]) => `<option value="${id}">${name}</option>`).join('');
+
         popup.innerHTML = `
             <div class="chart-popup-header">
                 <span class="chart-popup-title"></span>
@@ -42,13 +45,14 @@
                 </select>
                 <select id="seller-select">
                     <option value="all">All Sellers</option>
-                    ${sellers.map(([id, name]) => `<option value="${id}">${name}</option>`).join('')}
+                    ${sellerOptions}
                 </select>
             </div>
-            <div class="chart-popup-content"></div>`;
+            <div class="chart-popup-content" id="chart-container-${productData.productId}"></div>`;
+
         document.body.appendChild(popup);
 
-        // --- Stap 2: Definieer UI-elementen en de grafiek-variabele ---
+        // --- Stap 2: Verkrijg referenties naar de interactieve elementen ---
         const ui = {
             header: popup.querySelector('.chart-popup-header'),
             title: popup.querySelector('.chart-popup-title'),
@@ -57,88 +61,81 @@
             sellerSelect: popup.querySelector('#seller-select'),
             chartContainer: popup.querySelector('.chart-popup-content'),
         };
+
         let chartInstance = null;
-        
-        // --- Stap 3: Update-functie die alle logica bevat ---
+
+        // --- Stap 3: Definieer de update-logica die data verwerkt en de grafiek bijwerkt ---
         const updateChart = () => {
             const selectedPeriod = ui.periodSelect.value;
             const selectedSellerId = ui.sellerSelect.value;
 
-            // Deze functie bepaalt de periode-sleutel (YYYY-MM-DD). 100% UTC-veilig.
-            const getPeriodKey = (utcTimestamp) => {
-                const date = new Date(utcTimestamp);
-                const year = date.getUTCFullYear();
-                const month = date.getUTCMonth(); // 0-11
-                const day = date.getUTCDate();
-
-                if (selectedPeriod === 'monthly') {
-                    return new Date(Date.UTC(year, month, 1)).toISOString().substring(0, 10);
-                }
-                if (selectedPeriod === 'weekly') {
-                    const dayOfWeek = date.getUTCDay(); // Zondag=0, Maandag=1
-                    const offset = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
-                    return new Date(Date.UTC(year, month, day - offset)).toISOString().substring(0, 10);
-                }
-                // Daily
-                return utcTimestamp.substring(0, 10);
-            };
-
-            // Filter en aggregeer de data.
-            const offers = selectedSellerId === 'all'
+            // Dataverwerking: filteren en aggregeren
+            const filteredOffers = selectedSellerId === 'all'
                 ? productData.offers
                 : productData.offers.filter(o => o.sellerId === selectedSellerId);
-                
-            const aggregatedMap = offers.reduce((map, offer) => {
+
+            const getPeriodKey = (timestamp) => {
+                const d = new Date(timestamp);
+                if (selectedPeriod === 'weekly') {
+                    const weekStart = new Date(d.setDate(d.getDate() - d.getDay() + 1));
+                    return weekStart.toISOString().split('T')[0];
+                }
+                if (selectedPeriod === 'monthly') return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                return d.toISOString().split('T')[0]; // Daily
+            };
+
+            const aggregated = [...filteredOffers.reduce((map, offer) => {
                 const key = getPeriodKey(offer.scrapeTimestamp);
-                const entry = map.get(key) || { revenue: 0, unitsSold: 0, priceSum: 0, priceCount: 0, sellers: new Set() };
+                const entry = map.get(key) || { revenue: 0, unitsSold: 0, priceSum: 0, priceCount: 0, sellers: new Set(), date: key };
+
                 entry.revenue += Number(offer.revenue) || 0;
                 entry.unitsSold += Number(offer.unitsSold) || 0;
                 entry.priceSum += Number(offer.price) || 0;
                 entry.priceCount++;
                 entry.sellers.add(offer.sellerId);
-                return map.set(key, entry);
-            }, new Map());
-            
-            // Zet de geaggregeerde data om naar het formaat dat de grafiek nodig heeft.
-            const chartData = [...aggregatedMap.entries()]
-                .sort((a, b) => new Date(a[0]) - new Date(b[0]))
-                .map(([dateKey, values]) => {
-                    const valueMapping = {
-                        'revenue': values.revenue,
-                        'unitsSold': values.unitsSold,
-                        'avgWeightedPrice': values.priceCount ? values.priceSum / values.priceCount : 0,
-                        'sellerCount': values.sellers.size,
-                    };
-                    const [year, month, day] = dateKey.split('-');
-                    return {
-                        date: `${parseInt(day)}-${parseInt(month)}-${year}`,
-                        value: Number((valueMapping[columnId] || 0).toFixed(2))
-                    };
-                });
 
-            // Stel grafiekopties samen.
+                return map.set(key, entry);
+            }, new Map()).values()].sort((a,b) => new Date(a.date) - new Date(b.date));
+
+
+            // Mapping naar grafiekdata op basis van gekozen kolom
+            const columnMapping = {
+                'revenue': d => d.revenue,
+                'unitsSold': d => d.unitsSold,
+                'avgWeightedPrice': d => d.priceCount > 0 ? d.priceSum / d.priceCount : 0,
+                'sellerCount': d => d.sellers.size,
+            };
+            const chartData = aggregated.map(d => ({
+                date: new Date(d.date).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                value: Number((columnMapping[columnId] || (() => 0))(d).toFixed(2))
+            }));
+
+            // Grafiekopties voorbereiden
             const yAxisTitle = columnId.charAt(0).toUpperCase() + columnId.slice(1).replace(/([A-Z])/g, ' $1');
             ui.title.textContent = `${yAxisTitle} for: ${productData.productTitle}`;
-            
+
             const chartOptions = {
                 data: chartData,
                 series: [{ type: "bar", xKey: "date", yKey: "value", yName: yAxisTitle }],
                 axes: [
-                    { type: "category", position: "bottom", title: { text: "Date" }, label: { rotation: -35, autoRotate: true } },
+                    { type: "category", position: "bottom", title: { text: "Date" } },
                     { type: "number", position: "left", title: { text: yAxisTitle } }
                 ],
-                legend: { enabled: false }
+                legend: { enabled: false },
+                background: { fill: "#f2f2f2" },
             };
 
-            // Creëer of update de grafiek.
+            // --- Stap 4: Creëer de grafiek (indien nodig) of werk hem bij ---
             if (!chartInstance) {
-                chartInstance = agCharts.AgCharts.create({ ...chartOptions, container: ui.chartContainer });
+                chartOptions.container = ui.chartContainer;
+                chartInstance = agCharts.AgCharts.create(chartOptions);
             } else {
+                agCharts.AgCharts.update(chartInstance, chartOptions);
                 chartInstance.update(chartOptions);
             }
         };
 
-        // --- Stap 4: Koppel events en sleep-functionaliteit ---
+        // --- Stap 5: Voeg event listeners en drag-functionaliteit toe ---
         ui.periodSelect.addEventListener("change", updateChart);
         ui.sellerSelect.addEventListener("change", updateChart);
         ui.closeButton.addEventListener("click", () => popup.remove());
@@ -149,9 +146,12 @@
             offsetX = e.clientX - popup.offsetLeft;
             offsetY = e.clientY - popup.offsetTop;
         };
-        document.onmousemove = (e) => isDragging && (popup.style.left = `${e.clientX - offsetX}px`, popup.style.top = `${e.clientY - offsetY}px`);
+        document.onmousemove = (e) => {
+            if (!isDragging) return;
+            popup.style.left = `${e.clientX - offsetX}px`;
+            popup.style.top = `${e.clientY - offsetY}px`;
+        };
         document.onmouseup = () => isDragging = false;
 
-        updateChart(); // Eerste render.
+        updateChart(); // Eerste render
     };
-})();
