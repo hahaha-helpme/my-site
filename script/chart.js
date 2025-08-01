@@ -76,12 +76,23 @@
 
             const getPeriodKey = (timestamp) => {
                 const d = new Date(timestamp);
+
+                const year = d.getUTCFullYear();
+                const month = d.getUTCMonth();
+                const day = d.getUTCDate();
+
                 if (selectedPeriod === 'weekly') {
-                    const weekStart = new Date(d.setDate(d.getDate() - d.getDay() + 1));
+                    const utcDay = d.getUTCDay();
+                    const diff = (utcDay + 6) % 7; // maandag = 0
+                    const weekStart = new Date(Date.UTC(year, month, day - diff));
                     return weekStart.toISOString().split('T')[0];
                 }
-                if (selectedPeriod === 'monthly') return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-                return d.toISOString().split('T')[0]; // Daily
+
+                if (selectedPeriod === 'monthly') {
+                    return `${year}-${String(month + 1).padStart(2, '0')}`;
+                }
+
+                return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             };
 
             const aggregated = [...filteredOffers.reduce((map, offer) => {
