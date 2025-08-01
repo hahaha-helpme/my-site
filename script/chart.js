@@ -70,22 +70,25 @@
                 ? productData.offers
                 : productData.offers.filter(o => o.sellerId === selectedSellerId);
             
-            // --- CORRECTIE HIER: Robuuste en niet-muterende datumberekening ---
+            // --- GECORRIGEERDE FUNCTIE ---
             const getPeriodKey = (timestamp) => {
                 const d = new Date(timestamp);
+                d.setHours(0, 0, 0, 0); // Normaliseer naar begin van de dag
+
                 if (selectedPeriod === 'weekly') {
-                    const dayOfWeek = d.getDay(); // Zondag=0, Maandag=1, ...
-                    const dayOfMonth = d.getDate();
-                    // Maak een *nieuwe* datum aan voor de berekening om mutatie te voorkomen
-                    const weekStart = new Date(d);
-                    // Zondag (0) wordt behandeld als dag 7 om de week op maandag te laten beginnen.
-                    weekStart.setDate(dayOfMonth - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-                    return weekStart.toISOString().split('T')[0];
+                    // Zondag (0) wordt dag 7. Maandag is nu 1.
+                    const dayOfWeek = d.getDay() || 7; 
+                    // Kopieer de datum om mutatie te voorkomen
+                    const monday = new Date(d.valueOf());
+                    // Ga terug naar de maandag van die week
+                    monday.setDate(d.getDate() - dayOfWeek + 1);
+                    return monday.toISOString().split('T')[0];
                 }
                 if (selectedPeriod === 'monthly') {
                     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
                 }
-                return d.toISOString().split('T')[0]; // Daily
+                // Daily
+                return d.toISOString().split('T')[0];
             };
 
             const aggregated = [...filteredOffers.reduce((map, offer) => {
@@ -106,13 +109,13 @@
                 'sellerCount': d => d.sellers.size,
             };
             const chartData = aggregated.map(d => ({
-                date: new Date(d.date).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                date: new Date(d.date).toLocaleDateString('nl-NL', { timeZone: 'UTC', day: '2-digit', month: '2-digit', year: 'numeric' }),
                 value: Number((columnMapping[columnId] || (() => 0))(d).toFixed(2))
             }));
 
             const yAxisTitle = columnId.charAt(0).toUpperCase() + columnId.slice(1).replace(/([A-Z])/g, ' $1');
             ui.title.textContent = `${yAxisTitle} for: ${productData.productTitle}`;
-            console.log('chartData', chartData)
+            
             const chartOptions = {
                 data: chartData,
                 series: [{ type: "bar", xKey: "date", yKey: "value", yName: yAxisTitle }],
