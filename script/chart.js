@@ -114,6 +114,7 @@
             const yAxisTitle = columnId.charAt(0).toUpperCase() + columnId.slice(1).replace(/([A-Z])/g, ' $1');
             ui.title.textContent = `${yAxisTitle} for: ${productData.productTitle}`;
             
+            console.log('chartData', chartData)
             const chartOptions = {
                 data: chartData,
                 series: [{ type: "bar", xKey: "date", yKey: "value", yName: yAxisTitle }],
