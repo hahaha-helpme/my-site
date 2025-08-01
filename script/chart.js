@@ -74,26 +74,15 @@
                 ? productData.offers
                 : productData.offers.filter(o => o.sellerId === selectedSellerId);
 
-const getPeriodKey = (timestamp) => {
-    const date = new Date(timestamp);
-    const utcYear = date.getUTCFullYear();
-    const utcMonth = date.getUTCMonth();
-    const utcDate = date.getUTCDate();
-
-    if (selectedPeriod === 'weekly') {
-        const day = date.getUTCDay();
-        const diff = date.getUTCDate() - day + (day === 0 ? -6 : 1); // maandag-start
-        const weekStart = new Date(Date.UTC(utcYear, utcMonth, diff));
-        return weekStart.toISOString().split('T')[0];
-    }
-
-    if (selectedPeriod === 'monthly') {
-        return `${utcYear}-${String(utcMonth + 1).padStart(2, '0')}`;
-    }
-
-    // daily
-    return `${utcYear}-${String(utcMonth + 1).padStart(2, '0')}-${String(utcDate).padStart(2, '0')}`;
-};
+            const getPeriodKey = (timestamp) => {
+                const d = new Date(timestamp);
+                if (selectedPeriod === 'weekly') {
+                    const weekStart = new Date(d.setDate(d.getDate() - d.getDay() + 1));
+                    return weekStart.toISOString().split('T')[0];
+                }
+                if (selectedPeriod === 'monthly') return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                return d.toISOString().split('T')[0]; // Daily
+            };
 
             const aggregated = [...filteredOffers.reduce((map, offer) => {
                 const key = getPeriodKey(offer.scrapeTimestamp);
@@ -125,7 +114,6 @@ const getPeriodKey = (timestamp) => {
             const yAxisTitle = columnId.charAt(0).toUpperCase() + columnId.slice(1).replace(/([A-Z])/g, ' $1');
             ui.title.textContent = `${yAxisTitle} for: ${productData.productTitle}`;
             
-            console.log('chartData', chartData)
             const chartOptions = {
                 data: chartData,
                 series: [{ type: "bar", xKey: "date", yKey: "value", yName: yAxisTitle }],
