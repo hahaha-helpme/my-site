@@ -321,6 +321,7 @@
             const clickableColumns = ['avgWeightedPrice', 'revenue', 'unitsSold', 'sellerCount'];
             if (clickableColumns.includes(params.column.getColId())) {
               // Roep de nieuwe, beknopte functie aan
+              console.log('params.node', params.node)
               renderChart(params.column.getColId(), params.node);
             }
           },
