@@ -105,6 +105,9 @@
                 'avgWeightedPrice': d => d.priceCount > 0 ? d.priceSum / d.priceCount : 0,
                 'sellerCount': d => d.sellers.size,
             };
+
+            console.log('aggregated',aggregated)
+
             const chartData = aggregated.map(d => ({
                 date: new Date(d.date),
                 value: Number((columnMapping[columnId] || (() => 0))(d).toFixed(2))
