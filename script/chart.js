@@ -77,10 +77,21 @@
             const getPeriodKey = (timestamp) => {
                 const d = new Date(timestamp);
                 if (selectedPeriod === 'weekly') {
-                    const weekStart = new Date(d.setDate(d.getDate() - d.getDay() + 1));
+                    // --- START VAN DE CORRECTIE ---
+                    // Maak een kopie van de datum om de originele 'd' niet te wijzigen.
+                    const tempDate = new Date(d);
+                    const day = tempDate.getDay(); // Zondag = 0, Maandag = 1, etc.
+                    // Bereken het verschil naar de voorgaande maandag.
+                    // Als het zondag is (dag 0), ga 6 dagen terug. Anders, ga (dag - 1) dagen terug.
+                    const diff = tempDate.getDate() - day + (day === 0 ? -6 : 1);
+                    const weekStart = new Date(tempDate.setDate(diff));
+                    
                     return weekStart.toISOString().split('T')[0];
+                    // --- EINDE VAN DE CORRECTIE ---
                 }
-                if (selectedPeriod === 'monthly') return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                if (selectedPeriod === 'monthly') {
+                    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                }
                 return d.toISOString().split('T')[0]; // Daily
             };
 
