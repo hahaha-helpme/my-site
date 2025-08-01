@@ -154,4 +154,4 @@
         document.onmouseup = () => isDragging = false;
 
         updateChart(); // Eerste render
-    }
+    };
