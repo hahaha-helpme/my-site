@@ -1,7 +1,7 @@
 // chart.js
 
 (function () {
-    // Deze styling blijft ongewijzigd.
+    // Styling wordt één keer toegevoegd voor een consistente popup.
     const style = document.createElement("style");
     style.textContent = `
       .chart-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; max-width: 90vw; height: 500px; max-height: 80vh; background-color: #f2f2f2; border-radius: 8px; z-index: 1000; display: flex; flex-direction: column; font-family: "Inter", sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
@@ -19,12 +19,13 @@
         if (existing) existing.remove();
     }
 
+    // De definitieve functie die de grafiek rendert.
     window.renderChart = function (columnId, rowNode) {
         removeExistingChartPopup();
         const { data: productData } = rowNode;
         if (!productData?.offers?.length) return;
 
-        // --- Stap 1: Bouw de UI efficiënt met een HTML template ---
+        // --- Stap 1: Bouw de UI met een simpele HTML template ---
         const popup = document.createElement("div");
         popup.className = "chart-popup";
         const sellers = [...new Map(productData.offers.map(o => [o.sellerId, o.sellerName])).entries()];
@@ -47,7 +48,7 @@
             <div class="chart-popup-content"></div>`;
         document.body.appendChild(popup);
 
-        // --- Stap 2: Definieer UI elementen en variabelen ---
+        // --- Stap 2: Definieer UI-elementen en de grafiek-variabele ---
         const ui = {
             header: popup.querySelector('.chart-popup-header'),
             title: popup.querySelector('.chart-popup-title'),
@@ -58,27 +59,31 @@
         };
         let chartInstance = null;
         
-        // --- Stap 3: Definieer de update-functie die alles regelt ---
+        // --- Stap 3: Update-functie die alle logica bevat ---
         const updateChart = () => {
             const selectedPeriod = ui.periodSelect.value;
             const selectedSellerId = ui.sellerSelect.value;
 
-            // Logica voor het groeperen op periode (robuust en UTC-gebaseerd)
+            // Deze functie bepaalt de periode-sleutel (YYYY-MM-DD). 100% UTC-veilig.
             const getPeriodKey = (utcTimestamp) => {
                 const date = new Date(utcTimestamp);
+                const year = date.getUTCFullYear();
+                const month = date.getUTCMonth(); // 0-11
+                const day = date.getUTCDate();
+
                 if (selectedPeriod === 'monthly') {
-                    return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-01`;
+                    return new Date(Date.UTC(year, month, 1)).toISOString().substring(0, 10);
                 }
                 if (selectedPeriod === 'weekly') {
-                    const day = date.getUTCDay(); // Zondag=0, Maandag=1
-                    const offset = (day === 0) ? 6 : day - 1; // Bereken dagen terug tot maandag
-                    const monday = new Date(date.getTime() - offset * 86400000);
-                    return monday.toISOString().substring(0, 10);
+                    const dayOfWeek = date.getUTCDay(); // Zondag=0, Maandag=1
+                    const offset = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
+                    return new Date(Date.UTC(year, month, day - offset)).toISOString().substring(0, 10);
                 }
-                return utcTimestamp.substring(0, 10); // Daily
+                // Daily
+                return utcTimestamp.substring(0, 10);
             };
 
-            // Filter en aggregeer de data
+            // Filter en aggregeer de data.
             const offers = selectedSellerId === 'all'
                 ? productData.offers
                 : productData.offers.filter(o => o.sellerId === selectedSellerId);
@@ -93,27 +98,28 @@
                 entry.sellers.add(offer.sellerId);
                 return map.set(key, entry);
             }, new Map());
-
-            // Mapping van kolomnaam naar berekening
-            const valueMapping = {
-                'revenue': d => d.revenue,
-                'unitsSold': d => d.unitsSold,
-                'avgWeightedPrice': d => d.priceCount ? d.priceSum / d.priceCount : 0,
-                'sellerCount': d => d.sellers.size,
-            };
-
-            // Transformeer data naar het formaat dat de grafiek verwacht
+            
+            // Zet de geaggregeerde data om naar het formaat dat de grafiek nodig heeft.
             const chartData = [...aggregatedMap.entries()]
                 .sort((a, b) => new Date(a[0]) - new Date(b[0]))
-                .map(([dateKey, values]) => ({
-                    date: new Intl.DateTimeFormat('nl-NL', { timeZone: 'UTC' }).format(new Date(dateKey)),
-                    value: Number((valueMapping[columnId](values) || 0).toFixed(2))
-                }));
-            
-            // Stel grafiekopties samen
+                .map(([dateKey, values]) => {
+                    const valueMapping = {
+                        'revenue': values.revenue,
+                        'unitsSold': values.unitsSold,
+                        'avgWeightedPrice': values.priceCount ? values.priceSum / values.priceCount : 0,
+                        'sellerCount': values.sellers.size,
+                    };
+                    const [year, month, day] = dateKey.split('-');
+                    return {
+                        date: `${parseInt(day)}-${parseInt(month)}-${year}`,
+                        value: Number((valueMapping[columnId] || 0).toFixed(2))
+                    };
+                });
+
+            // Stel grafiekopties samen.
             const yAxisTitle = columnId.charAt(0).toUpperCase() + columnId.slice(1).replace(/([A-Z])/g, ' $1');
             ui.title.textContent = `${yAxisTitle} for: ${productData.productTitle}`;
-            console.log('chartData', chartData)
+            
             const chartOptions = {
                 data: chartData,
                 series: [{ type: "bar", xKey: "date", yKey: "value", yName: yAxisTitle }],
@@ -124,7 +130,7 @@
                 legend: { enabled: false }
             };
 
-            // Creëer de grafiek (1e keer) of werk hem bij (volgende keren)
+            // Creëer of update de grafiek.
             if (!chartInstance) {
                 chartInstance = agCharts.AgCharts.create({ ...chartOptions, container: ui.chartContainer });
             } else {
@@ -132,7 +138,7 @@
             }
         };
 
-        // --- Stap 4: Koppel events ---
+        // --- Stap 4: Koppel events en sleep-functionaliteit ---
         ui.periodSelect.addEventListener("change", updateChart);
         ui.sellerSelect.addEventListener("change", updateChart);
         ui.closeButton.addEventListener("click", () => popup.remove());
@@ -146,6 +152,6 @@
         document.onmousemove = (e) => isDragging && (popup.style.left = `${e.clientX - offsetX}px`, popup.style.top = `${e.clientY - offsetY}px`);
         document.onmouseup = () => isDragging = false;
 
-        updateChart(); // Roep de functie aan voor de eerste weergave.
+        updateChart(); // Eerste render.
     };
 })();
