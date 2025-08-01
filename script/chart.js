@@ -95,17 +95,29 @@
                 return d.toISOString().split('T')[0]; // Daily
             };
 
-            console.log('filteredOffers', filteredOffers)
-
+            // --- START VAN DE AANPASSING ---
             const aggregated = [...filteredOffers.reduce((map, offer) => {
                 const key = getPeriodKey(offer.scrapeTimestamp);
-                const entry = map.get(key) || { revenue: 0, unitsSold: 0, priceSum: 0, priceCount: 0, sellers: new Set(), date: key };
+                const entry = map.get(key) || { 
+                    revenue: 0, unitsSold: 0, priceSum: 0, sellers: new Set(), date: key,
+                    deliveryRateSum: 0, stockLeftSum: 0, deliveryTimeMinSum: 0,
+                    deliveryTimeMaxSum: 0, buyBoxCount: 0, offerCount: 0 
+                };
                 
                 entry.revenue += Number(offer.revenue) || 0;
                 entry.unitsSold += Number(offer.unitsSold) || 0;
                 entry.priceSum += Number(offer.price) || 0;
-                entry.priceCount++;
                 entry.sellers.add(offer.sellerId);
+
+                // Aggregeer de nieuwe velden
+                entry.deliveryRateSum += Number(offer.deliveryRate) || 0;
+                entry.stockLeftSum += Number(offer.stockLeft) || 0;
+                entry.deliveryTimeMinSum += Number(offer.deliveryTimeRangeDaysMin) || 0;
+                entry.deliveryTimeMaxSum += Number(offer.deliveryTimeRangeDaysMax) || 0;
+                if (offer.buyBox) {
+                    entry.buyBoxCount++;
+                }
+                entry.offerCount++; // Belangrijk voor het berekenen van gemiddeldes
                 
                 return map.set(key, entry);
             }, new Map()).values()].sort((a,b) => new Date(a.date) - new Date(b.date));
@@ -115,9 +127,17 @@
             const columnMapping = {
                 'revenue': d => d.revenue,
                 'unitsSold': d => d.unitsSold,
-                'avgWeightedPrice': d => d.priceCount > 0 ? d.priceSum / d.priceCount : 0,
+                'avgWeightedPrice': d => d.offerCount > 0 ? d.priceSum / d.offerCount : 0,
                 'sellerCount': d => d.sellers.size,
+                // Nieuwe mappings voor de toegevoegde velden
+                'deliveryRate': d => d.offerCount > 0 ? d.deliveryRateSum / d.offerCount : 0,
+                'stockLeft': d => d.offerCount > 0 ? d.stockLeftSum / d.offerCount : 0, // Gemiddelde voorraad
+                'deliveryTimeMin': d => d.offerCount > 0 ? d.deliveryTimeMinSum / d.offerCount : 0, // Gem. min. levertijd
+                'deliveryTimeMax': d => d.offerCount > 0 ? d.deliveryTimeMaxSum / d.offerCount : 0, // Gem. max. levertijd
+                'buyBox': d => d.buyBoxCount, // Totaal aantal Buy Box wins in de periode
             };
+            // --- EINDE VAN DE AANPASSING ---
+
             const chartData = aggregated.map(d => ({
                 date: new Date(d.date).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                 value: Number((columnMapping[columnId] || (() => 0))(d).toFixed(2))
@@ -167,4 +187,4 @@
 
         updateChart(); // Eerste render
     };
-})();
+})();```
