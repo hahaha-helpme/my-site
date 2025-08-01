@@ -84,6 +84,8 @@
                 return d.toISOString().split('T')[0]; // Daily
             };
 
+            console.log('filteredOffers', filteredOffers)
+
             const aggregated = [...filteredOffers.reduce((map, offer) => {
                 const key = getPeriodKey(offer.scrapeTimestamp);
                 const entry = map.get(key) || { revenue: 0, unitsSold: 0, priceSum: 0, priceCount: 0, sellers: new Set(), date: key };
