@@ -318,7 +318,7 @@
             }
           },
           onCellClicked: (params) => {
-            const clickableColumns = ['avgWeightedPrice', 'revenue', 'unitsSold', 'sellerCount',];
+            const clickableColumns = ['avgWeightedPrice', 'revenue', 'unitsSold', 'reviewRating', 'reviewCount', 'sellerCount'];
             if (clickableColumns.includes(params.column.getColId())) {
               // Roep de nieuwe, beknopte functie aan
               console.log('params.node', params.node)
