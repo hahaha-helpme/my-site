@@ -9,7 +9,7 @@
       .chart-popup-title { font-weight: 600; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .chart-popup-close { cursor: pointer; border: none; background: none; font-size: 24px; font-weight: bold; color: #555; line-height: 1; }
       .chart-popup-close:hover { color: black; }
-      .chart-popup-controls { padding: 0px 20px; display: flex; gap: 16px; background-color: #f2f2f2; }
+      .chart-popup-controls { padding: 5px 20px; display: flex; gap: 16px; background-color: #f2f2f2; }
       .chart-popup-controls select { font-family: "Inter", sans-serif; padding: 6px 10px; border-radius: 4px; background-color: white; border: 0px;}
       .chart-popup-content { flex-grow: 1; padding: 10px 20px 20px 20px; }`;
     document.head.appendChild(style);
