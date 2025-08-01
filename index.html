@@ -167,6 +167,7 @@
       customLinkColumn: {
         cellRenderer: 'LinkRenderer',
         cellClass: 'link-cell',
+        sortable: false,
       },
       customImageColumn: {
         cellRenderer: 'ImageRenderer',
@@ -304,34 +305,11 @@
     // --- State-specifieke Logica ---
     const stateHandlers = {
       resState: {
-        extraOptions: {
-          // rowSelection: {
-          //   mode: 'multiRow',
-          //   headerCheckbox: false,
-          //   showDisabledCheckboxes: true,
-          //   isRowSelectable: (rowNode) => !rowNode.data?.isTrackingSyncing,
-          // },
-          // selectionColumnDef: {
-          //   headerName: 'Track',
-          //   width: 100,
-          //   sortable: false,
-          //   filter: true,
-          //   filterParams: {
-          //     filter: 'agSetColumnFilter',
-          //     buttons: ['apply', 'reset'],
-          //     maxNumConditions: 1,
-          //     trimInput: true,
-          //     closeOnApply: true,
-          //     filterOptions: ['Tracking Enabled', 'Tracking Disabled'],
-          //   },
-          // },
-        },
+        extraOptions: {},
         listeners: {
           onCellValueChanged: (event) => {
             // Check of de verandering uit de juiste kolom komt
             if (event.colDef.field === 'trackEnabled' && event.source === 'commit') { // er gaan twee events af en source commit is de juiste
-              
-              console.log('Checkbox waarde veranderd!', event); // Voor testen
               
               sendRequestToParent(currentState, 'trackProduct', {
                 productId: event.data.productId,
@@ -341,9 +319,9 @@
             }
           },
           onCellClicked: (params) => {
-            // Controleer of de geklikte kolom 'unitsSold' is
-            if (params.column.getColId() === 'unitsSold') {
-              showStockChart([], params.node); 
+            const clickableColumns = ['avgWeightedPrice', 'revenue', 'unitsSold', 'reviewRating', 'reviewCount', 'sellerCount'];
+            if (clickableColumns.includes(params.column.getColId())) {
+              renderChart(params.column.getColId(), params.node);
             }
           },
           onModelUpdated: (e) => {  // dit werkt misschien niet
