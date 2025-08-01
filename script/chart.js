@@ -177,4 +177,4 @@
 
         updateChart(); // Eerste render
     };
-})();```
+})();
