@@ -106,6 +106,7 @@
                 'sellerCount': d => d.sellers.size,
             };
             const chartData = aggregated.map(d => ({
+                console.log('d', d)
                 date: new Date(d.date).toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                 value: Number((columnMapping[columnId] || (() => 0))(d).toFixed(2))
             }));
