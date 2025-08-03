@@ -362,6 +362,7 @@
 
     window.addEventListener('message', e => {
       if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
+      
       if (e.data.step !== '2') return;
 
       const { action, payload } = e.data;
