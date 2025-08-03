@@ -362,7 +362,7 @@
 
     window.addEventListener('message', e => {
       if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
-      if (e.data.step !== 'https://www-sellerrr-com.filesusr.com') return;
+      if (e.data.step !== '2') return;
       console.log('github', e)
 
       const { action, payload } = e.data;
