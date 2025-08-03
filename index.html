@@ -362,8 +362,9 @@
 
     window.addEventListener('message', e => {
       if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
-      console.log('e', e)
-      
+      if (e.data.step !== 'https://www-sellerrr-com.filesusr.com') return;
+      console.log('github', e)
+
       const { action, payload } = e.data;
       // --- ACTIE 1: Wix geeft een commando om de state te veranderen ---
       if (action === 'initGrid') {
