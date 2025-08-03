@@ -251,7 +251,7 @@
     let lastAppliedColumnDefs = null;
 
     function sendRequestToParent(state, action, payload) {
-      window.parent.postMessage({ state, action, payload }, 'https://www-sellerrr-com.filesusr.com');
+      window.parent.postMessage({ state, action, payload, step: "3" }, 'https://www-sellerrr-com.filesusr.com');
     }
 
     // --- Grid Opties ---
@@ -362,6 +362,8 @@
 
     window.addEventListener('message', e => {
       if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
+      if (e.data.step !== '2') return;
+
       const { action, payload } = e.data;
       // --- ACTIE 1: Wix geeft een commando om de state te veranderen ---
       if (action === 'initGrid') {
