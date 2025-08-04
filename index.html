@@ -362,8 +362,8 @@
 
     window.addEventListener('message', e => {
       if (e.origin !== 'https://www-sellerrr-com.filesusr.com') return;
-      if (e.data.step !== '2') return;
-      console.log('2', e)
+      if (e.data.step !== '2' || e.data.step !== '5') return;
+      console.log('2 of 5', e)
 
       const { action, payload } = e.data;
       // --- ACTIE 1: Wix geeft een commando om de state te veranderen ---
