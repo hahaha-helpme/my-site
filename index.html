@@ -44,6 +44,25 @@
       overflow-x: auto;
     }
 
+    /* Target alleen de cell value, niet de hele cel */
+.ag-cell-value {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Styling voor de selectie binnen cell value */
+.ag-cell-value::selection {
+    background-color: rgba(51, 144, 255, 0.3); /* Semi-transparant blauw */
+    color: inherit; /* Behoud oorspronkelijke tekstkleur */
+}
+
+.ag-cell-value::-moz-selection {
+    background-color: rgba(51, 144, 255, 0.3);
+    color: inherit;
+}
+
     /* Ingesteld voor popup/menu van filter */
     .ag-simple-filter-body-wrapper {
       padding: 12px 12px 0px 12px !important;
