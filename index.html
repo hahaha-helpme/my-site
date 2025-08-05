@@ -403,7 +403,7 @@
           applyStateConfig(state);
 
           gridApi.setFilterModel(null);
-          gridApi.setSortModel(null);          
+          gridApi.applyColumnState({ defaultState: { sort: null } });
           
           gridApi.purgeInfiniteCache();
         }
