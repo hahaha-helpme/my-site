@@ -23,6 +23,10 @@
       this.eGui = document.createElement('img');
       this.eGui.alt = params.value || 'Product Image';
       this.eGui.src = params.value;
+
+      this.eGui.onerror = () => {
+        this.eGui.style.display = 'none';
+      };
     }
     getGui() { return this.eGui; }
     refresh(params) {

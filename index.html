@@ -266,6 +266,8 @@
       cacheBlockSize: 10,
       maxConcurrentDatasourceRequests: 1,
       maxBlocksInCache: 0, // this is 0 because onModelUpdated doesnt know how to handle trackenabled
+      enableCellTextSelection: true, // tijdelijke selectie, maak een mooier alternatief later
+      ensureDomOrder: true, // tijdelijke selectie, maak een mooier alternatief later
 
       paginationPageSizeSelector: false,
       animateRows: true,
@@ -338,7 +340,10 @@
           },
         },
       },
-      someOtherState: { /* ... */ }
+      keyState: {
+        extraOptions: {},
+        listeners: {},
+       }
     };
 
     function applyStateConfig(state) {
@@ -396,6 +401,10 @@
           // Grid bestaat al: update de config en wis de oude data.
           // Dit triggert de datasource om nieuwe data op te halen.
           applyStateConfig(state);
+
+          gridApi.setFilterModel(null);
+          gridApi.applyColumnState({ defaultState: { sort: null } });
+          
           gridApi.purgeInfiniteCache();
         }
         return; // Taak volbracht.
