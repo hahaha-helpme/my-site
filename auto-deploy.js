@@ -11,6 +11,9 @@
 const { execSync } = require("child_process");
 const run = cmd => execSync(cmd, { stdio: "inherit" });
 
+// 🔁 0️⃣ Altijd eerst naar de juiste branch
+run("git checkout preview");
+
 // 1️⃣ Turbo-upload naar ‘fast’ (altijd dezelfde URL)
 run("wrangler pages deploy ./ --project-name grid --branch fast");
 
