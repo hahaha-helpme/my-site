@@ -4,8 +4,10 @@
   style.textContent = `
     /* Cel centreren */
     .ag-cell.image-cell {
-  display: grid;
-  place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
     }
     /* Afbeelding schalen */
     .ag-cell.image-cell img {
