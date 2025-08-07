@@ -2,19 +2,14 @@
 (function () {
   const style = document.createElement('style');
   style.textContent = `
-    /*
-      De meest robuuste methode om de inhoud van een cel te centreren.
-      'display: grid' maakt een grid-container van de cel.
-      'place-items: center' is een afkorting die zowel horizontaal als verticaal centreert.
-      '!important' is nodig om de standaard AG Grid-themastijlen te overschrijven.
-    */
+    /* Cel centreren */
     .ag-cell.image-cell {
-      display: grid !important;
-      place-items: center !important;
-      /* padding: 0 !important; <-- Voeg eventueel toe als er nog steeds een afwijking is */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
     }
-
-    /* Afbeelding schalen (deze regel blijft ongewijzigd) */
+    /* Afbeelding schalen */
     .ag-cell.image-cell img {
       width: 35px;
       height: 35px;
