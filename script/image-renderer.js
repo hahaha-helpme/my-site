@@ -2,14 +2,18 @@
 (function () {
   const style = document.createElement('style');
   style.textContent = `
-    /* Cel centreren */
-    .ag-cell.image-cell {
+    /* 
+      Maak de wrapper een flex-container en geef hem 100% hoogte.
+      Dit is de sleutel tot de oplossing.
+    */
+    .ag-cell.image-cell .ag-cell-wrapper {
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100%;
     }
-    /* Afbeelding schalen */
+
+    /* Afbeelding schalen (deze regel blijft ongewijzigd) */
     .ag-cell.image-cell img {
       width: 35px;
       height: 35px;
