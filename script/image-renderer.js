@@ -2,15 +2,16 @@
 (function () {
   const style = document.createElement('style');
   style.textContent = `
-    /* 
-      Maak de wrapper een flex-container en geef hem 100% hoogte.
-      Dit is de sleutel tot de oplossing.
+    /*
+      De meest robuuste methode om de inhoud van een cel te centreren.
+      'display: grid' maakt een grid-container van de cel.
+      'place-items: center' is een afkorting die zowel horizontaal als verticaal centreert.
+      '!important' is nodig om de standaard AG Grid-themastijlen te overschrijven.
     */
-    .ag-cell.image-cell .ag-cell-wrapper {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .ag-cell.image-cell {
+      display: grid !important;
+      place-items: center !important;
+      /* padding: 0 !important; <-- Voeg eventueel toe als er nog steeds een afwijking is */
     }
 
     /* Afbeelding schalen (deze regel blijft ongewijzigd) */
