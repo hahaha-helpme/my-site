@@ -28,6 +28,14 @@
 //   height: 35px;
 //   object-fit: contain; 
 // }
+
+.image-cell img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover; /* of contain, afhankelijk van gewenst effect */
+    display: block;
+    margin: 0 auto; /* Horizontaal centreren */
+}
   `;
 
 
