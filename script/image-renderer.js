@@ -16,6 +16,20 @@
       object-fit: contain;
     }
   `;
+
+
+g-cell.image-cell {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+
+.ag-cell.image-cell img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain; 
+}
   document.head.appendChild(style);
 
   class ImageRenderer {
