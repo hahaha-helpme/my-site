@@ -2,7 +2,6 @@
 (function () {
   const style = document.createElement('style');
   style.textContent = `
-      /* Targeting de specifieke image-cell class */
       .ag-cell.image-cell {
           display: flex !important;
           justify-content: center;
