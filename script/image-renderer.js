@@ -29,12 +29,31 @@
 //   object-fit: contain; 
 // }
 
-.image-cell img {
+/* Targeting de specifieke image-cell class */
+.ag-cell.image-cell {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.ag-cell.image-cell .ag-cell-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.ag-cell.image-cell .ag-cell-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ag-cell.image-cell img {
     width: 35px;
     height: 35px;
-    object-fit: cover; /* of contain, afhankelijk van gewenst effect */
-    display: block;
-    margin: 0 auto; /* Horizontaal centreren */
+    object-fit: cover;
 }
   `;
 
