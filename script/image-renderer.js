@@ -3,11 +3,11 @@
   const style = document.createElement('style');
   style.textContent = `
       /* Targeting de specifieke image-cell class */
-      // .ag-cell.image-cell {
-      //     display: flex !important;
-      //     justify-content: center;
-      //     align-items: center;
-      // }
+      .ag-cell.image-cell {
+          display: flex !important;
+          justify-content: center;
+          align-items: center;
+      }
 
       .ag-cell.image-cell .ag-cell-wrapper {
           display: flex;
@@ -17,11 +17,11 @@
           height: 100%;
       }
 
-      // .ag-cell.image-cell .ag-cell-value {
-      //     display: flex;
-      //     justify-content: center;
-      //     align-items: center;
-      // }
+      .ag-cell.image-cell .ag-cell-value {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
 
       .ag-cell.image-cell img {
           width: 35px;
