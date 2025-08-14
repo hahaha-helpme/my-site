@@ -2,20 +2,35 @@
 (function () {
   const style = document.createElement('style');
   style.textContent = `
-    /* Cel centreren */
-    .ag-cell.image-cell {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-    /* Afbeelding schalen */
-    .ag-cell.image-cell img {
-      width: 35px;
-      height: 35px;
-      object-fit: contain;
-    }
+      .ag-cell.image-cell {
+          display: flex !important;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .ag-cell.image-cell .ag-cell-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+      }
+
+      .ag-cell.image-cell .ag-cell-value {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .ag-cell.image-cell img {
+          width: 35px;
+          height: 35px;
+          object-fit: contain; 
+      }
   `;
+
+
+  
   document.head.appendChild(style);
 
   class ImageRenderer {
