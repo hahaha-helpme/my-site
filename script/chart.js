@@ -89,43 +89,40 @@
                 return d.toISOString().split('T')[0]; // Daily
             };
 
-            const aggregated = [...filteredOffers.reduce((map, offer) => {
+    const aggregated = [...filteredOffers.reduce((map, offer) => {
                 const key = getPeriodKey(offer.scrapeTimestamp);
+                // NIEUW: De beginwaarden zijn aangepast voor correcte berekeningen
                 const entry = map.get(key) || { 
-                    revenue: 0, unitsSold: 0, priceSum: 0, sellers: new Set(), date: key,
-                    deliveryRateSum: 0, stockLeftSum: 0, deliveryTimeMinSum: 0,
-                    deliveryTimeMaxSum: 0, buyBoxCount: 0, offerCount: 0 
+                    date: key, revenue: 0, unitsSold: 0, priceSum: 0, offerCount: 0,
+                    sellers: new Set(), deliveryRateSum: 0, stockLeftSum: 0,
+                    deliveryTimeMin: Infinity, deliveryTimeMax: 0 
                 };
                 
                 entry.revenue += Number(offer.revenue) || 0;
                 entry.unitsSold += Number(offer.unitsSold) || 0;
                 entry.priceSum += Number(offer.price) || 0;
-                entry.sellers.add(offer.sellerId); // HIER WORDT DE VERKOPER GETELD
-
+                entry.sellers.add(offer.sellerId);
                 entry.deliveryRateSum += Number(offer.deliveryRate) || 0;
+                // NIEUW: Logica voor Totaal, Minimum en Maximum
                 entry.stockLeftSum += Number(offer.stockLeft) || 0;
-                entry.deliveryTimeMinSum += Number(offer.deliveryTimeRangeDaysMin) || 0;
-                entry.deliveryTimeMaxSum += Number(offer.deliveryTimeRangeDaysMax) || 0;
-                if (offer.buyBox) {
-                    entry.buyBoxCount++;
-                }
+                entry.deliveryTimeMin = Math.min(entry.deliveryTimeMin, Number(offer.deliveryTimeRangeDaysMin) || Infinity);
+                entry.deliveryTimeMax = Math.max(entry.deliveryTimeMax, Number(offer.deliveryTimeRangeDaysMax) || 0);
                 entry.offerCount++;
                 
                 return map.set(key, entry);
             }, new Map()).values()].sort((a,b) => new Date(a.date) - new Date(b.date));
 
-
-            // Mapping naar grafiekdata op basis van gekozen kolom
+            // NIEUW: De mapping is volledig bijgewerkt voor de nieuwe en bestaande kolommen
             const columnMapping = {
                 'revenue': d => d.revenue,
                 'unitsSold': d => d.unitsSold,
                 'avgWeightedPrice': d => d.offerCount > 0 ? d.priceSum / d.offerCount : 0,
-                'sellerCount': d => d.sellers.size, // HIER WORDT DE WAARDE GEMAPT
-                'deliveryRate': d => d.offerCount > 0 ? d.deliveryRateSum / d.offerCount : 0,
-                'stockLeft': d => d.offerCount > 0 ? d.stockLeftSum / d.offerCount : 0,
-                'deliveryTimeMin': d => d.offerCount > 0 ? d.deliveryTimeMinSum / d.offerCount : 0,
-                'deliveryTimeMax': d => d.offerCount > 0 ? d.deliveryTimeMaxSum / d.offerCount : 0,
-                'buyBox': d => d.buyBoxCount,
+                'sellerCount': d => d.sellers.size,
+                // Kolom-ID's komen nu overeen met de headerName en gebruiken de juiste logica
+                'weightedAvgDeliveryRate': d => d.offerCount > 0 ? d.deliveryRateSum / d.offerCount : 0,
+                'currentTotalStock': d => d.stockLeftSum, // Geeft het totaal, niet het gemiddelde
+                'minDeliveryDays': d => d.deliveryTimeMin === Infinity ? 0 : d.deliveryTimeMin, // Geeft het absolute minimum
+                'maxDeliveryDays': d => d.deliveryTimeMax, // Geeft het absolute maximum
             };
 
             const chartData = aggregated.map(d => ({
