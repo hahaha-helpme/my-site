@@ -321,7 +321,7 @@
             }
           },
           onCellClicked: (params) => {
-            const clickableColumns = ['avgWeightedPrice', 'revenue', 'unitsSold', 'reviewRating', 'reviewCount', 'sellerCount'];
+            const clickableColumns = [ 'avgWeightedPrice', 'revenue', 'unitsSold', 'reviewRating', 'reviewCount', 'sellerCount', 'weightedAvgDeliveryRate', 'currentTotalStock', 'minDeliveryDays', 'maxDeliveryDays' ];
             if (clickableColumns.includes(params.column.getColId())) {
               renderChart(params.column.getColId(), params.node);
             }
